@@ -1,0 +1,9 @@
+﻿
+
+https://github.com/mono/mono/tree/master/mcs/class/WindowsBase/System.Windows
+https://github.com/mono/mono/tree/master/mcs/class/WindowsBase/System.Windows.Converters
+https://github.com/mono/mono/tree/master/mcs/class/WindowsBase/System.Windows.Markup
+
+
+
+https://referencesource.microsoft.com/#windowsbase/Base/System/Windows/Converters/Generated/PointValueSerializer.cs

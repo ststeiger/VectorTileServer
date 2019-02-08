@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer", "VectorTileServer\VectorTileServer.csproj", "{D1D8C089-9635-4849-93FD-321E9FB25A19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapbox.VectorTile", "Mapbox.VectorTile\Mapbox.VectorTile.csproj", "{4767DFBE-290F-4BAE-BD81-22405E88ADA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1D8C089-9635-4849-93FD-321E9FB25A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D8C089-9635-4849-93FD-321E9FB25A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D8C089-9635-4849-93FD-321E9FB25A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D8C089-9635-4849-93FD-321E9FB25A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4767DFBE-290F-4BAE-BD81-22405E88ADA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4767DFBE-290F-4BAE-BD81-22405E88ADA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4767DFBE-290F-4BAE-BD81-22405E88ADA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4767DFBE-290F-4BAE-BD81-22405E88ADA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C98B514-EF17-4D8E-8D37-63CFDE26778C}
+	EndGlobalSection
+EndGlobal
