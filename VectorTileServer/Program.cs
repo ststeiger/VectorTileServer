@@ -39,9 +39,10 @@ namespace VectorTileServer
 
         public static void Main(string[] args)
         {
+            string path = @"D:\username\Documents\Visual Studio 2017\Projects\VectorTileServer\VectorTileServer\wwwroot\2017-07-03_france_monaco.mbtiles";
 
             VectorTileRenderer.Sources.MbTilesSource source = 
-                new VectorTileRenderer.Sources.MbTilesSource(@"D:\username\Documents\Visual Studio 2017\Projects\VectorTileServer\VectorTileServer\wwwroot\2017-07-03_france_monaco.mbtiles");
+                new VectorTileRenderer.Sources.MbTilesSource(path);
 
             //     L.tileLayer("{server}/{style}/{z}/{x}/{y}{scalex}.png",
             // https://maps.wikimedia.org/osm-intl/18/136472/95588.png?lang=en
@@ -55,18 +56,33 @@ namespace VectorTileServer
             TileCoords tile = CalcTileXY(latitude, longitude, zoom);
 
 
+            // SELECT * FROM tiles WHERE tile_column = 8529 and tile_row = 5974 and zoom_level = 14
+
+            string constr = string.Format("Data Source={0};Version=3;", path);
+            string sql = string.Format("SELECT * FROM tiles WHERE tile_column = {0} and tile_row = {1} and zoom_level = {2}", tile.X, tile.Y, zoom) ;
+            System.Console.WriteLine(sql, constr);
+
 
             byte[] result = null;
 
             using (System.IO.Stream strm = source.GetRawTile(tile.X, tile.Y, zoom))
             {
-
-                using (var ms = new System.IO.MemoryStream())
+                try
                 {
-                    strm.CopyTo(ms);
-                    result = ms.ToArray();
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        strm.CopyTo(ms);
+                        result = ms.ToArray();
+                    }
+                    System.Console.WriteLine(result);
                 }
-                System.Console.WriteLine(result);   
+                catch (System.Exception ex)
+                {
+                    System.Console.WriteLine(ex.Message);
+                    System.Console.WriteLine(ex.StackTrace);
+                    // System.Console.ReadKey();
+                }
+
             }
 
             // CreateWebHostBuilder(args).Build().Run();
