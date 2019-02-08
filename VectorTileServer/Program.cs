@@ -46,6 +46,8 @@ namespace VectorTileServer
 
             //     L.tileLayer("{server}/{style}/{z}/{x}/{y}{scalex}.png",
             // https://maps.wikimedia.org/osm-intl/18/136472/95588.png?lang=en
+            // https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#VB.Net
+
 
             int x = 136472;
             int y = 95588;
