@@ -92,7 +92,7 @@ JOIN images ON map.tile_id = images.tile_id
             
             byte[] result = null;
             
-            using (System.IO.Stream strm = source.GetRawTile(x, y, z))
+            using (System.IO.Stream strm = source.GetRawTile(x, y, zoom))
             {
                 
                 try
