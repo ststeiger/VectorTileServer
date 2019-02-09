@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer", "VectorT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapbox.VectorTile", "Mapbox.VectorTile\Mapbox.VectorTile.csproj", "{4767DFBE-290F-4BAE-BD81-22405E88ADA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mono.Data.Sqlite", "Mono.Data.Sqlite\Mono.Data.Sqlite.csproj", "{6D221230-80F1-48A7-9D5A-DD238402AB53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4767DFBE-290F-4BAE-BD81-22405E88ADA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4767DFBE-290F-4BAE-BD81-22405E88ADA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4767DFBE-290F-4BAE-BD81-22405E88ADA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D221230-80F1-48A7-9D5A-DD238402AB53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D221230-80F1-48A7-9D5A-DD238402AB53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D221230-80F1-48A7-9D5A-DD238402AB53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D221230-80F1-48A7-9D5A-DD238402AB53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

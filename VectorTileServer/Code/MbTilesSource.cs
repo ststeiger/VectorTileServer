@@ -1,6 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
+﻿
+#if SYSTEM_SQLITE 
+    using System.Data.SQLite;
+#else
+    using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
+    using SQLiteCommand= Mono.Data.Sqlite.SqliteCommand;
+    using SQLiteDataReader= Mono.Data.Sqlite.SqliteDataReader;
+#endif 
+
+
+
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +20,7 @@ namespace VectorTileRenderer.Sources
 
     public class MbTilesSource : IVectorTileSource
     {
+        
         public GlobalMercator.GeoExtent Bounds { get; private set; }
         public GlobalMercator.CoordinatePair Center { get; private set; }
         public int MinZoom { get; private set; }
@@ -21,7 +30,8 @@ namespace VectorTileRenderer.Sources
         public string MBTilesVersion { get; private set; }
         public string Path { get; private set; }
 
-        Dictionary<string, VectorTile> tileCache = new Dictionary<string, VectorTile>();
+        System.Collections.Generic.Dictionary<string, VectorTile> tileCache = 
+            new System.Collections.Generic.Dictionary<string, VectorTile>();
 
         private GlobalMercator gmt = new GlobalMercator();
 
@@ -35,7 +45,11 @@ namespace VectorTileRenderer.Sources
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(String.Format("Data Source={0};Version=3;", this.Path)))
+                
+                
+                
+                
+                using (SQLiteConnection conn = new SQLiteConnection(string.Format("Data Source={0};Version=3;", this.Path)))
                 {
                     conn.Open();
                     using (SQLiteCommand cmd = new SQLiteCommand() { Connection = conn, CommandText = "SELECT * FROM metadata;" })
@@ -49,18 +63,28 @@ namespace VectorTileRenderer.Sources
                                 case "bounds":
                                     string val = reader["value"].ToString();
                                     string[] vals = val.Split(new char[] { ',' });
-                                    this.Bounds = new GlobalMercator.GeoExtent() { West = Convert.ToDouble(vals[0]), South = Convert.ToDouble(vals[1]), East = Convert.ToDouble(vals[2]), North = Convert.ToDouble(vals[3]) };
+                                    this.Bounds = new GlobalMercator.GeoExtent()
+                                    {
+                                        West = System.Convert.ToDouble(vals[0]), 
+                                        South = System.Convert.ToDouble(vals[1]), 
+                                        East = System.Convert.ToDouble(vals[2]), 
+                                        North = System.Convert.ToDouble(vals[3])
+                                    };
                                     break;
                                 case "center":
                                     val = reader["value"].ToString();
                                     vals = val.Split(new char[] { ',' });
-                                    this.Center = new GlobalMercator.CoordinatePair() { X = Convert.ToDouble(vals[0]), Y = Convert.ToDouble(vals[1]) };
+                                    this.Center = new GlobalMercator.CoordinatePair()
+                                    {
+                                        X = System.Convert.ToDouble(vals[0]), 
+                                        Y = System.Convert.ToDouble(vals[1])
+                                    };
                                     break;
                                 case "minzoom":
-                                    this.MinZoom = Convert.ToInt32(reader["value"]);
+                                    this.MinZoom = System.Convert.ToInt32(reader["value"]);
                                     break;
                                 case "maxzoom":
-                                    this.MaxZoom = Convert.ToInt32(reader["value"]);
+                                    this.MaxZoom = System.Convert.ToInt32(reader["value"]);
                                     break;
                                 case "name":
                                     this.Name = reader["value"].ToString();
@@ -77,9 +101,9 @@ namespace VectorTileRenderer.Sources
                     }
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
-                throw new MemberAccessException("Could not load Mbtiles source file");
+                throw new System.MemberAccessException("Could not load Mbtiles source file");
             }
         }
 
@@ -87,10 +111,10 @@ namespace VectorTileRenderer.Sources
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(String.Format("Data Source={0};Version=3;", Path)))
+                using (SQLiteConnection conn = new SQLiteConnection(string.Format("Data Source={0};Version=3;", Path)))
                 {
                     conn.Open();
-                    using (SQLiteCommand cmd = new SQLiteCommand() { Connection = conn, CommandText = String.Format("SELECT * FROM tiles WHERE tile_column = {0} and tile_row = {1} and zoom_level = {2}", x, y, zoom) })
+                    using (SQLiteCommand cmd = new SQLiteCommand() { Connection = conn, CommandText = string.Format("SELECT * FROM tiles WHERE tile_column = {0} and tile_row = {1} and zoom_level = {2}", x, y, zoom) })
                     {
                         SQLiteDataReader reader = cmd.ExecuteReader();
 
@@ -104,7 +128,7 @@ namespace VectorTileRenderer.Sources
             }
             catch
             {
-                throw new MemberAccessException("Could not load tile from Mbtiles");
+                throw new System.MemberAccessException("Could not load tile from Mbtiles");
             }
 
             return null;
@@ -184,7 +208,7 @@ namespace VectorTileRenderer.Sources
 
                 return actualTile;
 
-            } catch(Exception e)
+            } catch(System.Exception e)
             {
                 return null;
             }
