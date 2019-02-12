@@ -33,16 +33,23 @@ namespace VectorTileServer
             double n = System.Math.PI - 2 * System.Math.PI * y / System.Math.Pow(2, z);
             return (180 / System.Math.PI * System.Math.Atan(0.5 * (System.Math.Exp(n) - System.Math.Exp(-n))));
         }
-        
-        
+
+
+
         public static Wgs84Coordinates FromTile(TileCoords xyz)
         {
+            return FromTile(xyz.X, xyz.Y, xyz.Z);
+        }
+
+
+        public static Wgs84Coordinates FromTile(int x, int y, int z)
+        {
             Wgs84Coordinates coord = new Wgs84Coordinates();
-            coord.ZoomLevel = xyz.Z;
+            coord.ZoomLevel = z;
+
+            coord.Longitude = (x / System.Math.Pow(2, z) * 360 - 180);
             
-            coord.Longitude = (xyz.X / System.Math.Pow(2, xyz.Z) * 360 - 180);
-            
-            double n = System.Math.PI - 2 * System.Math.PI * xyz.Y / System.Math.Pow(2, xyz.Z);
+            double n = System.Math.PI - 2 * System.Math.PI * y / System.Math.Pow(2, z);
             coord.Latitude = 180 / System.Math.PI * System.Math.Atan( 0.5 * 
                     ( System.Math.Exp(n) - System.Math.Exp(-n) )
                 )

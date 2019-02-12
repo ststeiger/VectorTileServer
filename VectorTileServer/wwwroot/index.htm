@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>WebGL</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+
+    <!-- Leaflet -->
+    <!--
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    -->
+
+    <link rel="stylesheet" href="libs/leaflet/leaflet.css" />
+    <script src="libs/leaflet/leaflet.js"></script>
+
+
+
+    <!-- Mapbox GL -->
+    <!--
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.css" rel='stylesheet' />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.js"></script>
+    -->
+
+    <link href="libs/mapbox/mapbox-gl.css" rel='stylesheet' />
+    <script src="libs/mapbox/mapbox-gl.js"></script>
+
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="libs/leaflet/leaflet-mapbox-gl.js"></script>
+
+    <script>
+
+        // https://www.masinamichele.it/2018/05/04/gis-the-math-to-convert-from-epsg3857-to-wgs-84/
+        function WGS84toEPSG3857(lat, lon)
+        {
+            let b = 20037508.34;
+            let longitude = lon*b/180.0;
+            let latitude = 
+                (
+                    Math.log(
+                    Math.tan
+                        (
+                            (lat + 90.0) * Math.PI / 360.0
+                        )
+                    )
+                ) * b / Math.PI;
+            
+            return { "lat": latitude, "lon": longitude };
+        }
+
+
+        let y = log(tan((x + 90) * Math.PI / 360.0))
+
+
+        function EPSG3857toWGS84(lat, lon) {
+            let b = 20037508.34;
+            let longitude = lon * 180 / b;
+            let latitude = Math.atan(Math.exp(lat * Math.PI / b)) * 360 / Math.PI - 90;
+
+            return { "lat": latitude, "lon": longitude };
+        }
+
+
+        var latitude = 38.912753;
+        var longitude = -77.032194;
+        latitude = 43.735076;
+        longitude = 7.421051;
+
+
+
+        // https://www.masinamichele.it/2018/05/04/gis-the-math-to-convert-from-epsg3857-to-wgs-84/
+
+
+        latitude = 43.731390756172146;
+        longitude = 7.441617250442506;
+
+        latitude = 43.72719648853415;
+        longitude = 7.443237304687501;
+
+        // https://openmaptiles.org/docs/website/leaflet/
+        // https://github.com/mapbox/mapbox-gl-leaflet/blob/master/examples/basic.html
+        // https://leafletjs.com/plugins.html#vector-tiles
+        // https://docs.mapbox.com/mapbox-gl-js/example/simple-map/
+        // https://docs.mapbox.com/mapbox-gl-js/example/fitbounds/
+
+        // https://github.com/mapbox/mapbox-gl-leaflet
+        // https://github.com/Leaflet/Leaflet
+        // https://leafletjs.com/plugins.html#vector-tiles
+
+
+
+
+        // https://gis.stackexchange.com/questions/190390/loading-vector-tile-layer-in-leaflet-map
+        // https://gis.stackexchange.com/questions/125037/self-hosting-mapbox-vector-tiles
+
+        
+
+        var map = L.map('map', { crs: L.CRS.EPSG3857 }).setView([latitude, longitude], 15);
+        // var map = L.map('map').setView([latitude, longitude], 15);
+
+        
+        map.on('click', function (e) {
+            var coord = e.latlng;
+            var lat = coord.lat;
+            var lng = coord.lng;
+            console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+        });
+        
+
+        L.marker([latitude, longitude])
+            .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
+            .addTo(map)
+            .openPopup();
+        var gl = L.mapboxGL( // 'https://localhost:44378/{x}/{y}/{z}', 
+            {
+                accessToken: 'no-token',
+                attribution: '<a target="blank" href="https://www.mediawiki.org/wiki/Maps/Technical_Implementation">Wikimedia maps beta</a> | Map data &copy; <a target="blank" href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+                //style: 'https://raw.githubusercontent.com/osm2vectortiles/mapbox-gl-styles/master/styles/bright-v9-cdn.json'
+                // style: 'style-cdn.json'
+                style: 'style-bright-v9-cdn.json'
+                , language: "fr" // getUserLanguage() // fr, it, en
+                // , "url": "http://localhost:44378/{x}/{y}/{z}"
+                // , "tiles": "http://localhost:44378/{x}/{y}/{z}"
+            }
+        ).addTo(map);
+
+
+        /*
+        L.tileLayer("{server}/{style}/{z}/{x}/{y}{scalex}.png?lang={language}",
+            {
+                maxZoom: 18
+                , attribution: '<a target="blank" href="https://www.mediawiki.org/wiki/Maps/Technical_Implementation">Wikimedia maps beta</a> | Map data &copy; <a target="blank" href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+                , server: "https://maps.wikimedia.org"
+                , style: "osm-intl" // "osm" // Map style to use.Use "osm-intl" for map with labels, "osm" for map without labels.
+                , scalex: scalex
+                , language: getUserLanguage() // fr, it, en
+            }
+        ).addTo(map);
+        */
+
+
+    </script>
+</body>
+</html>

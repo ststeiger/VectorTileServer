@@ -1,0 +1,2 @@
+https://github.com/mapbox/mapbox-gl-js/releases
+v0.53.0

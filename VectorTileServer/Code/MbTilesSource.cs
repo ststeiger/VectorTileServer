@@ -1,6 +1,8 @@
 ﻿
-#if SYSTEM_SQLITE 
-    using System.Data.SQLite;
+#define SYSTEM_SQLITE
+
+#if SYSTEM_SQLITE
+using System.Data.SQLite;
 #else
     using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
     using SQLiteCommand= Mono.Data.Sqlite.SqliteCommand;
