@@ -729,6 +729,6 @@
   ],
   "tilejson": "2.0.0",
   "tiles": [
-    "https://localhost:44378/{x}/{y}/{z}"
+    "https://localhost:44378/tiles/{x}/{y}/{z}"
   ]
 }

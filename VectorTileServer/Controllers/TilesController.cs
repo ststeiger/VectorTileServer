@@ -1,59 +1,20 @@
 ﻿
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-
-using VectorTileServer.Models;
-
-
 namespace VectorTileServer.Controllers
 {
 
 
-    public class HomeController : Controller
+    public class TilesController 
+        : Microsoft.AspNetCore.Mvc.Controller
     {
 
         protected Microsoft.AspNetCore.Hosting.IHostingEnvironment m_env;
         
-        
 
-        public HomeController(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        public TilesController(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             this.m_env = env;
-        }
+        } // End Constructor 
 
-
-
-        [HttpGet, Route("fonts/{fontstack}/{range}")]
-        public FileStreamResult GetFont(string fontstack, string range)
-        {
-            string basePath = System.IO.Path.Combine(this.m_env.WebRootPath, "fonts");
-            string fontDir = System.IO.Path.Combine(basePath, "KlokanTech " + fontstack);
-            string fontFile = System.IO.Path.Combine(fontDir, range + ".pbf");
-
-            if (!System.IO.File.Exists(fontFile))
-            {
-                Response.StatusCode = 404;
-                return null;
-            }
-
-
-            Response.StatusCode = 200;
-
-            Response.Headers["Date"] = "Wed, 13 Feb 2019 12:00:03 GMT";
-            Response.Headers["Access-Control-Allow-Origin"] = "*";
-            Response.Headers["Cache-Control"] = "no-transform, public, max-age=86400";
-            Response.Headers["Last-Modified"] = "Thu, 07 Feb 2019 09:43:32 GMT";
-
-
-            return new FileStreamResult(System.IO.File.OpenRead(fontFile), "application/x-protobuf")
-            {
-                // EntityTag = 
-                // LastModified = 
-                // FileDownloadName = "test.txt"
-            };
-        }
 
 
         private static string s_tileSQL = @"
@@ -73,9 +34,9 @@ JOIN images ON map.tile_id = images.tile_id
             string webRoot = this.m_env.WebRootPath;
             string path = System.IO.Path.Combine(webRoot, @"2017-07-03_france_monaco.mbtiles");
 
-            VectorTileRenderer.Sources.MbTilesSource source = 
+            VectorTileRenderer.Sources.MbTilesSource source =
                 new VectorTileRenderer.Sources.MbTilesSource(path);
-            
+
             return source.GetRawTile(x, y, z);
         } // End Function GetTileStream 
 
@@ -84,8 +45,8 @@ JOIN images ON map.tile_id = images.tile_id
         // https://docs.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2
         // https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-2.2
         // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-2.2
-        [HttpGet, Route("{x:int}/{y:int}/{z:int}")]
-        public FileStreamResult GetTile(int x, int y, int z)
+        [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("tiles/{x:int}/{y:int}/{z:int}")]
+        public Microsoft.AspNetCore.Mvc.FileStreamResult GetTile(int x, int y, int z)
         {
 
 #if true
@@ -121,9 +82,9 @@ JOIN images ON map.tile_id = images.tile_id
             Response.Headers["date"] = "gzip";
             Response.Headers["expect-ct"] = "max-age=604800";
             Response.Headers["vary"] = "Accept-Encoding";
-            
 
-            return new FileStreamResult(stream, "application/x-protobuf")
+
+            return new Microsoft.AspNetCore.Mvc.FileStreamResult(stream, "application/x-protobuf")
             {
                 // EntityTag = 
                 // LastModified = 
@@ -133,7 +94,7 @@ JOIN images ON map.tile_id = images.tile_id
         } // End Function GetTile 
 
 
-    } // End Class HomeController 
+    } // End Class TilesController : Controller 
 
 
 } // End Namespace VectorTileServer.Controllers 

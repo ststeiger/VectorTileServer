@@ -23,7 +23,7 @@
   "profile": "mercator",
   "scale": 1,
   "tiles": [
-    "https://localhost:44378/{x}/{y}/{z}"
+    "https://localhost:44378/tiles/{x}/{y}/{z}"
   ],
   "tilejson": "2.0.0",
   "grids": [
