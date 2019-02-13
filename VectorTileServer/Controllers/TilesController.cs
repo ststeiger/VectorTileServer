@@ -37,8 +37,102 @@ JOIN images ON map.tile_id = images.tile_id
             VectorTileRenderer.Sources.MbTilesSource source =
                 new VectorTileRenderer.Sources.MbTilesSource(path);
 
-            return source.GetRawTile(x, y, z);
+
+            // https://stackoverflow.com/questions/4377106/asp-net-webservice-handling-gzip-compressed-request
+            // https://weblog.west-wind.com/posts/2007/Jun/29/HttpWebRequest-and-GZip-Http-Responses
+
+
+            System.IO.Stream gzippedTileStream = source.GetRawTile(x, y, z);
+
+            // if(this.HttpContext.Request.Headers.ContainsKey(""))
+            bool supportsGzip = true;
+            if (supportsGzip)
+                return gzippedTileStream;
+
+            return UnzipStream(gzippedTileStream);
         } // End Function GetTileStream 
+
+
+        private System.IO.Stream UnzipStream(System.IO.Stream stream)
+        {
+            if (isGZipped(stream))
+            {
+                System.IO.MemoryStream resultStream = new System.IO.MemoryStream();
+
+                using (System.IO.Compression.GZipStream zipStream = new System.IO.Compression.GZipStream(stream, System.IO.Compression.CompressionMode.Decompress))
+                {
+
+                    zipStream.CopyTo(resultStream);
+                    resultStream.Seek(0, System.IO.SeekOrigin.Begin);
+                    // return await loadStream(resultStream);
+                    return resultStream;
+
+                } // End Using zipStream 
+            } // End if (isGZipped(stream)) 
+
+            return stream;
+        } // End Function UnzipStream 
+        
+
+        // D:\username\Documents\Visual Studio 2017\Projects\OsmInvestigate\VectorTileRenderer\VectorTileRenderer\Sources\PbfTileSource.cs
+        private async System.Threading.Tasks.Task<VectorTileRenderer.VectorTile> LoadStream(System.IO.Stream stream)
+        {
+            if (isGZipped(stream))
+            {
+                using (System.IO.Compression.GZipStream zipStream = new System.IO.Compression.GZipStream(stream, System.IO.Compression.CompressionMode.Decompress))
+                {
+                    using (System.IO.MemoryStream resultStream = new System.IO.MemoryStream())
+                    {
+                        zipStream.CopyTo(resultStream);
+                        resultStream.Seek(0, System.IO.SeekOrigin.Begin);
+                        // return await loadStream(resultStream);
+                    } // End Using resultStream 
+
+                } // End Using zipStream 
+            }
+            else
+            {
+                // return await loadStream(stream);
+            }
+
+            return await System.Threading.Tasks.Task.FromResult<VectorTileRenderer.VectorTile>(null);
+        }
+
+
+        private bool isGZipped(System.IO.Stream stream)
+        {
+            return StreamStartsWith(stream, 3, "1F-8B-08");
+        }
+
+
+
+        private bool isZipped(System.IO.Stream stream)
+        {
+            return StreamStartsWith(stream, 4, "50-4B-03-04");
+        }
+
+
+        private bool StreamStartsWith(System.IO.Stream stream, int signatureSize, string expectedSignature)
+        {
+            if (stream.Length < signatureSize)
+                return false;
+
+            byte[] signature = new byte[signatureSize];
+            int bytesRequired = signatureSize;
+            int index = 0;
+            while (bytesRequired > 0)
+            {
+                int bytesRead = stream.Read(signature, index, bytesRequired);
+                bytesRequired -= bytesRead;
+                index += bytesRead;
+            } // Whend 
+
+            stream.Seek(0, System.IO.SeekOrigin.Begin);
+            string actualSignature = System.BitConverter.ToString(signature);
+
+            return string.Equals(actualSignature, expectedSignature, System.StringComparison.OrdinalIgnoreCase);
+        } // End Function isZipped 
+
 
 
         // https://blogs.msdn.microsoft.com/webdev/2013/10/17/attribute-routing-in-asp-net-mvc-5/
