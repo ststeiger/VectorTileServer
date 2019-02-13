@@ -1,10 +1,17 @@
 ﻿
+
+Font-source:
 https://github.com/klokantech/klokantech-gl-fonts
 
 https://www.google.com/get/noto/
 
 How to create the pbf-fonts:
 https://github.com/openmaptiles/fonts
+
+
+
+Tile-Source:
+http://geoodk.com/mbtiles_howto.html
 
 
 
