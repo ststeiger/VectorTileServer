@@ -10,6 +10,8 @@ using VectorTileServer.Models;
 namespace VectorTileServer.Controllers
 {
 
+    // https://openmaptiles.org/docs/website/leaflet/
+    // https://openmaptiles.org/maps/leaflet-mapbox-gl.html
 
     public class HomeController : Controller
     {
@@ -21,19 +23,200 @@ namespace VectorTileServer.Controllers
         {
             this.m_env = env;
         }
-        
 
-        
-/*
-CREATE VIEW tiles AS   
-SELECT 
-     map.zoom_level as zoom_level 
-    ,map.tile_column as tile_column 
-    ,map.tile_row as tile_row 
-    ,images.tile_data as tile_data 
-FROM map 
-JOIN images ON map.tile_id = images.tile_id
-*/
+
+
+        /*
+        CREATE VIEW tiles AS   
+        SELECT 
+             map.zoom_level as zoom_level 
+            ,map.tile_column as tile_column 
+            ,map.tile_row as tile_row 
+            ,images.tile_data as tile_data 
+        FROM map 
+        JOIN images ON map.tile_id = images.tile_id
+        */
+
+        [HttpGet, Route("fonts/{fontstack}/{range}")]
+        public FileStreamResult GetFont(string fontstack, string range)
+        {
+            string basePath = System.IO.Path.Combine(this.m_env.WebRootPath, "fonts");
+            string fontDir = System.IO.Path.Combine(basePath, "KlokanTech " + fontstack);
+            string fontFile = System.IO.Path.Combine(fontDir, range + ".pbf");
+
+            if (!System.IO.File.Exists(fontFile))
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+
+
+            Response.StatusCode = 200;
+
+            Response.Headers["Date"] = "Wed, 13 Feb 2019 12:00:03 GMT";
+            Response.Headers["Access-Control-Allow-Origin"] = "*";
+            Response.Headers["Cache-Control"] = "no-transform, public, max-age=86400";
+            Response.Headers["Last-Modified"] = "Thu, 07 Feb 2019 09:43:32 GMT";
+
+
+            return new FileStreamResult(System.IO.File.OpenRead(fontFile), "application/x-protobuf")
+            {
+                // EntityTag = 
+                // LastModified = 
+                // FileDownloadName = "test.txt"
+            };
+        }
+
+
+        public FileStreamResult GetFontByProxy(string fontstack, string range)
+        {
+            // "glyphs": "https://maps.tilehosting.com/fonts/{fontstack}/{range}.pbf?key=egrA25FNSYcFuvl6Lb8Y",
+            // "glyphs": "https://localhost:44378/fonts/{fontstack}/{range}",
+            // string url = "https://maps.tilehosting.com/fonts/Noto%20Sans%20Regular/36096-36351.pbf?key=egrA25FNSYcFuvl6Lb8Y";
+
+            FontData data = DownloadFont(fontstack, range);
+
+            if (data.File == null)
+                return null;
+
+            Response.StatusCode = 200;
+
+            foreach (string key in data.Headers.Keys)
+            {
+                Response.Headers[key] = data.Headers[key];
+            }
+
+
+            return new FileStreamResult(data.File, data.ContentType)
+            {
+                // EntityTag = 
+                // LastModified = 
+                // FileDownloadName = "test.txt"
+            };
+
+        } // End Function GetTest 
+
+
+        public class FontData
+        {
+            protected System.Collections.Generic.Dictionary<string, string> m_headers;
+
+            public System.IO.Stream File;
+            public string ContentType;
+
+            
+
+            public System.Collections.Generic.Dictionary<string, string> Headers
+            {
+                get
+                {
+                    return this.m_headers;
+                }
+                set
+                {
+                    const string CONTENT_TYPE = "content-type";
+
+                    System.Collections.Generic.Dictionary<string, string> cisHeaders = 
+                        new System.Collections.Generic.Dictionary<string, string>(value, System.StringComparer.OrdinalIgnoreCase);
+
+                    if (cisHeaders.ContainsKey(CONTENT_TYPE))
+                    {
+                        this.ContentType = cisHeaders[CONTENT_TYPE];
+                        cisHeaders.Remove(CONTENT_TYPE);
+                    }
+                    else
+                        this.ContentType = "application/octet-stream";
+
+                    this.m_headers = cisHeaders;
+                }
+            }
+
+
+            public FontData()
+            { }
+
+        }
+
+
+        // url = "https://maps.tilehosting.com/fonts/Noto%20Sans%20Regular/36096-36351.pbf?key=egrA25FNSYcFuvl6Lb8Y";
+        public FontData DownloadFont(string fontstack, string range)
+        {
+            string fontStackComponent = System.Uri.EscapeUriString(fontstack);
+            string rangeComponent = System.Uri.EscapeUriString(range);
+            string url = $"https://maps.tilehosting.com/fonts/{fontStackComponent}/{rangeComponent}.pbf?key=egrA25FNSYcFuvl6Lb8Y";
+
+
+            string[] headersToRemove = new string[] { "Connection", "Transfer-Encoding", "Set-Cookie", "ETag", "X-IPLB-Instance", "CF-Cache-Status", "Expect-CT", "Server", "CF-RAY" };
+            System.Collections.Generic.HashSet<string> hs = new System.Collections.Generic.HashSet<string>(headersToRemove, System.StringComparer.OrdinalIgnoreCase);
+
+            string basePath = System.IO.Path.Combine(this.m_env.WebRootPath, "fonts");
+
+            string fontDir = System.IO.Path.Combine(basePath, fontstack);
+            string fontFile = System.IO.Path.Combine(fontDir, range + ".pbf");
+            string fontJson = System.IO.Path.ChangeExtension(fontFile, ".json");
+
+
+            if (!System.IO.Directory.Exists(fontDir))
+                System.IO.Directory.CreateDirectory(fontDir);
+
+            if (System.IO.File.Exists(fontFile))
+            {
+                FontData data = new FontData();
+                data.File = System.IO.File.OpenRead(fontFile);
+
+                Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+
+                using (System.IO.FileStream jsonStream = System.IO.File.OpenRead(fontJson))
+                {
+
+                    using (System.IO.TextReader sr = new System.IO.StreamReader(jsonStream, System.Text.Encoding.UTF8))
+                    {
+                        using (Newtonsoft.Json.JsonTextReader jsonTextReader = new Newtonsoft.Json.JsonTextReader(sr))
+                        {
+                            try
+                            {
+                                data.Headers = serializer.Deserialize<System.Collections.Generic.Dictionary<string, string>>(jsonTextReader);
+                            }
+                            catch (System.Exception ex)
+                            {
+                                System.Console.WriteLine(ex.Message);
+                            }
+
+                        } // End Using jsonTextReader 
+                    } // End Using sr 
+
+                } // End Using jsonStream
+
+                return data;
+            } // End if (System.IO.File.Exists(fontFile)) 
+
+
+            System.Collections.Generic.Dictionary<string, string> headers = new System.Collections.Generic.Dictionary<string, string>(System.StringComparer.OrdinalIgnoreCase);
+
+            using (System.Net.WebClient wc = new System.Net.WebClient())
+            {
+                wc.Headers["Origin"] = "https://openmaptiles.org";
+                wc.Headers["Referer"] = "https://openmaptiles.org/maps/leaflet-mapbox-gl.html";
+                wc.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36";
+
+                wc.DownloadFile(url, fontFile);
+                
+                foreach (string key in wc.ResponseHeaders.AllKeys)
+                {
+                    // System.Console.WriteLine("key=" + wc.ResponseHeaders[key]);
+                    if (!hs.Contains(key))
+                        headers[key] = wc.ResponseHeaders[key];
+                } // Next key 
+
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(headers);
+                System.Console.WriteLine(json);
+                System.IO.File.WriteAllText(fontJson, json, System.Text.Encoding.UTF8);
+
+                return new FontData() { File = System.IO.File.OpenRead(fontFile), Headers = headers };
+            } // End Using wc 
+
+        } // End Function DownloadFont 
+
 
 
         public static void Test()
