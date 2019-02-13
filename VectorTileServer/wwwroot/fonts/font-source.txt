@@ -1,1 +1,15 @@
-﻿https://github.com/klokantech/klokantech-gl-fonts
+﻿
+https://github.com/klokantech/klokantech-gl-fonts
+
+https://www.google.com/get/noto/
+
+How to create the pbf-fonts:
+https://github.com/openmaptiles/fonts
+
+
+
+Example: 
+https://openmaptiles.org/docs/website/leaflet/
+https://openmaptiles.org/maps/leaflet-mapbox-gl.html
+https://gis.stackexchange.com/questions/190390/loading-vector-tile-layer-in-leaflet-map
+https://leafletjs.com/plugins.html#vector-tiles
