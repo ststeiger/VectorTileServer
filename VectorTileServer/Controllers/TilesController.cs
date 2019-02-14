@@ -37,19 +37,7 @@ JOIN images ON map.tile_id = images.tile_id
             VectorTileRenderer.Sources.MbTilesSource source =
                 new VectorTileRenderer.Sources.MbTilesSource(path);
 
-
-            // https://stackoverflow.com/questions/4377106/asp-net-webservice-handling-gzip-compressed-request
-            // https://weblog.west-wind.com/posts/2007/Jun/29/HttpWebRequest-and-GZip-Http-Responses
-
-
-            System.IO.Stream gzippedTileStream = source.GetRawTile(x, y, z);
-
-            // if(this.HttpContext.Request.Headers.ContainsKey(""))
-            bool supportsGzip = true;
-            if (supportsGzip)
-                return gzippedTileStream;
-
-            return StreamHelper.UngzipStream(gzippedTileStream);
+            return source.GetRawTile(x, y, z);
         } // End Function GetTileStream 
         
 
@@ -78,7 +66,22 @@ JOIN images ON map.tile_id = images.tile_id
             Response.Headers["accept-ranges"] = "bytes";
             Response.Headers["access-control-allow-origin"] = "*";
             Response.Headers["cache-control"] = "public, max-age=86400, no-transform";
-            Response.Headers["content-encoding"] = "gzip";
+
+
+            // http://www.binaryintellect.net/articles/1b60420c-39ca-4f01-9813-0951e553e146.aspx
+            // https://weblog.west-wind.com/posts/2007/Jun/29/HttpWebRequest-and-GZip-Http-Responses
+            string acceptencoding = this.HttpContext.Request.Headers["Accept-Encoding"];
+            if (acceptencoding != null && acceptencoding.ToLowerInvariant().Contains("gzip"))
+                Response.Headers["content-encoding"] = "gzip";
+            else if (acceptencoding.Contains("deflate"))
+            {
+
+                Response.Headers["content-encoding"] = "deflate";
+                stream = StreamHelper.Compress<System.IO.Compression.DeflateStream>(stream);
+            }
+            else
+                stream = StreamHelper.Uncompress<System.IO.Compression.GZipStream>(stream);
+            
             Response.Headers["content-length"] = stream.Length.ToString(System.Globalization.CultureInfo.InvariantCulture);
             // Response.Headers["date"] = "Sat, 09 Feb 2019 11:06:10 GMT";
             // Response.Headers["expect-ct"] = "max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct";
