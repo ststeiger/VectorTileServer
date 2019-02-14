@@ -1,7 +1,6 @@
 ﻿
-namespace VectorTileServer
+namespace VectorTileServer.Trash 
 {
-
 
 
     public class FontData
@@ -40,6 +39,7 @@ namespace VectorTileServer
 
         public FontData()
         { }
+
 
     }
 
