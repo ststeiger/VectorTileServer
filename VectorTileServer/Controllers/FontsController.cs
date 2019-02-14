@@ -8,7 +8,7 @@ namespace VectorTileServer.Controllers
     {
 
         protected Microsoft.AspNetCore.Hosting.IHostingEnvironment m_env;
-
+        
 
 
         public FontsController(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
@@ -28,7 +28,7 @@ namespace VectorTileServer.Controllers
             {
                 Response.StatusCode = 404;
                 return null;
-            }
+            } // End if (!System.IO.File.Exists(fontFile)) 
 
 
             Response.StatusCode = 200;
@@ -37,7 +37,6 @@ namespace VectorTileServer.Controllers
             Response.Headers["Access-Control-Allow-Origin"] = "*";
             Response.Headers["Cache-Control"] = "no-transform, public, max-age=86400";
             Response.Headers["Last-Modified"] = "Thu, 07 Feb 2019 09:43:32 GMT";
-
 
             return new Microsoft.AspNetCore.Mvc.FileStreamResult(System.IO.File.OpenRead(fontFile), "application/x-protobuf")
             {
@@ -48,7 +47,7 @@ namespace VectorTileServer.Controllers
         } // End Function GetFont 
 
 
-    } // End Class TilesController : Controller 
+    } // End Class FontsController : Controller 
 
 
 } // End Namespace VectorTileServer.Controllers 

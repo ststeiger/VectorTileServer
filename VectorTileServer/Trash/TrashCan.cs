@@ -1,21 +1,79 @@
 ﻿
-namespace VectorTileServer
+namespace VectorTileServer.Trash 
 {
 
 
-    public class TrashCan
+    public class VectorTileTrash 
+    {
+
+
+        private static Mapbox.VectorTile.VectorTile StreamToTile(System.IO.Stream stream)
+        {
+            Mapbox.VectorTile.VectorTile mbLayers = new Mapbox.VectorTile.VectorTile(StreamToByteArray(stream));
+
+            return mbLayers;
+        }
+        
+
+        private static byte[] StreamToByteArray(System.IO.Stream input)
+        {
+            byte[] retValue = null;
+
+            byte[] buffer = new byte[16 * 1024];
+            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                retValue = ms.ToArray();
+            }
+
+            return retValue;
+        }
+
+
+        private static async System.Threading.Tasks.Task<VectorTileRenderer.VectorTile> LoadStream(System.IO.Stream stream)
+        {
+            if (StreamHelper.IsGZipped(stream))
+            {
+                using (System.IO.Compression.GZipStream zipStream = new System.IO.Compression.GZipStream(stream, System.IO.Compression.CompressionMode.Decompress))
+                {
+                    using (System.IO.MemoryStream resultStream = new System.IO.MemoryStream())
+                    {
+                        zipStream.CopyTo(resultStream);
+                        resultStream.Seek(0, System.IO.SeekOrigin.Begin);
+                        // return await loadStream(resultStream);
+                    } // End Using resultStream 
+
+                } // End Using zipStream 
+            }
+            else
+            {
+                // return await loadStream(stream);
+            }
+
+            return await System.Threading.Tasks.Task.FromResult<VectorTileRenderer.VectorTile>(null);
+        }
+
+
+    } // End Class VectorTileTrash 
+    
+
+
+    public class ControllerTrash 
     {
 
         private Microsoft.AspNetCore.Hosting.IHostingEnvironment m_env;
         private Microsoft.AspNetCore.Http.HttpResponse Response;
 
 
-        public TrashCan(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        public ControllerTrash(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             this.m_env = env;
         }
         
-
 
         [Microsoft.AspNetCore.Mvc.HttpGet]
         public Microsoft.AspNetCore.Mvc.FileStreamResult GetTestTest()
@@ -35,6 +93,7 @@ namespace VectorTileServer
 
             return GetTest(x, y, z);
         }
+
 
         public Microsoft.AspNetCore.Mvc.FileStreamResult GetTest(int x, int y, int z)
         {
@@ -128,29 +187,6 @@ namespace VectorTileServer
         } // End Sub Test 
 
 
-        public static void Ungzip(System.IO.Stream stream, string fileName)
-        {
-            using (System.IO.Stream decompressedStream = System.IO.File.Create(fileName))
-            {
-                using (System.IO.Stream compressedStream = new System.IO.Compression.GZipStream(
-                    stream, System.IO.Compression.CompressionMode.Decompress))
-                {
-                    byte[] buffer = new byte[1024];
-                    int nRead;
-                    while ((nRead = compressedStream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        decompressedStream.Write(buffer, 0, nRead);
-                    } // Whend 
-
-                    decompressedStream.Flush();
-                } // End Using compressedStream
-
-            } // End Using decompressedStream 
-
-        } // End Sub Ungzip 
-
-
-
         public Microsoft.AspNetCore.Mvc.FileStreamResult GetFontByProxy(string fontstack, string range)
         {
             // "glyphs": "https://maps.tilehosting.com/fonts/{fontstack}/{range}.pbf?key=egrA25FNSYcFuvl6Lb8Y",
@@ -178,7 +214,6 @@ namespace VectorTileServer
             };
 
         } // End Function GetTest 
-
 
 
         // url = "https://maps.tilehosting.com/fonts/Noto%20Sans%20Regular/36096-36351.pbf?key=egrA25FNSYcFuvl6Lb8Y";
@@ -261,7 +296,7 @@ namespace VectorTileServer
         } // End Function DownloadFont 
 
 
-    } // End Class TrashCan 
+    } // End Class ControllerTrash 
 
 
 } // End Namespace VectorTileServer 

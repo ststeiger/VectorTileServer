@@ -17,7 +17,7 @@ namespace VectorTileServer.Controllers
 
 
 
-        private static string s_tileSQL = @"
+        private const string s_tileSQL = @"
 CREATE VIEW tiles AS 
 SELECT 
         map.zoom_level as zoom_level 
@@ -49,91 +49,9 @@ JOIN images ON map.tile_id = images.tile_id
             if (supportsGzip)
                 return gzippedTileStream;
 
-            return UnzipStream(gzippedTileStream);
+            return StreamHelper.UngzipStream(gzippedTileStream);
         } // End Function GetTileStream 
-
-
-        private System.IO.Stream UnzipStream(System.IO.Stream stream)
-        {
-            if (isGZipped(stream))
-            {
-                System.IO.MemoryStream resultStream = new System.IO.MemoryStream();
-
-                using (System.IO.Compression.GZipStream zipStream = new System.IO.Compression.GZipStream(stream, System.IO.Compression.CompressionMode.Decompress))
-                {
-
-                    zipStream.CopyTo(resultStream);
-                    resultStream.Seek(0, System.IO.SeekOrigin.Begin);
-                    // return await loadStream(resultStream);
-                    return resultStream;
-
-                } // End Using zipStream 
-            } // End if (isGZipped(stream)) 
-
-            return stream;
-        } // End Function UnzipStream 
         
-
-        // D:\username\Documents\Visual Studio 2017\Projects\OsmInvestigate\VectorTileRenderer\VectorTileRenderer\Sources\PbfTileSource.cs
-        private async System.Threading.Tasks.Task<VectorTileRenderer.VectorTile> LoadStream(System.IO.Stream stream)
-        {
-            if (isGZipped(stream))
-            {
-                using (System.IO.Compression.GZipStream zipStream = new System.IO.Compression.GZipStream(stream, System.IO.Compression.CompressionMode.Decompress))
-                {
-                    using (System.IO.MemoryStream resultStream = new System.IO.MemoryStream())
-                    {
-                        zipStream.CopyTo(resultStream);
-                        resultStream.Seek(0, System.IO.SeekOrigin.Begin);
-                        // return await loadStream(resultStream);
-                    } // End Using resultStream 
-
-                } // End Using zipStream 
-            }
-            else
-            {
-                // return await loadStream(stream);
-            }
-
-            return await System.Threading.Tasks.Task.FromResult<VectorTileRenderer.VectorTile>(null);
-        }
-
-
-        private bool isGZipped(System.IO.Stream stream)
-        {
-            return StreamStartsWith(stream, 3, "1F-8B-08");
-        }
-
-
-
-        private bool isZipped(System.IO.Stream stream)
-        {
-            return StreamStartsWith(stream, 4, "50-4B-03-04");
-        }
-
-
-        private bool StreamStartsWith(System.IO.Stream stream, int signatureSize, string expectedSignature)
-        {
-            if (stream.Length < signatureSize)
-                return false;
-
-            byte[] signature = new byte[signatureSize];
-            int bytesRequired = signatureSize;
-            int index = 0;
-            while (bytesRequired > 0)
-            {
-                int bytesRead = stream.Read(signature, index, bytesRequired);
-                bytesRequired -= bytesRead;
-                index += bytesRead;
-            } // Whend 
-
-            stream.Seek(0, System.IO.SeekOrigin.Begin);
-            string actualSignature = System.BitConverter.ToString(signature);
-
-            return string.Equals(actualSignature, expectedSignature, System.StringComparison.OrdinalIgnoreCase);
-        } // End Function isZipped 
-
-
 
         // https://blogs.msdn.microsoft.com/webdev/2013/10/17/attribute-routing-in-asp-net-mvc-5/
         // https://docs.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2
@@ -145,6 +63,7 @@ JOIN images ON map.tile_id = images.tile_id
 
 #if true
             Wgs84Coordinates wgs84 = Wgs84Coordinates.FromTile(x, y, z);
+            // https://epsg.io/900913
             VectorTileRenderer.GlobalMercator gm = new VectorTileRenderer.GlobalMercator();
             VectorTileRenderer.GlobalMercator.TileAddress ta = gm.LatLonToTile(wgs84.Latitude, wgs84.Longitude, wgs84.ZoomLevel);
             System.IO.Stream stream = GetTileStream(ta.X, ta.Y, z);
@@ -152,20 +71,8 @@ JOIN images ON map.tile_id = images.tile_id
             System.IO.Stream stream = GetTileStream(x, y, z);
 #endif
 
-
             if (stream == null)
                 return null;
-
-            // accept-ranges: bytes
-            // access-control-allow-origin: *
-            // cache-control: public, max-age=86400, no-transform
-            // content-encoding: gzip
-            // content-length: 38832
-            // date: Sat, 09 Feb 2019 11:06:10 GMT
-            // expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            // last-modified: Thu, 07 Feb 2019 11:44:10 GMT
-            // status: 200
-            // vary: Accept-Encoding
 
             Response.StatusCode = 200;
             Response.Headers["accept-ranges"] = "bytes";
@@ -173,8 +80,9 @@ JOIN images ON map.tile_id = images.tile_id
             Response.Headers["cache-control"] = "public, max-age=86400, no-transform";
             Response.Headers["content-encoding"] = "gzip";
             Response.Headers["content-length"] = stream.Length.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            Response.Headers["date"] = "gzip";
-            Response.Headers["expect-ct"] = "max-age=604800";
+            // Response.Headers["date"] = "Sat, 09 Feb 2019 11:06:10 GMT";
+            // Response.Headers["expect-ct"] = "max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct";
+            // Response.Headers["last-modified"] = "Thu, 07 Feb 2019 11:44:10 GMT";
             Response.Headers["vary"] = "Accept-Encoding";
 
 
