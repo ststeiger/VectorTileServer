@@ -41,6 +41,57 @@
 
     <script>
 
+        
+        // GeoJSON: [longitude, latitude, elevation]
+
+
+
+        // import { Position } from '../geojson';
+        // https://github.com/Turfjs/turf/blob/master/packages/turf-projection/index.ts
+        // https://macwright.org/2015/03/23/geojson-second-bite.html#coordinate
+        
+        function ESPG3857ToWGS84(xy) {
+            var R2D = 180 / Math.PI;
+            var A = 6378137.0;    
+            
+            return [
+                (xy[0] * R2D / A),
+                ((Math.PI * 0.5) - 2.0 * Math.atan(Math.exp(-xy[1] / A))) * R2D,
+            ];
+        }
+        
+        function WGS84ToEPSG3857(lonLat) 
+        {
+            var D2R = Math.PI / 180;
+            var A = 6378137.0;
+            var MAXEXTENT = 20037508.342789244;
+            
+            // compensate longitudes passing the 180th meridian
+            // from https://github.com/proj4js/proj4js/blob/master/lib/common/adjust_lon.js
+            var adjusted = (Math.abs(lonLat[0]) <= 180) ? lonLat[0] : (lonLat[0] - ((lonLat[0] < 0 ? -1 : 1) * 360));
+            var xy = [
+                A * adjusted * D2R,
+                A * Math.log(Math.tan((Math.PI * 0.25) + (0.5 * lonLat[1] * D2R))),
+            ];
+            // if xy value is beyond maxextent (e.g. poles), return maxextent
+            if (xy[0] > MAXEXTENT)
+                xy[0] = MAXEXTENT;
+            if (xy[0] < -MAXEXTENT)
+                xy[0] = -MAXEXTENT;
+            if (xy[1] > MAXEXTENT)
+                xy[1] = MAXEXTENT;
+            if (xy[1] < -MAXEXTENT)
+                xy[1] = -MAXEXTENT;
+            return xy;
+        }
+
+
+
+
+
+
+
+
         // https://www.masinamichele.it/2018/05/04/gis-the-math-to-convert-from-epsg3857-to-wgs-84/
         function WGS84toEPSG3857(lat, lon)
         {
@@ -88,6 +139,16 @@
         latitude = 43.72719648853415;
         longitude = 7.443237304687501;
 
+        
+        
+        latitude = 43.725359;
+        longitude = 7.418737;
+
+
+        latitude = 43.72536673448776;
+        longitude = 7.440686523914338;
+        
+        
         // https://openmaptiles.org/docs/website/leaflet/
         // https://github.com/mapbox/mapbox-gl-leaflet/blob/master/examples/basic.html
         // https://leafletjs.com/plugins.html#vector-tiles
@@ -103,10 +164,10 @@
 
         // https://gis.stackexchange.com/questions/190390/loading-vector-tile-layer-in-leaflet-map
         // https://gis.stackexchange.com/questions/125037/self-hosting-mapbox-vector-tiles
-
         
-
+        
         // var map = L.map('map', { crs: L.CRS.EPSG3857 }).setView([latitude, longitude], 15);
+        // var map = L.map('map', { crs: L.CRS.EPSG4326 }).setView([latitude, longitude], 15);
         var map = L.map('map').setView([latitude, longitude], 15);
         // var map = L.map('map').setView([latitude, longitude], 15);
 
