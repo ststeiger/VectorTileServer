@@ -143,12 +143,13 @@ namespace VectorTileServer.Trash
             */
 
 
-
             // SELECT * FROM tiles WHERE tile_column = 8529 and tile_row = 5974 and zoom_level = 14
             string constr = string.Format("Data Source={0};Version=3;", path);
             string sql = string.Format("SELECT * FROM tiles WHERE tile_column = {0} and tile_row = {1} and zoom_level = {2}", tile.X, tile.Y, zoom);
             System.Console.WriteLine(sql, constr);
 
+
+            // https://epsg.io/900913
             VectorTileRenderer.GlobalMercator gm = new VectorTileRenderer.GlobalMercator();
             VectorTileRenderer.GlobalMercator.TileAddress ta = gm.LatLonToTile(latitude, longitude, zoom);
             System.Console.WriteLine(ta);
