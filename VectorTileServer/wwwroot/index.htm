@@ -165,7 +165,7 @@
         // https://gis.stackexchange.com/questions/125037/self-hosting-mapbox-vector-tiles
 
 
-        navigator.languages = ["ru-RU", "de-CH"];
+        // navigator.languages = ["ru-RU", "de-CH"];
 
 
 
@@ -202,8 +202,11 @@
         // mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
         var lingua = new MapboxLanguage({ defaultLanguage: 'ru' })
         gl._glMap.addControl(lingua);
-  
 
+        
+        // mapbox bounds:
+        // [sw.lng, sw.lat, ne.lng, ne.lat]
+        
         gl._glMap.on('load', function () {
             //gl._glMap.setLayoutProperty('country-label-lg', 'text-field', ['get', 'name_' + "it"]);
 
@@ -215,9 +218,15 @@
 
                     if (gl._glMap.style._layers[keys[i]].layout["text-field"].indexOf("name") != -1)
                     {
-
                         console.log(keys[i], gl._glMap.style._layers[keys[i]].layout["text-field"]);
                         // debugger;
+
+                        gl._glMap.setLayoutProperty(keys[i], 'text-field', 'coalesce({name:ru}, {name:latin})');
+
+
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "latin"], ["get", "nonlatin"]]);
+                        
+                        
                         // gl._glMap.setLayoutProperty(keys[i], 'text-field', '{name:ru}{name:latin}');
                         // gl._glMap.setLayoutProperty(keys[i], 'text-field', ['get', 'name_' + "latin"]);
 
