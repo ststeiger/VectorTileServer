@@ -40,7 +40,15 @@ JOIN images ON map.tile_id = images.tile_id
             return source.GetRawTile(x, y, z);
         } // End Function GetTileStream 
         
-
+        
+        // https://alastaira.wordpress.com/2011/07/06/converting-tms-tile-coordinates-to-googlebingosm-tile-coordinates/
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static int FromTmsY(int tmsY, int zoom)
+        {
+            return (1 << zoom) - tmsY - 1; // 2^zoom - tmsY - 1
+        }
+        
+        
         // https://blogs.msdn.microsoft.com/webdev/2013/10/17/attribute-routing-in-asp-net-mvc-5/
         // https://docs.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2
         // https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-2.2
@@ -48,8 +56,22 @@ JOIN images ON map.tile_id = images.tile_id
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("tiles/{x:int}/{y:int}/{z:int}")]
         public Microsoft.AspNetCore.Mvc.FileStreamResult GetTile(int x, int y, int z)
         {
+            y = FromTmsY(y, z);
+            // https://github.com/klokantech/tileserver-php/blob/master/tileserver.php
+            // https://github.com/apdevelop/map-tile-service-asp-net-core/tree/master/Src/MapTileService
+            
+            // SELECT * FROM metadata
+            // SELECT min(zoom_level) AS min, max(zoom_level) AS max FROM tiles
+            // SELECT hex(substr(tile_data,1,2)) AS magic FROM tiles LIMIT 1
+            // SELECT min(tile_column) AS w, max(tile_column) AS e, min(tile_row) AS s,
+            // max(tile_row) AS n FROM tiles WHERE zoom_level='.$metadata['maxzoom']);
+            // w = -180 + 360 * ($resultdata[0]['w'] / pow(2, $metadata['maxzoom']));
+            // e = -180 + 360 * ((1 + $resultdata[0]['e']) / pow(2, $metadata['maxzoom']));
+            // n = $this->row2lat($resultdata[0]['n'], $metadata['maxzoom']);
+            // s = $this->row2lat($resultdata[0]['s'] - 1, $metadata['maxzoom']);
+            // metadata['bounds'] = implode(',', array($w, $s, $e, $n));
 
-#if true
+#if false
             Wgs84Coordinates wgs84 = Wgs84Coordinates.FromTile(x, y, z);
             // https://epsg.io/900913
             VectorTileRenderer.GlobalMercator gm = new VectorTileRenderer.GlobalMercator();

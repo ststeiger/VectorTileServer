@@ -12,11 +12,10 @@ namespace VectorTileServer
     
     public class Program
     {
-        
-        
-        public static void Main(string[] args)
-        {
 
+
+        public static void TestCompression()
+        {
 
             string inputfile = @"D:\Stefan.Steiger\Documents\Visual Studio 2017\TFS\Tools\wkHtmlToPdfSharp\CompressFile\LZF.cs";
             string outputfile = @"D:\Stefan.Steiger\Documents\Visual Studio 2017\TFS\Tools\wkHtmlToPdfSharp\CompressFile\LZF.brotli";
@@ -31,10 +30,16 @@ namespace VectorTileServer
             // StreamHelper.Compress<System.IO.Compression.BrotliStream>(inputfile, outputfile);
             // StreamHelper.Uncompress<System.IO.Compression.BrotliStream>(outputfile, decompressed);
 
-            // CreateWebHostBuilder(args).Build().Run();
+
+        } // End Sub TestCompression 
+        
+        
+        public static void Main(string[] args)
+        {
+            CreateWebHostBuilder(args).Build().Run();
         } // End Sub Main 
-
-
+        
+        
         public static Microsoft.AspNetCore.Hosting.IWebHostBuilder 
             CreateWebHostBuilder(string[] args)
         {
