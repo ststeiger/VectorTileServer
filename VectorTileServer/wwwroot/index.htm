@@ -167,7 +167,7 @@
 
         // navigator.languages = ["ru-RU", "de-CH"];
 
-
+        
 
         // var map = L.map('map', { crs: L.CRS.EPSG3857 }).setView([latitude, longitude], 15);
         // var map = L.map('map', { crs: L.CRS.EPSG4326 }).setView([latitude, longitude], 15);
@@ -200,8 +200,8 @@
         ).addTo(map);
 
         // mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
-        var lingua = new MapboxLanguage({ defaultLanguage: 'ru' })
-        gl._glMap.addControl(lingua);
+        // var lingua = new MapboxLanguage({ defaultLanguage: 'ru' })
+        // gl._glMap.addControl(lingua);
 
         
         // mapbox bounds:
@@ -214,17 +214,21 @@
 
             for (var i = 0; i < keys.length; ++i) {
 
-                if (gl._glMap.style._layers[keys[i]].layout["text-field"]) {
+                //if (gl._glMap.style._layers[keys[i]].layout["text-field"]) {
+                // gl._glMap.style._layers["place-country-1"].layout._values["text-field"].value.value
+                if (((gl._glMap.style._layers[keys[i]].layout || {})._values || {})["text-field"]) {
 
-                    if (gl._glMap.style._layers[keys[i]].layout["text-field"].indexOf("name") != -1)
+
+                    // console.log(gl._glMap.style._layers[keys[i]].layout._values["text-field"]);
+
+
+                    //if (gl._glMap.style._layers[keys[i]].layout["text-field"].indexOf("name") != -1)
+                    if (gl._glMap.style._layers[keys[i]].layout._values["text-field"].value.value.indexOf("name:") != -1) 
                     {
-                        console.log(keys[i], gl._glMap.style._layers[keys[i]].layout["text-field"]);
-                        // debugger;
+                        // console.log(keys[i], gl._glMap.style._layers[keys[i]].layout["text-field"]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', 'coalesce({name:ru}, {name:latin})');
 
-                        gl._glMap.setLayoutProperty(keys[i], 'text-field', 'coalesce({name:ru}, {name:latin})');
-
-
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "latin"], ["get", "nonlatin"]]);
+                        gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
                         
                         
                         // gl._glMap.setLayoutProperty(keys[i], 'text-field', '{name:ru}{name:latin}');

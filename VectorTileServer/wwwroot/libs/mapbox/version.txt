@@ -1,2 +1,3 @@
-https://github.com/mapbox/mapbox-gl-js/releases
-v0.53.0
+﻿
+https://cdnjs.com/libraries/mapbox-gl
+0.53.0
