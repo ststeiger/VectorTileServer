@@ -163,11 +163,23 @@
 
         // https://gis.stackexchange.com/questions/190390/loading-vector-tile-layer-in-leaflet-map
         // https://gis.stackexchange.com/questions/125037/self-hosting-mapbox-vector-tiles
+        // https://github.com/mapbox/mapbox-gl-language
+
+
 
 
         // navigator.languages = ["ru-RU", "de-CH"];
+        // https://en.wikipedia.org/wiki/Web_Mercator_projection
+        // https://blog.mapbox.com/mapbox-%EF%B8%8F-leaflet-d60b1be96615
+        // https://blog.mapbox.com/create-a-custom-map-of-your-city-in-30-minutes-with-tilemill-and-openstreetmap-5d9935176d81
+        // https://openmaptiles.com/downloads/europe/
+        // https://docs.mapbox.com/help/glossary/lat-lon/
+        // https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/
 
-        
+        // Lat lng bounds coordinates:
+        // https://www.wrld3d.com/wrld.js/latest/docs/leaflet/L.LatLngBounds/
+
+
 
         // var map = L.map('map', { crs: L.CRS.EPSG3857 }).setView([latitude, longitude], 15);
         // var map = L.map('map', { crs: L.CRS.EPSG4326 }).setView([latitude, longitude], 15);
@@ -183,6 +195,15 @@
         });
 
 
+        // This is not Monaco ! This is New York ! 
+        // Copied from https://docs.mapbox.com/mapbox-gl-js/example/restrict-bounds/
+        // https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
+        var bounds = [
+            [-74.04728500751165, 40.68392799015035], // Southwest coordinates
+            [-73.91058699000139, 40.87764500765852]  // Northeast coordinates
+        ];
+
+
         var gl = L.mapboxGL( // 'https://localhost:44378/{x}/{y}/{z}',
             {
                 accessToken: 'no-token',
@@ -196,6 +217,7 @@
                 //, language: "fr" // getUserLanguage() // fr, it, en
                 // , "url": "http://localhost:44378/{x}/{y}/{z}"
                 // , "tiles": "http://localhost:44378/{x}/{y}/{z}"
+                ,maxBounds: bounds // Sets bounds as max
             }
         ).addTo(map);
 
