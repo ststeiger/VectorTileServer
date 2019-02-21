@@ -26,9 +26,9 @@ namespace VectorTileServer.Controllers
             double lat_rad = System.Math.Atan(System.Math.Sinh(System.Math.PI * (1 - 2 * y / n)));
             double lat_deg = lat_rad/Math.PI * 180.0;
             return  (lon_deg,lat_deg);
-        }
-        
-        
+        } // End Function tile_ul 
+
+
         // https://www.sparkgeo.com/blog/vector-tile-server-using-postgis/
         // https://medium.com/tantotanto/vector-tiles-postgis-and-openlayers-258a3b0ce4b6
         // https://openmaptiles.org/docs/generate/generate-openmaptiles/
@@ -41,36 +41,36 @@ namespace VectorTileServer.Controllers
 SELECT ST_AsMVT(tile) 
 FROM 
 (
-    SELECT 
-       id
-      ,name
-      ,ST_AsMVTGeom
-      (
-         geom
-        ,ST_Makebox2d
-        (
-          ST_transform
-          (
-            ST_SetSrid(ST_MakePoint(@xmin,@ymin),4326)
-            ,3857
-          )
-          ,ST_transform
-          (
-            ST_SetSrid(ST_MakePoint(@xmax,@ymax),4326)
-            ,3857
-            )
-        )
-        , 4096
-        , 0
-        , false
-        ) AS geom 
-    FROM admin_areas
+	SELECT 
+		 id
+		,name
+		,ST_AsMVTGeom
+		(
+			 geom
+			,ST_Makebox2d
+			(
+				ST_transform
+				(
+					ST_SetSrid(ST_MakePoint(@xmin,@ymin),4326)
+					,3857
+				)
+				,ST_transform
+				(
+					ST_SetSrid(ST_MakePoint(@xmax,@ymax),4326)
+					,3857
+				)
+			)
+			,4096
+			,0
+			,false
+		) AS geom 
+	FROM admin_areas
 ) AS tile
 ";
             // cur.execute(query,(xmin,ymin,xmax,ymax))
-        }
-        
-        
+        } // End Sub LiveTile 
+
+
         protected System.IO.Stream GetTileStream(int x, int y, int z)
         {
             string webRoot = this.m_env.WebRootPath;
