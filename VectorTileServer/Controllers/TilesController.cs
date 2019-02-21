@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace VectorTileServer.Controllers
 {
 
@@ -16,6 +18,59 @@ namespace VectorTileServer.Controllers
         } // End Constructor 
 
 
+
+        protected (double, double) tile_ul(int x, int y, int z)
+        {
+            double n = System.Math.Pow(2, z);
+            double lon_deg = x / n * 360.0 - 180.0;
+            double lat_rad = System.Math.Atan(System.Math.Sinh(System.Math.PI * (1 - 2 * y / n)));
+            double lat_deg = lat_rad/Math.PI * 180.0;
+            return  (lon_deg,lat_deg);
+        }
+        
+        
+        // https://www.sparkgeo.com/blog/vector-tile-server-using-postgis/
+        // https://medium.com/tantotanto/vector-tiles-postgis-and-openlayers-258a3b0ce4b6
+        // https://openmaptiles.org/docs/generate/generate-openmaptiles/
+        public void LiveTile(int x, int y, int z)
+        {
+            var (xmin, ymin) = tile_ul(x, y, z);
+            var (xmax, ymax) = tile_ul(x + 1, y + 1, z);
+            
+            string sql = @"
+SELECT ST_AsMVT(tile) 
+FROM 
+(
+    SELECT 
+       id
+      ,name
+      ,ST_AsMVTGeom
+      (
+         geom
+        ,ST_Makebox2d
+        (
+          ST_transform
+          (
+            ST_SetSrid(ST_MakePoint(@xmin,@ymin),4326)
+            ,3857
+          )
+          ,ST_transform
+          (
+            ST_SetSrid(ST_MakePoint(@xmax,@ymax),4326)
+            ,3857
+            )
+        )
+        , 4096
+        , 0
+        , false
+        ) AS geom 
+    FROM admin_areas
+) AS tile
+";
+            // cur.execute(query,(xmin,ymin,xmax,ymax))
+        }
+        
+        
         protected System.IO.Stream GetTileStream(int x, int y, int z)
         {
             string webRoot = this.m_env.WebRootPath;
@@ -28,7 +83,7 @@ namespace VectorTileServer.Controllers
             return source.GetRawTile(x, y, z);
         } // End Function GetTileStream 
         
-
+        
         // https://alastaira.wordpress.com/2011/07/06/converting-tms-tile-coordinates-to-googlebingosm-tile-coordinates/
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static int FromTmsY(int tmsY, int zoom)
