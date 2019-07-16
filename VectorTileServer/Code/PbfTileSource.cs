@@ -1,8 +1,6 @@
-﻿using Mapbox.VectorTile.Geometry;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
+﻿
+
+
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -11,36 +9,38 @@ namespace VectorTileRenderer.Sources
     public class PbfTileSource : IVectorTileSource
     {
         public string Path { get; set; } = "";
-        public Stream Stream { get; set; } = null;
+        public System.IO.Stream Stream { get; set; } = null;
 
         public PbfTileSource(string path)
         {
             this.Path = path;
         }
 
-        public PbfTileSource(Stream stream)
+        public PbfTileSource(System.IO.Stream stream)
         {
             this.Stream = stream;
         }
 
-        public async Task<Stream> GetTile(int x, int y, int zoom)
+        public async Task<System.IO.Stream> GetTile(int x, int y, int zoom)
         {
-            var qualifiedPath = Path
+            string qualifiedPath = Path
                 .Replace("{x}", x.ToString())
                 .Replace("{y}", y.ToString())
                 .Replace("{z}", zoom.ToString());
-            return File.Open(qualifiedPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            return System.IO.File.Open(qualifiedPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
         }
         
         public async Task<VectorTile> GetVectorTile(int x, int y, int zoom)
         {
             if(Path != "")
             {
-                using (var stream = await GetTile(x, y, zoom))
+                using (System.IO.Stream stream = await GetTile(x, y, zoom))
                 {
                     return await unzipStream(stream);
                 }
-            } else if (Stream != null)
+            }
+            else if (Stream != null)
             {
                 return  await unzipStream(Stream);
             }
@@ -48,17 +48,21 @@ namespace VectorTileRenderer.Sources
             return null;
         }
 
-        private async Task<VectorTile> unzipStream(Stream stream)
+        private async Task<VectorTile> unzipStream(System.IO.Stream stream)
         {
             if (isGZipped(stream))
             {
-                using (var zipStream = new GZipStream(stream, CompressionMode.Decompress))
-                using (var resultStream = new MemoryStream())
+                using (System.IO.Compression.GZipStream zipStream =
+                    new System.IO.Compression.GZipStream(stream, System.IO.Compression.CompressionMode.Decompress))
                 {
-                    zipStream.CopyTo(resultStream);
-                    resultStream.Seek(0, SeekOrigin.Begin);
-                    return await loadStream(resultStream);
-                }
+                    using (System.IO.MemoryStream resultStream = new System.IO.MemoryStream())
+                    {
+                        zipStream.CopyTo(resultStream);
+                        resultStream.Seek(0, System.IO.SeekOrigin.Begin);
+                        return await loadStream(resultStream);
+                    } // End Using resultStream 
+
+                } // End Using zipStream 
             }
             else
             {
@@ -66,23 +70,24 @@ namespace VectorTileRenderer.Sources
             }
         }
         
-        private async Task<VectorTile> loadStream(Stream stream)
+        private async Task<VectorTile> loadStream(System.IO.Stream stream)
         {
-            var mbLayers = new Mapbox.VectorTile.VectorTile(readTillEnd(stream));
+            Mapbox.VectorTile.VectorTile mbLayers = 
+                new Mapbox.VectorTile.VectorTile(readTillEnd(stream));
 
             return await baseTileToVector(mbLayers);
         }
 
-        static string convertGeometryType(GeomType type)
+        static string convertGeometryType(Mapbox.VectorTile.Geometry.GeomType type)
         {
-            if (type == GeomType.LINESTRING)
+            if (type == Mapbox.VectorTile.Geometry.GeomType.LINESTRING)
             {
                 return "LineString";
-            } else if (type == GeomType.POINT)
+            } else if (type == Mapbox.VectorTile.Geometry.GeomType.POINT)
             {
                 return "Point";
             }
-            else if (type == GeomType.POLYGON)
+            else if (type == Mapbox.VectorTile.Geometry.GeomType.POLYGON)
             {
                 return "Polygon";
             } else
@@ -93,40 +98,42 @@ namespace VectorTileRenderer.Sources
 
         private static async Task<VectorTile> baseTileToVector(object baseTile)
         {
-            var tile = baseTile as Mapbox.VectorTile.VectorTile;
-            var result = new VectorTile();
+            Mapbox.VectorTile.VectorTile tile = baseTile as Mapbox.VectorTile.VectorTile;
+            VectorTile result = new VectorTile();
 
-            foreach (var lyrName in tile.LayerNames())
+            foreach (string lyrName in tile.LayerNames())
             {
                 Mapbox.VectorTile.VectorTileLayer lyr = tile.GetLayer(lyrName);
 
-                var vectorLayer = new VectorTileLayer();
+                VectorTileLayer vectorLayer = new VectorTileLayer();
                 vectorLayer.Name = lyrName;
 
                 for (int i = 0; i < lyr.FeatureCount(); i++)
                 {
                     Mapbox.VectorTile.VectorTileFeature feat = lyr.GetFeature(i);
 
-                    var vectorFeature = new VectorTileFeature();
+                    VectorTileFeature vectorFeature = new VectorTileFeature();
                     vectorFeature.Extent = 1;
                     vectorFeature.GeometryType = convertGeometryType(feat.GeometryType);
                     vectorFeature.Attributes = feat.GetProperties();
 
-                    var vectorGeometry = new List<List<Point>>();
+                    System.Collections.Generic.List<System.Collections.Generic.List<Point>> vectorGeometry = 
+                        new System.Collections.Generic.List<System.Collections.Generic.List<Point>>();
 
-                    foreach (var points in feat.Geometry<int>())
+                    foreach (System.Collections.Generic.List<Mapbox.VectorTile.Geometry.Point2d<int>> points in feat.Geometry<int>())
                     {
-                        var vectorPoints = new List<Point>();
+                        System.Collections.Generic.List<Point> vectorPoints = 
+                            new System.Collections.Generic.List<Point>();
 
-                        foreach (var coordinate in points)
+                        foreach (Mapbox.VectorTile.Geometry.Point2d<int> coordinate in points)
                         {
-                            var dX = (double)coordinate.X / (double)lyr.Extent;
-                            var dY = (double)coordinate.Y / (double)lyr.Extent;
+                            double dX = (double)coordinate.X / (double)lyr.Extent;
+                            double dY = (double)coordinate.Y / (double)lyr.Extent;
 
                             vectorPoints.Add(new Point(dX, dY));
 
-                            //var newX = Utils.ConvertRange(dX, extent.Left, extent.Right, 0, vectorFeature.Extent);
-                            //var newY = Utils.ConvertRange(dY, extent.Top, extent.Bottom, 0, vectorFeature.Extent);
+                            // double newX = Utils.ConvertRange(dX, extent.Left, extent.Right, 0, vectorFeature.Extent);
+                            // double newY = Utils.ConvertRange(dY, extent.Top, extent.Bottom, 0, vectorFeature.Extent);
 
                             //vectorPoints.Add(new Point(newX, newY));
                         }
@@ -144,10 +151,10 @@ namespace VectorTileRenderer.Sources
             return result;
         }
         
-        byte[] readTillEnd(Stream input)
+        byte[] readTillEnd(System.IO.Stream input)
         {
             byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
+            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
             {
                 int read;
                 while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
@@ -158,15 +165,16 @@ namespace VectorTileRenderer.Sources
             }
         }
 
-        bool isGZipped(Stream stream)
+        bool isGZipped(System.IO.Stream stream)
         {
             return isZipped(stream, 3, "1F-8B-08");
         }
 
-        bool isZipped(Stream stream, int signatureSize = 4, string expectedSignature = "50-4B-03-04")
+        bool isZipped(System.IO.Stream stream, int signatureSize = 4, string expectedSignature = "50-4B-03-04")
         {
             if (stream.Length < signatureSize)
                 return false;
+
             byte[] signature = new byte[signatureSize];
             int bytesRequired = signatureSize;
             int index = 0;
@@ -176,10 +184,17 @@ namespace VectorTileRenderer.Sources
                 bytesRequired -= bytesRead;
                 index += bytesRead;
             }
-            stream.Seek(0, SeekOrigin.Begin);
-            string actualSignature = BitConverter.ToString(signature);
-            if (actualSignature == expectedSignature) return true;
+            stream.Seek(0, System.IO.SeekOrigin.Begin);
+
+            string actualSignature = System.BitConverter.ToString(signature);
+            if (actualSignature == expectedSignature)
+                return true;
+
             return false;
-        }
+        } // End Function isZipped 
+
+
     }
+
+
 }

@@ -1,6 +1,4 @@
 ﻿
-using System;
-
 namespace VectorTileServer.Controllers
 {
 
@@ -24,7 +22,7 @@ namespace VectorTileServer.Controllers
             double n = System.Math.Pow(2, z);
             double lon_deg = x / n * 360.0 - 180.0;
             double lat_rad = System.Math.Atan(System.Math.Sinh(System.Math.PI * (1 - 2 * y / n)));
-            double lat_deg = lat_rad/Math.PI * 180.0;
+            double lat_deg = lat_rad/System.Math.PI * 180.0;
             return  (lon_deg,lat_deg);
         } // End Function tile_ul 
 
@@ -75,6 +73,8 @@ FROM
         {
             string webRoot = this.m_env.WebRootPath;
             string path = System.IO.Path.Combine(webRoot, @"2017-07-03_france_monaco.mbtiles");
+            if("COR".Equals(System.Environment.UserDomainName, System.StringComparison.InvariantCultureIgnoreCase))
+                path = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
 
             // VectorTileRenderer.Sources.ITileSource source = new VectorTileRenderer.Sources.MbTilesSource(path);
             // return source.GetTile(x,y,z).Result;

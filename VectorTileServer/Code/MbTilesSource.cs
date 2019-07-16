@@ -10,17 +10,16 @@ using System.Data.SQLite;
 #endif 
 
 
-
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
+
 
 namespace VectorTileRenderer.Sources
 {
     // MbTiles loading code in GIST by geobabbler
     // https://gist.github.com/geobabbler/9213392
 
-    public class MbTilesSource : IVectorTileSource
+    public class MbTilesSource 
+        : IVectorTileSource
     {
         
         public GlobalMercator.GeoExtent Bounds { get; private set; }
@@ -109,7 +108,7 @@ namespace VectorTileRenderer.Sources
             }
         }
 
-        public Stream GetRawTile(int x, int y, int zoom)
+        public System.IO.Stream GetRawTile(int x, int y, int zoom)
         {
             try
             {
@@ -136,20 +135,25 @@ namespace VectorTileRenderer.Sources
             return null;
         }
 
+
         public void ExtractTile(int x, int y, int zoom, string path)
         {
-            if (File.Exists(path))
+            if (System.IO.File.Exists(path))
                 System.IO.File.Delete(path);
 
-            using (var fileStream = File.Create(path))
-            using (Stream tileStream = GetRawTile(x, y, zoom))
+            using (System.IO.FileStream fileStream = System.IO.File.Create(path))
             {
-                tileStream.Seek(0, SeekOrigin.Begin);
-                tileStream.CopyTo(fileStream);
-            }
+                using (System.IO.Stream tileStream = GetRawTile(x, y, zoom))
+                {
+                    tileStream.Seek(0, System.IO.SeekOrigin.Begin);
+                    tileStream.CopyTo(fileStream);
+                } // End Using tileStream 
+
+            } // End using fileStream 
         }
 
-        public async Task<VectorTile> GetVectorTile(int x, int y, int zoom)
+
+        public async System.Threading.Tasks.Task<VectorTile> GetVectorTile(int x, int y, int zoom)
         {
             var extent = new Rect(0, 0, 1, 1);
             bool overZoomed = false;
@@ -216,7 +220,7 @@ namespace VectorTileRenderer.Sources
             }
         }
 
-        async Task<VectorTile> getCachedVectorTile(int x, int y, int zoom)
+        async System.Threading.Tasks.Task<VectorTile> getCachedVectorTile(int x, int y, int zoom)
         {
             var key = x.ToString() + "," + y.ToString() + "," + zoom.ToString();
 
@@ -239,7 +243,7 @@ namespace VectorTileRenderer.Sources
             
         }
 
-        async Task<Stream> ITileSource.GetTile(int x, int y, int zoom)
+        async System.Threading.Tasks.Task<System.IO.Stream> ITileSource.GetTile(int x, int y, int zoom)
         {
             return GetRawTile(x, y, zoom);
         }
