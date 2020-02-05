@@ -1,8 +1,18 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+
     <title>WebGL</title>
-    <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         html, body, #map {
@@ -12,198 +22,27 @@
         }
     </style>
 
-    <!-- Leaflet -->
-    <!--
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    -->
-
     <link rel="stylesheet" href="libs/leaflet/leaflet.css" />
     <script src="libs/leaflet/leaflet.js"></script>
-
-
-
-    <!-- Mapbox GL -->
-    <!--
-    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.css" rel='stylesheet' />
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.js"></script>
-    -->
 
     <link href="libs/mapbox/mapbox-gl.css" rel='stylesheet' />
     <script src="libs/mapbox/mapbox-gl.js"></script>
     <script src="libs/mapbox/mapbox-gl-language.js"></script>
-    
+    <script src="libs/leaflet/leaflet-mapbox-gl.js"></script>
+
 </head>
 
 <body>
     <div id="map"></div>
 
 
-    
-    <script src="libs/leaflet/leaflet-mapbox-gl.js"></script>
-        
-
-
-
     <script>
 
+        var latitude = 43.725359;
+        var longitude = 7.418737;
 
-        // GeoJSON: [longitude, latitude, elevation]
-
-
-
-        // import { Position } from '../geojson';
-        // https://github.com/Turfjs/turf/blob/master/packages/turf-projection/index.ts
-        // https://macwright.org/2015/03/23/geojson-second-bite.html#coordinate
-
-        function ESPG3857ToWGS84(xy) {
-            var R2D = 180 / Math.PI;
-            var A = 6378137.0;
-
-            return [
-                (xy[0] * R2D / A),
-                ((Math.PI * 0.5) - 2.0 * Math.atan(Math.exp(-xy[1] / A))) * R2D,
-            ];
-        }
-
-        function WGS84ToEPSG3857(lonLat) {
-            var D2R = Math.PI / 180;
-            var A = 6378137.0;
-            var MAXEXTENT = 20037508.342789244;
-
-            // compensate longitudes passing the 180th meridian
-            // from https://github.com/proj4js/proj4js/blob/master/lib/common/adjust_lon.js
-            var adjusted = (Math.abs(lonLat[0]) <= 180) ? lonLat[0] : (lonLat[0] - ((lonLat[0] < 0 ? -1 : 1) * 360));
-            var xy = [
-                A * adjusted * D2R,
-                A * Math.log(Math.tan((Math.PI * 0.25) + (0.5 * lonLat[1] * D2R))),
-            ];
-            // if xy value is beyond maxextent (e.g. poles), return maxextent
-            if (xy[0] > MAXEXTENT)
-                xy[0] = MAXEXTENT;
-            if (xy[0] < -MAXEXTENT)
-                xy[0] = -MAXEXTENT;
-            if (xy[1] > MAXEXTENT)
-                xy[1] = MAXEXTENT;
-            if (xy[1] < -MAXEXTENT)
-                xy[1] = -MAXEXTENT;
-            return xy;
-        }
-
-
-
-
-
-
-
-
-        // https://www.masinamichele.it/2018/05/04/gis-the-math-to-convert-from-epsg3857-to-wgs-84/
-        function WGS84toEPSG3857(lat, lon) {
-            let b = 20037508.34;
-            let longitude = lon * b / 180.0;
-            let latitude =
-                (
-                    Math.log(
-                        Math.tan
-                            (
-                            (lat + 90.0) * Math.PI / 360.0
-                            )
-                    )
-                ) * b / Math.PI;
-
-            return { "lat": latitude, "lon": longitude };
-        }
-
-
-        // let y = Math.log(tan((x + 90) * Math.PI / 360.0))
-
-
-        function EPSG3857toWGS84(lat, lon) {
-            let b = 20037508.34;
-            let longitude = lon * 180 / b;
-            let latitude = Math.atan(Math.exp(lat * Math.PI / b)) * 360 / Math.PI - 90;
-
-            return { "lat": latitude, "lon": longitude };
-        }
-
-
-        var latitude = 38.912753;
-        var longitude = -77.032194;
-        latitude = 43.735076;
-        longitude = 7.421051;
-
-
-
-        // https://www.masinamichele.it/2018/05/04/gis-the-math-to-convert-from-epsg3857-to-wgs-84/
-
-
-        latitude = 43.731390756172146;
-        longitude = 7.441617250442506;
-
-        latitude = 43.72719648853415;
-        longitude = 7.443237304687501;
-
-
-
-        latitude = 43.725359;
-        longitude = 7.418737;
-
-        // https://openmaptiles.org/docs/website/leaflet/
-        // https://github.com/mapbox/mapbox-gl-leaflet/blob/master/examples/basic.html
-        // https://leafletjs.com/plugins.html#vector-tiles
-        // https://docs.mapbox.com/mapbox-gl-js/example/simple-map/
-        // https://docs.mapbox.com/mapbox-gl-js/example/fitbounds/
-
-        // https://github.com/mapbox/mapbox-gl-leaflet
-        // https://github.com/Leaflet/Leaflet
-        // https://leafletjs.com/plugins.html#vector-tiles
-
-
-
-
-        // https://gis.stackexchange.com/questions/190390/loading-vector-tile-layer-in-leaflet-map
-        // https://gis.stackexchange.com/questions/125037/self-hosting-mapbox-vector-tiles
-        // https://github.com/mapbox/mapbox-gl-language
-
-
-
-
-        // navigator.languages = ["ru-RU", "de-CH"];
-        // https://en.wikipedia.org/wiki/Web_Mercator_projection
-        // https://blog.mapbox.com/mapbox-%EF%B8%8F-leaflet-d60b1be96615
-        // https://blog.mapbox.com/create-a-custom-map-of-your-city-in-30-minutes-with-tilemill-and-openstreetmap-5d9935176d81
-        // https://openmaptiles.com/downloads/europe/
-        // https://docs.mapbox.com/help/glossary/lat-lon/
-        // https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/
-
-        // Lat lng bounds coordinates:
-        // https://www.wrld3d.com/wrld.js/latest/docs/leaflet/L.LatLngBounds/
-
-
-
-        // var map = L.map('map', { crs: L.CRS.EPSG3857 }).setView([latitude, longitude], 15);
-        // var map = L.map('map', { crs: L.CRS.EPSG4326 }).setView([latitude, longitude], 15);
         var map = L.map('map').setView([latitude, longitude], 15);
-        // var map = L.map('map').setView([latitude, longitude], 15);
-
-
-        map.on('click', function (e) {
-            var coord = e.latlng;
-            var lat = coord.lat;
-            var lng = coord.lng;
-            console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
-        });
-
-
-        // This is not Monaco ! This is New York ! 
-        // Copied from https://docs.mapbox.com/mapbox-gl-js/example/restrict-bounds/
-        // https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
-        var bounds = [
-            [-74.04728500751165, 40.68392799015035], // Southwest coordinates
-            [-73.91058699000139, 40.87764500765852]  // Northeast coordinates
-        ];
-
-
+        
         var gl = L.mapboxGL( // 'https://localhost:44378/{x}/{y}/{z}',
             {
                 accessToken: 'no-token',
@@ -211,169 +50,46 @@
                 updateInterval: 5, // per 200 ms
                 attribution: '<a target="blank" href="https://github.com/ststeiger/VectorTileServer ">Steiger&apos;s public vector tile server</a> | <a target="blank" href="https://openmaptiles.org ">OpenMapTiles</a> | Map data &copy; <a target="blank" href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
                 //style: 'https://raw.githubusercontent.com/osm2vectortiles/mapbox-gl-styles/master/styles/bright-v9-cdn.json'
-                // style: 'style-cdn.json'
-                // style: 'style-bright-v9-cdn.json'
                 "style": "https://localhost:44378/styles/bright/style.json"
-                //, language: "fr" // getUserLanguage() // fr, it, en
-                // , "url": "http://localhost:44378/{x}/{y}/{z}"
-                // , "tiles": "http://localhost:44378/{x}/{y}/{z}"
-                // ,maxBounds: bounds // Sets bounds as max
             }
         ).addTo(map);
 
-        // mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
-        // var lingua = new MapboxLanguage({ defaultLanguage: 'ru' })
-        // gl._glMap.addControl(lingua);
-
-        
-        // mapbox bounds:
-        // [sw.lng, sw.lat, ne.lng, ne.lat]
-        
-        gl._glMap.on('load', function () {
-            //gl._glMap.setLayoutProperty('country-label-lg', 'text-field', ['get', 'name_' + "it"]);
-
+        gl._glMap.on('load', function () 
+        {
             var keys = Object.keys(gl._glMap.style._layers);
 
-            for (var i = 0; i < keys.length; ++i) {
-
-                //if (gl._glMap.style._layers[keys[i]].layout["text-field"]) {
-                // gl._glMap.style._layers["place-country-1"].layout._values["text-field"].value.value
-                if (((gl._glMap.style._layers[keys[i]].layout || {})._values || {})["text-field"]) {
-
-
-                    // console.log(gl._glMap.style._layers[keys[i]].layout._values["text-field"]);
-
-
-                    //if (gl._glMap.style._layers[keys[i]].layout["text-field"].indexOf("name") != -1)
+            for (var i = 0; i < keys.length; ++i) 
+            {
+                if (((gl._glMap.style._layers[keys[i]].layout || {})._values || {})["text-field"]) 
+                {
                     if (gl._glMap.style._layers[keys[i]].layout._values["text-field"].value.value.indexOf("name:") != -1) 
                     {
-                        // console.log(keys[i], gl._glMap.style._layers[keys[i]].layout["text-field"]);
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', 'coalesce({name:ru}, {name:latin})');
-
                         gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
-                        
-                        
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', '{name:ru}{name:latin}');
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ['get', 'name_' + "latin"]);
-
-
-                        //gl._glMap.setLayoutProperty(keys[i], 'text-field', '{name:ru}');
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', '{name:ru}', '{name:latin}');
-
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["string", ["get", "name:ru"]], ["string", ["get", "name:latin"]]]);
-
-                        // _layoutFunctions
-                        // gl._glMap.style._layers["waterway-name"]._layoutDeclarations = new StyleDeclaration(this._layoutSpecifications[t], i)
-                        // i = 
-
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', '{name:ru} {name:latin} {name:nonlatin}'); 
-                        // gl._glMap.style._layers[keys[i]].layout["text-field"] = '{name:ru} {name:latin} {name:nonlatin}'; 
                     }
                     
-                    
-                    // "text-field": "{name:latin} {name:nonlatin}",
-
-                    // gl._glMap.setLayoutProperty(keys[i], 'text-field', 'name_' + "ru");
-                    // gl._glMap.setLayoutProperty(keys[i], 'text-field', 'name:' + "ru");
-                    // gl._glMap.setLayoutProperty(keys[i], 'text-field', 'name:' + "latin");
-                    // gl._glMap.setLayoutProperty(keys[i], 'text-field', ['get', 'name_' + "ru"]);
                 }
-
                 
-            }
-
-
-
-            
-
-            // gl._glMap.setLayoutProperty('country-label-lg', 'text-field', ['get', 'name_' + "it"]);
-            // gl._glMap.setLayoutProperty('country', 'text-field', ['get', 'name_' + "ru"]);
-            // gl._glMap.addControl(new MapboxLanguage({ defaultLanguage: 'ru' }));
+            } // Next i 
             
         });
 
-
-        
-
-        
-
-
-        /*
-        new MapboxLanguage({
-            defaultLanguage: 'ru'
-        });
-
-
-        map.addControl(new MapboxLanguage({
-            defaultLanguage: 'ru'
-        }));
-        */
-
-
-        // var language = new MapboxLanguage({
-        // defaultLanguage: 'de'
-        // });
-
-        // map.addControl(language);
-
-        // var language = new MapboxLanguage();
-        // map.addControl(language);
-
-
-        // var language = new MapboxLanguage();
-        // map.addControl(language);
-
-        // map.addControl(new L.Control.Fullscreen());
-
-        /*
-        map.addControl(new MapboxLanguage({
-            defaultLanguage: 'ru'
-        }));
-        */
-
-
-
-        /*
-        // https://github.com/mapbox/mapbox-gl-leaflet/issues/45
-        map.on('zoomend', function () {
-            gl._update();
-        });
-        */
-
-        // https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
-        // 7.349, 43.71, 7.491, 43.77
-
-        // 43.71, 7.349 // leftBottom (southWest)
-        // 43.77,  7.491 // rightTop (northEast)
-        
         var mapBounds = L.latLngBounds([
             [43.71, 7.349],
             [43.77, 7.491]
         ]);
         
-        // map.fitBounds(mapBounds);
-        // map.setMaxBounds(mapBounds);
-        
-
-
         L.marker([latitude, longitude])
             .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
             .addTo(map)
             .openPopup();
 
-                                    /*
-                                    L.tileLayer("{server}/{style}/{z}/{x}/{y}{scalex}.png?lang={language}",
-                                        {
-                                            maxZoom: 18
-                                            , attribution: '<a target="blank" href="https://www.mediawiki.org/wiki/Maps/Technical_Implementation">Wikimedia maps beta</a> | Map data &copy; <a target="blank" href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-                                            , server: "https://maps.wikimedia.org"
-                                            , style: "osm-intl" // "osm" // Map style to use.Use "osm-intl" for map with labels, "osm" for map without labels.
-                                            , scalex: scalex
-                                            , language: getUserLanguage() // fr, it, en
-                                        }
-                                    ).addTo(map);
-                                    */
-
+        map.on('click', function (e)
+        {
+            var coord = e.latlng;
+            var lat = coord.lat;
+            var lng = coord.lng;
+            console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+        });
 
     </script>
 </body>

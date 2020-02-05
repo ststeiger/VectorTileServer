@@ -1,4 +1,4 @@
-{ 
+{
   "glyphs": "https://localhost:44378/fonts/{fontstack}/{range}",
   "id": "bright",
   "layers": [
@@ -5019,7 +5019,8 @@
       "url": "https://localhost:44378/styles/bright/v3.json"
     }
   },
-  "sprite": "https://maps.tilehosting.com/styles/bright/sprite",
+  "old_sprite": "https://maps.tilehosting.com/styles/bright/sprite",
+  "sprite": "https://localhost:44378/styles/bright/sprite",
   "version": 8,
   "center": [
     0,

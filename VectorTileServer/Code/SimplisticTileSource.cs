@@ -89,7 +89,7 @@ JOIN images ON map.tile_id = images.tile_id
 
         public System.IO.Stream GetRawTile(int x, int y, int zoom)
         {
-
+            System.IO.Stream stream = null;
 
             try
             {
@@ -102,8 +102,7 @@ JOIN images ON map.tile_id = images.tile_id
 
                         if (reader.Read())
                         {
-                            var stream = reader.GetStream(reader.GetOrdinal("tile_data"));
-                            return stream;
+                            stream = reader.GetStream(reader.GetOrdinal("tile_data"));
                         }
                     }
                 }
@@ -112,8 +111,8 @@ JOIN images ON map.tile_id = images.tile_id
             {
                 throw new System.MemberAccessException("Could not load tile from Mbtiles");
             }
-
-            return null;
+            
+            return stream;
         } // End Function GetRawTile 
 
 
