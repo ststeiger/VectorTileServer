@@ -18,7 +18,8 @@
     "VectorTileServer": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:44378;http://localhost:44377",
+      "NOTapplicationUrl": "https://localhost:44378;",
+      "applicationUrl": "http://localhost:44377",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
