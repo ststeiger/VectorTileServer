@@ -1,43 +1,41 @@
 using System;
 using System.Diagnostics;
-
 using i64 = System.Int64;
 
 namespace Community.CsharpSqlite
 {
-  public partial class Sqlite3
-  {
-    /*
-    ** 2001 September 15
-    **
-    ** The author disclaims copyright to this source code.  In place of
-    ** a legal notice, here is a blessing:
-    **
-    **    May you do good and not evil.
-    **    May you find forgiveness for yourself and forgive others.
-    **    May you share freely, never taking more than you give.
-    **
-    *************************************************************************
-    ** This file contains the sqlite3_get_table() and //sqlite3_free_table()
-    ** interface routines.  These are just wrappers around the main
-    ** interface routine of sqlite3_exec().
-    **
-    ** These routines are in a separate files so that they will not be linked
-    ** if they are not used.
-    *************************************************************************
-    **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
-    **  C#-SQLite is an independent reimplementation of the SQLite software library
-    **
-    **  SQLITE_SOURCE_ID: 2010-08-23 18:52:01 42537b60566f288167f1b5864a5435986838e3a3
-    **
-    *************************************************************************
-    */
-    //#include "sqliteInt.h"
-    //#include <stdlib.h>
-    //#include <string.h>
+    public partial class Sqlite3
+    {
+        /*
+        ** 2001 September 15
+        **
+        ** The author disclaims copyright to this source code.  In place of
+        ** a legal notice, here is a blessing:
+        **
+        **    May you do good and not evil.
+        **    May you find forgiveness for yourself and forgive others.
+        **    May you share freely, never taking more than you give.
+        **
+        *************************************************************************
+        ** This file contains the sqlite3_get_table() and //sqlite3_free_table()
+        ** interface routines.  These are just wrappers around the main
+        ** interface routine of sqlite3_exec().
+        **
+        ** These routines are in a separate files so that they will not be linked
+        ** if they are not used.
+        *************************************************************************
+        **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
+        **  C#-SQLite is an independent reimplementation of the SQLite software library
+        **
+        **  SQLITE_SOURCE_ID: 2010-08-23 18:52:01 42537b60566f288167f1b5864a5435986838e3a3
+        **
+        *************************************************************************
+        */
+        //#include "sqliteInt.h"
+        //#include <stdlib.h>
+        //#include <string.h>
 
 #if !SQLITE_OMIT_GET_TABLE
-
 /*
 ** This structure is used to pass data from sqlite3_get_table() through
 ** to the callback function is uses to build the result.
@@ -88,7 +86,7 @@ p.azResult = azNew;
 */
 if( p.nRow==0 ){
 p.nColumn = (int)nCol;
-for(i=0; i<nCol; i++){
+for(i = 0; i<nCol; i++){
 z = sqlite3_mprintf("%s", colv[i]);
 if( z==null ) goto malloc_failed;
 p.azResult[p.nData++ -1] = z;
@@ -105,14 +103,14 @@ return 1;
 /* Copy over the row data
 */
 if( argv!=null ){
-for(i=0; i<nCol; i++){
+for(i = 0; i<nCol; i++){
 if( argv[i]==null ){
 z = null;
 }else{
 int n = sqlite3Strlen30(argv[i])+1;
 //z = sqlite3_malloc( n );
 //if( z==0 ) goto malloc_failed;
-z= argv[i];//memcpy(z, argv[i], n);
+z = argv[i];//memcpy(z, argv[i], n);
 }
 p.azResult[p.nData++ -1] = z;
 }
@@ -217,5 +215,5 @@ int i, n;
 }
 
 #endif //* SQLITE_OMIT_GET_TABLE */
-  }
+    }
 }

@@ -2,8 +2,8 @@ using System.Diagnostics;
 
 namespace Community.CsharpSqlite
 {
-  public partial class Sqlite3
-  {
+    public partial class Sqlite3
+    {
 /*
 ** 2007 August 27
 **
@@ -121,7 +121,7 @@ return;
   ** the other BtShared locks that we used to hold in ascending
   ** order.
   */
-  for(pLater=p->pNext; pLater; pLater=pLater->pNext){
+  for(pLater = p->pNext; pLater; pLater = pLater->pNext){
 assert( pLater->sharable );
 assert( pLater->pNext==0 || pLater->pNext->pBt>pLater->pBt );
 assert( !pLater->locked || pLater->wantToLock>0 );
@@ -130,7 +130,7 @@ if( pLater->locked ){
 }
   }
   lockBtreeMutex(p);
-  for(pLater=p->pNext; pLater; pLater=pLater->pNext){
+  for(pLater = p->pNext; pLater; pLater = pLater->pNext){
 if( pLater->wantToLock ){
   lockBtreeMutex(pLater);
 }
@@ -201,7 +201,7 @@ void sqlite3BtreeEnterAll(sqlite3 db){
   int i;
   Btree *p;
   assert( sqlite3_mutex_held(db->mutex) );
-  for(i=0; i<db->nDb; i++){
+  for(i = 0; i<db->nDb; i++){
 p = db->aDb[i].pBt;
 if( p ) sqlite3BtreeEnter(p);
   }
@@ -210,7 +210,7 @@ void sqlite3BtreeLeaveAll(sqlite3 db){
   int i;
   Btree *p;
   assert( sqlite3_mutex_held(db->mutex) );
-  for(i=0; i<db->nDb; i++){
+  for(i = 0; i<db->nDb; i++){
 p = db->aDb[i].pBt;
 if( p ) sqlite3BtreeLeave(p);
   }
@@ -236,7 +236,7 @@ int sqlite3BtreeHoldsAllMutexes(sqlite3 db){
   if( !sqlite3_mutex_held(db->mutex) ){
 return 0;
   }
-  for(i=0; i<db->nDb; i++){
+  for(i = 0; i<db->nDb; i++){
 Btree *p;
 p = db->aDb[i].pBt;
 if( p && p->sharable &&
@@ -289,7 +289,7 @@ void sqlite3BtreeEnter(Btree *p){
 }
 void sqlite3BtreeEnterAll(sqlite3 db){
   int i;
-  for(i=0; i<db->nDb; i++){
+  for(i = 0; i<db->nDb; i++){
 Btree *p = db->aDb[i].pBt;
 if( p ){
   p->pBt->db = p->db;
@@ -298,6 +298,5 @@ if( p ){
 }
 #endif //* if SQLITE_THREADSAFE */
 #endif //* ifndef SQLITE_OMIT_SHARED_CACHE */
-
-  }
+    }
 }

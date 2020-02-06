@@ -2,36 +2,35 @@ using System.Diagnostics;
 
 namespace Community.CsharpSqlite
 {
-  public partial class Sqlite3
-  {
-    /*
-    ** 2009 March 3
-    **
-    ** The author disclaims copyright to this source code.  In place of
-    ** a legal notice, here is a blessing:
-    **
-    **    May you do good and not evil.
-    **    May you find forgiveness for yourself and forgive others.
-    **    May you share freely, never taking more than you give.
-    **
-    *************************************************************************
-    **
-    ** This file contains the implementation of the sqlite3_unlock_notify()
-    ** API method and its associated functionality.
-    *************************************************************************
-    **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
-    **  C#-SQLite is an independent reimplementation of the SQLite software library
-    **
-    **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
-    **
-    *************************************************************************
-    */
-    //#include "sqliteInt.h"
-    //#include "btreeInt.h"
+    public partial class Sqlite3
+    {
+        /*
+        ** 2009 March 3
+        **
+        ** The author disclaims copyright to this source code.  In place of
+        ** a legal notice, here is a blessing:
+        **
+        **    May you do good and not evil.
+        **    May you find forgiveness for yourself and forgive others.
+        **    May you share freely, never taking more than you give.
+        **
+        *************************************************************************
+        **
+        ** This file contains the implementation of the sqlite3_unlock_notify()
+        ** API method and its associated functionality.
+        *************************************************************************
+        **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
+        **  C#-SQLite is an independent reimplementation of the SQLite software library
+        **
+        **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
+        **
+        *************************************************************************
+        */
+        //#include "sqliteInt.h"
+        //#include "btreeInt.h"
 
-    /* Omit this entire file if SQLITE_ENABLE_UNLOCK_NOTIFY is not defined. */
+        /* Omit this entire file if SQLITE_ENABLE_UNLOCK_NOTIFY is not defined. */
 #if SQLITE_ENABLE_UNLOCK_NOTIFY
-
 /*
 ** Public interfaces:
 **
@@ -69,7 +68,7 @@ static sqlite3 *SQLITE_WSD sqlite3BlockedList = 0;
 */
 static void checkListProperties(sqlite3 *db){
 sqlite3 *p;
-for(p=sqlite3BlockedList; p; p=p->pNextBlocked){
+for(p = sqlite3BlockedList; p; p = p->pNextBlocked){
 int seen = 0;
 sqlite3 *p2;
 
@@ -77,7 +76,7 @@ sqlite3 *p2;
 assert( p->pUnlockConnection || p->pBlockingConnection );
 
 /* Verify property (2) */
-for(p2=sqlite3BlockedList; p2!=p; p2=p2->pNextBlocked){
+for(p2 = sqlite3BlockedList; p2!=p; p2 = p2->pNextBlocked){
 if( p2->xUnlockNotify==p->xUnlockNotify ) seen = 1;
 assert( p2->xUnlockNotify==p->xUnlockNotify || !seen );
 assert( db==0 || p->pUnlockConnection!=db );
@@ -96,7 +95,7 @@ assert( db==0 || p->pBlockingConnection!=db );
 static void removeFromBlockedList(sqlite3 *db){
 sqlite3 **pp;
 assertMutexHeld();
-for(pp=&sqlite3BlockedList; *pp; pp = &(*pp)->pNextBlocked){
+for(pp = &sqlite3BlockedList; *pp; pp = &(*pp)->pNextBlocked){
 if( *pp==db ){
 *pp = (*pp)->pNextBlocked;
 break;
@@ -112,9 +111,9 @@ static void addToBlockedList(sqlite3 *db){
 sqlite3 **pp;
 assertMutexHeld();
 for(
-pp=&sqlite3BlockedList;
+pp = &sqlite3BlockedList;
 *pp && (*pp)->xUnlockNotify!=db->xUnlockNotify;
-pp=&(*pp)->pNextBlocked
+pp = &(*pp)->pNextBlocked
 );
 db->pNextBlocked = *pp;
 *pp = db;
@@ -182,7 +181,7 @@ xNotify(&pArg, 1);
 }else{
 sqlite3 *p;
 
-for(p=db->pBlockingConnection; p && p!=db; p=p->pUnlockConnection){}
+for(p = db->pBlockingConnection; p && p!=db; p = p->pUnlockConnection){}
 if( p ){
 rc = SQLITE_LOCKED;              /* Deadlock detected. */
 }else{
@@ -247,7 +246,7 @@ aArg = aStatic;
 enterMutex();         /* Enter STATIC_MASTER mutex */
 
 /* This loop runs once for each entry in the blocked-connections list. */
-for(pp=&sqlite3BlockedList; *pp; /* no-op */ ){
+for(pp = &sqlite3BlockedList; *pp; /* no-op */ ){
 sqlite3 *p = *pp;
 
 /* Step 1. */
@@ -342,5 +341,5 @@ checkListProperties(db);
 leaveMutex();
 }
 #endif
-  }
+    }
 }

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Community.CsharpSqlite.SQLiteClient\Community.CsharpSqlite.SQLiteClient.csproj" />
+    </ItemGroup>
+
+</Project>
