@@ -204,12 +204,20 @@ JOIN images ON map.tile_id = images.tile_id
 
         static void Main(string[] args)
         {
+
+            System.Console.WriteLine(" --- Press any key to continue --- ");
+            System.Console.ReadKey();
+        }
+
+
+        static void SpeedUpPlanetFile()
+        {
             const bool multiTableMode = true;
 
             // string tilesQuery = "SELECT zoom_level, tile_row, tile_column, tile_data FROM tiles ORDER BY zoom_level, tile_row, tile_column LIMIT 10 OFFSET 0";
             string tilesQuery = "SELECT zoom_level, tile_row, tile_column, tile_data FROM tiles ORDER BY zoom_level, tile_row, tile_column ";
 
-            string mbTilesSource = @"D:\username\Documents\Visual Studio 2017\Projects\VectorTileServer\VectorTileServer\wwwroot\2017-07-03_france_monaco.mbtiles"; 
+            string mbTilesSource = @"D:\username\Documents\Visual Studio 2017\Projects\VectorTileServer\VectorTileServer\wwwroot\2017-07-03_france_monaco.mbtiles";
             mbTilesSource = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
 
             string dataTarget = @"D:\username\Desktop\monaco.db3";
@@ -236,7 +244,7 @@ JOIN images ON map.tile_id = images.tile_id
                     {
                         for (int j = 0; j < 15; ++j)
                         {
-                            if(j < 17)
+                            if (j < 17)
                                 writeCommand.CommandText = string.Format(@"CREATE TABLE tiles_{0} (id INTEGER, tile_data BLOB);", j.ToString().PadLeft(2, '0'));
                             else
                                 writeCommand.CommandText = string.Format(@"CREATE TABLE tiles_{0} (id BIGINTEGER, tile_data BLOB);", j.ToString().PadLeft(2, '0'));
@@ -249,9 +257,9 @@ JOIN images ON map.tile_id = images.tile_id
                         writeCommand.CommandText = @"CREATE TABLE tiles(id BIGINTEGER, tile_data BLOB)";
                         writeCommand.ExecuteNonQuery();
                     }
-                    
-                    
-                        
+
+
+
                     writeCommand.CommandText = @"INSERT INTO tiles(id, tile_data) VALUES (@id, @tile)"; ;
                     writeCommand.Parameters.Add("@id", System.Data.DbType.Int64).Value = 0;
                     writeCommand.Parameters.Add("@tile", System.Data.DbType.Binary).Value = System.DBNull.Value;
@@ -273,7 +281,7 @@ JOIN images ON map.tile_id = images.tile_id
                                 y = InvertTmsY(y, zoom_level); // To TMS
 
 
-                                long a = multiTableMode ? ToSingleNumberWithoutZoomLevel(x, y, zoom_level): ToSingleNumber(x, y, zoom_level);
+                                long a = multiTableMode ? ToSingleNumberWithoutZoomLevel(x, y, zoom_level) : ToSingleNumber(x, y, zoom_level);
 
 
                                 byte[] data = null;
@@ -285,7 +293,7 @@ JOIN images ON map.tile_id = images.tile_id
 
                                 if (multiTableMode)
                                     writeCommand.CommandText = string.Format(@"INSERT INTO tiles_{0}(id, tile_data) VALUES (@id, @tile)", zoom_level.ToString().PadLeft(2, '0'));
-                                
+
                                 writeCommand.Parameters["@id"].Value = a;
                                 writeCommand.Parameters["@tile"].Value = data;
                                 writeCommand.Parameters["@tile"].Size = data.Length;
@@ -321,7 +329,7 @@ JOIN images ON map.tile_id = images.tile_id
                         writeCommand.CommandText = @"CREATE INDEX IX_tiles_id ON tiles(id);";
                         writeCommand.ExecuteNonQuery();
                     }
-                    
+
 
                 } // End Using writeCommand 
 
@@ -330,9 +338,7 @@ JOIN images ON map.tile_id = images.tile_id
                     targetConnection.Close();
             } // End Using targetConnection
 
-            System.Console.WriteLine(" --- Press any key to continue --- ");
-            System.Console.ReadKey();
-        } // End Sub Main 
+        } // End Sub SpeedUpPlanetFile 
 
 
 
