@@ -30,6 +30,67 @@
     <script src="libs/mapbox/mapbox-gl-language.js"></script>
     <script src="libs/leaflet/leaflet-mapbox-gl.js"></script>
 
+
+
+    <script>
+
+        // https://stackoverflow.com/questions/1043339/javascript-for-detecting-browser-language-preference
+        function getFirstBrowserLanguage()
+        {
+            var nav = window.navigator,
+                browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],
+                i,
+                language;
+
+            // support for HTML 5.1 "navigator.languages"
+            //if (Array.isArray(nav.languages)) // IE8-trap
+            if (Object.prototype.toString.call(nav.languages) === '[object Array]')
+            {
+                for (i = 0; i < nav.languages.length; i++)
+                {
+                    language = nav.languages[i];
+                    if (language && language.length)
+                    {
+                        return language;
+                    }
+                }
+            }
+
+            // support for other well known properties in browsers
+            for (i = 0; i < browserLanguagePropertyKeys.length; i++)
+            {
+                language = nav[browserLanguagePropertyKeys[i]];
+                if (language && language.length)
+                {
+                    return language;
+                }
+            }
+
+            return null;
+        }
+
+
+        function getBrowserLanguage(dft)
+        {
+            var bl = getFirstBrowserLanguage() || dft,
+                pos = bl.indexOf("-");
+            if (pos !== -1)
+                bl = bl.substr(0, pos);
+
+            return bl;
+        }
+
+
+        function getUserLanguage()
+        {
+            var l = null;
+            // TODO: get login-user prefered language
+
+            return l || getBrowserLanguage("de");
+        }
+
+    </script>
+
 </head>
 
 <body>
@@ -64,6 +125,8 @@
                 {
                     if (gl._glMap.style._layers[keys[i]].layout._values["text-field"].value.value.indexOf("name:") != -1) 
                     {
+                        // var languageField = "name:" + getUserLanguage();
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", languageField], ["get", "name:latin"], ["get", "name:nonlatin"]]);
                         gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
                     }
                     
