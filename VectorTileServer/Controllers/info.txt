@@ -1,0 +1,43 @@
+
+https://openmaptiles.org/docs/generate/generate-openmaptiles/
+
+
+
+
+https://wiki.openstreetmap.org/wiki/Stats
+http://k1z.blog.uni-heidelberg.de/2018/09/21/how-big-is-osm-estimating-the-size-of-openstreetmaps-history/
+
+2018: 2 TB XML
+
+
+
+https://help.openstreetmap.org/questions/52789/how-much-disk-space-do-i-need-to-import-planetosm-into-openstreetmap-database
+
+I guess you will need about 3 TB of disk space and and it will take about 2 weeks.
+
+In order to get a more reliable estimate, run the import with a small(er) extract first. 
+The australia-oceania.osm.pbf from download.geofabrik.de is a nice test case 
+because it is roughly 1/100 of the planet, so import that and multiply the numbers by 100.
+
+I just did a fresh import, but using osm2pgsql, size with slim tables: 558G (on a SSD Samsung 850 pro 1To). 
+Took 38hours.
+
+
+
+
+https://github.com/openmaptiles/openmaptiles-tools
+OpenMapTiles toolbox for generating TM2Source projects, imposm3 mappings and SQL instructions from OpenMapTiles layers. 
+https://github.com/openmaptiles/openmaptiles-tools/blob/master/bin/generate-tm2source
+
+https://github.com/openmaptiles/generate-vectortiles
+A Docker image to export MBTiles (containing gzipped MVT PBF) from a TM2Source project. 
+The TM2Source project usually references a database you need to link against this container.
+TM2: TileMill2
+
+
+https://github.com/openmaptiles/openmaptiles
+
+
+
+https://hub.docker.com/r/openmaptiles/generate-vectortiles
+
