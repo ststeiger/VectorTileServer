@@ -33,13 +33,58 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 using System.Globalization;
 using System.Text;
 
 namespace Community.CsharpSqlite.SQLiteClient
 {
+
+
+    // Fixes benchmark-compilation 
+    /// <summary>
+    ///     Controls the synchronization mode for writes to the database.
+    /// </summary>
+    /// <remarks>
+    ///     Modes numbers and descriptions are from https://www.sqlite.org/pragma.html#pragma_synchronous.
+    ///     Note that they are not identical to <see cref="System.Data.SQLite.SynchronizationModes" /> or else we
+    ///     may have re-used that.
+    /// </remarks>
+    public enum SynchronizationModes
+    {
+        /// <summary>
+        ///     With synchronous OFF (0), SQLite continues without syncing as soon as it has handed data off to the operating system.
+        ///     If the application running SQLite crashes, the data will be safe, but the database might become corrupted if the
+        ///     operating system crashes or the computer loses power before that data has been written to the disk surface.
+        ///     On the other hand, commits can be orders of magnitude faster with synchronous OFF.
+        /// </summary>
+        Off = 0,
+
+        /// <summary>
+        ///     When synchronous is NORMAL (1), the SQLite database engine will still sync at the most critical moments,
+        ///     but less often than in FULL mode. There is a very small (though non-zero) chance that a power failure at just the
+        ///     wrong time could corrupt the database in NORMAL mode. But in practice, you are more likely to suffer a catastrophic
+        ///     disk failure or some other unrecoverable hardware fault. Many applications choose NORMAL when in WAL mode.
+        /// </summary>
+        Normal = 1,
+
+        /// <summary>
+        ///     When synchronous is FULL (2), the SQLite database engine will use the xSync method of the VFS to ensure that all
+        ///     content is safely written to the disk surface prior to continuing. This ensures that an operating system crash or power
+        ///     failure will not corrupt the database. FULL synchronous is very safe, but it is also slower. FULL is the most commonly
+        ///     used synchronous setting when not in WAL mode.
+        /// </summary>
+        Full = 2,
+
+        /// <summary>
+        ///     EXTRA synchronous is like FULL with the addition that the directory containing a rollback journal is synced after
+        ///     that journal is unlinked to commit a transaction in DELETE mode. EXTRA provides additional durability if the commit
+        ///     is followed closely by a power loss.
+        /// </summary>
+        Extra = 3
+    }
+
+
     public sealed class SqliteConnectionStringBuilder : DbConnectionStringBuilder
     {
         private const string DEF_URI = null;
@@ -50,8 +95,15 @@ namespace Community.CsharpSqlite.SQLiteClient
         private const bool DEF_READONLY = false;
         private const bool DEF_FAILIFMISSING = false;
 
-        #region // Fields
 
+
+        public SynchronizationModes SyncMode; // Fixes benchmark-compilation 
+        public int PageSize; // Fixes benchmark-compilation 
+
+
+
+
+        #region // Fields
         private string _uri;
         private Int32 _mode;
         private Int32 _version;
@@ -61,11 +113,9 @@ namespace Community.CsharpSqlite.SQLiteClient
         private bool _failIfMissing;
 
         private static Dictionary<string, string> _keywords; // for mapping duplicate keywords
-
         #endregion // Fields
 
         #region Constructors
-
         public SqliteConnectionStringBuilder() : this(String.Empty)
         {
         }
@@ -92,11 +142,9 @@ namespace Community.CsharpSqlite.SQLiteClient
             _keywords["READONLY"] = "Read Only";
             _keywords["FAILIFMISSING"] = "FailIfMissing";
         }
-
         #endregion // Constructors
 
         #region Properties
-
         public string DataSource
         {
             get { return _uri; }
@@ -201,11 +249,9 @@ namespace Community.CsharpSqlite.SQLiteClient
         {
             get { return base.Values; }
         }
-
         #endregion // Properties
 
         #region Methods
-
         private void Init()
         {
             _uri = DEF_URI;
@@ -246,14 +292,12 @@ namespace Community.CsharpSqlite.SQLiteClient
                 value = String.Empty;
                 return false;
             }
-
             return base.TryGetValue(_keywords[keyword.ToUpper().Trim()], out value);
         }
 
         #endregion // Methods
 
         #region Private Methods
-
         private string MapKeyword(string keyword)
         {
             keyword = keyword.ToUpper().Trim();
@@ -279,7 +323,6 @@ namespace Community.CsharpSqlite.SQLiteClient
                     }
                     else
                         this.Uri = value.ToString();
-
                     break;
 
                 case "MODE":
@@ -290,7 +333,6 @@ namespace Community.CsharpSqlite.SQLiteClient
                     }
                     else
                         this.Mode = ConvertToInt32(value);
-
                     break;
 
                 case "VERSION":
@@ -301,7 +343,6 @@ namespace Community.CsharpSqlite.SQLiteClient
                     }
                     else
                         this.Version = ConvertToInt32(value);
-
                     break;
 
                 case "BUSY TIMEOUT":
@@ -312,7 +353,6 @@ namespace Community.CsharpSqlite.SQLiteClient
                     }
                     else
                         this.BusyTimeout = ConvertToInt32(value);
-
                     break;
 
                 case "ENCODING":
@@ -323,11 +363,10 @@ namespace Community.CsharpSqlite.SQLiteClient
                     }
                     else if (value is string)
                     {
-                        this.Encoding = Encoding.GetEncoding((string) value);
+                        this.Encoding = Encoding.GetEncoding((string)value);
                     }
                     else
                         throw new ArgumentException("Cannot set encoding from a non-string argument");
-
                     break;
 
                 case "READ ONLY":
@@ -338,7 +377,6 @@ namespace Community.CsharpSqlite.SQLiteClient
                     }
                     else
                         this.ReadOnly = ConvertToBoolean(value);
-
                     break;
 
                 case "FAILIFMISSING":
@@ -349,7 +387,6 @@ namespace Community.CsharpSqlite.SQLiteClient
                     }
                     else
                         this.FailIfMissing = ConvertToBoolean(value);
-
                     break;
 
                 default:
@@ -373,7 +410,6 @@ namespace Community.CsharpSqlite.SQLiteClient
                 return false;
             throw new ArgumentException(String.Format("Invalid boolean value: {0}", value.ToString()));
         }
-
         #endregion // Private Methods
     }
 }
