@@ -18,7 +18,7 @@ namespace TestSQLite
 
 
 
-    class Program
+    class NotProgram
     {
 
 
@@ -182,7 +182,7 @@ JOIN images ON map.tile_id = images.tile_id
         } // End Function FromTmsY 
 
 
-        static void Main(string[] args)
+        static void Test()
         {
             // https://localhost:44378/tiles/8528/5975/14
             int x = 8528, y = 5975, z = 14;
