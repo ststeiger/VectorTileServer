@@ -10,7 +10,6 @@ http://k1z.blog.uni-heidelberg.de/2018/09/21/how-big-is-osm-estimating-the-size-
 2018: 2 TB XML
 
 
-
 https://help.openstreetmap.org/questions/52789/how-much-disk-space-do-i-need-to-import-planetosm-into-openstreetmap-database
 
 I guess you will need about 3 TB of disk space and and it will take about 2 weeks.
@@ -42,13 +41,21 @@ https://github.com/openmaptiles/openmaptiles
 https://hub.docker.com/r/openmaptiles/generate-vectortiles
 
 
--------------
+-- --------------------------------------------------------------------------------------------------------
+https://gis.stackexchange.com/questions/132245/extract-country-border-from-openstreetmap
+https://gist.github.com/graydon/11198540
+-- --------------------------------------------------------------------------------------------------------
+
+
+https://wiki.openstreetmap.org/wiki/Tiles
 
 
 
 X: NUM_COLUMNS
 Y: NUM_ROWS
 Z: NUM_ZOOMLEVELS
+PBF: ProtocolBufferBinaryFormat
+
 
 total_zoomlevel = NUM_COLUMNS*NUM_ROWS
 
