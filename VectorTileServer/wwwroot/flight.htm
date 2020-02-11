@@ -23,9 +23,110 @@
     <script src="libs/mapbox/mapbox-gl-language.js"></script>
     <script src="libs/leaflet/leaflet-mapbox-gl.js"></script>
 
+    <script>//<![CDATA[
 
 
-    <script>
+        // Builds LeafletJS map based on segment coordinates
+        // https://yorkstreetlabs.com/blog/plot-a-multiple-segment-flight-path-with-leafletjs-and-openstreetmap/
+
+        var MapBuilder = function ()
+        {
+
+            var map;
+
+            var buildMap = function (from)
+            {
+                var from_coord = new L.LatLng(from.lat, from.lng);
+
+                // init map
+                map = L.map('results-map', { zoomControl: false, worldCopyJump: true }).setView([from_coord.lat, from_coord.lng], 10);
+
+                // create the tile layer with correct attribution
+                var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                var osmAttrib = 'Map data © OpenStreetMap contributors';
+                var osm = new L.TileLayer(osmUrl, { attribution: osmAttrib });
+
+                map.addLayer(osm);
+            };
+
+            var buildSegment = function (from, to)
+            {
+                // build Leaflet coordinates from GPS
+                var from_coord = new L.LatLng(from.lat, from.lng);
+                var to_coord = new L.LatLng(to.lat, to.lng);
+
+                // iron out longitude wrapping
+                if (Math.abs(to_coord.lng - to_coord.lng) > 180)
+                {
+                    to_coord = to_coord.wrap(179, -179);
+                }
+
+                // build arc coordinates
+                var from_arc_coord = new arc.Coord(from_coord.lng, from_coord.lat);
+                var to_arc_coord = new arc.Coord(to_coord.lng, to_coord.lat);
+
+                // render our Great Circle
+                var gc = new arc.GreatCircle(from_arc_coord, to_arc_coord, { 'name': '' });
+                var line = gc.Arc(150); // specify number of segments, higher = smoother
+
+                // build Leaflet-friendly points array
+                var points = [];
+
+                for (var i = 0; i < line.geometries[0].coords.length; i++)
+                {
+                    points.push(new L.LatLng(line.geometries[0].coords[i][1], line.geometries[0].coords[i][0]));
+                }
+
+                // draw polyline with blue color
+                var polyline = new L.Polyline(points, {
+                    color: 'blue',
+                    weight: 2,
+                    opacity: 1,
+                    smoothFactor: 1
+                }).addTo(map);
+
+                // add markers showing the airport codes
+                L.marker(from_coord).bindLabel(from.iata, { noHide: true }).addTo(map);
+                L.marker(to_coord).bindLabel(to.iata, { noHide: true }).addTo(map);
+            };
+
+            var fitMapBounds = function (from, to)
+            {
+                var from_coord = new L.LatLng(from.lat, from.lng);
+                var to_coord = new L.LatLng(to.lat, to.lng);
+
+                map.fitBounds([from_coord, to_coord], { 'padding': [50, 50] });
+            };
+
+            return {
+                init: function ()
+                {
+                    // create Leaflet map
+                    buildMap(data.segments[0]);
+
+                    // add segments
+                    for (i in data.segments)
+                    {
+                        buildSegment(data.segments[i].from, data.segments.to);
+                    }
+
+                    // make sure bounds work based on start and final end coordinates
+                    fitMapBounds(data.segments[0], data.segments[2]);
+                }
+            };
+
+        }();
+
+        // init MapBuilder when page is ready
+        (function ()
+        {
+            MapBuilder.init();
+        })();
+
+    //]]>
+    </script>
+
+    <script>//<![CDATA[
 
         // https://stackoverflow.com/questions/1043339/javascript-for-detecting-browser-language-preference
         function getFirstBrowserLanguage()
@@ -129,10 +230,11 @@
             return result;
         } // End Function IEdetection
 
+    //]]>
     </script>
 
 
-    <style type="text/css">
+    <style type="text/css">/*<![CDATA[*/
 
         * {
             cursor: default !important;
@@ -197,6 +299,8 @@
                 .zoomControl .mp:hover {
                     background-color: #F0F0F0;
                 }
+
+        /*]]>*/
     </style>
 
 </head>
@@ -210,7 +314,7 @@
         <div class="mp" style="border-bottom-left-radius: 5mm; border-bottom-right-radius: 5mm;" onclick="map.zoomOut()">-</div><div style="clear: both;"></div>
     </div>
 
-    <script>
+    <script type="text/javascript">//<![CDATA[
 
         var latitude = 43.725359;
         var longitude = 7.418737;
@@ -286,7 +390,7 @@
 
         // leaflet flyto
 
-
+        //]]>
     </script>
 </body>
 </html>
