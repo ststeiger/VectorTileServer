@@ -14,13 +14,6 @@
     <title>WebGL</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        html, body, #map {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-        }
-    </style>
 
     <link rel="stylesheet" href="libs/leaflet/leaflet.css" />
     <script src="libs/leaflet/leaflet.js"></script>
@@ -134,15 +127,88 @@
 
             // User uses other browser
             return result;
-        } // End Function IEdetection 
+        } // End Function IEdetection
 
     </script>
+
+
+    <style type="text/css">
+
+        * {
+            cursor: default !important;
+        }
+
+        html, body, #map {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .leaflet-tooltip-top {
+            margin-top: -19px !important;
+        }
+
+        .leaflet-control-attribution {
+            display: block;
+            white-space: nowrap;
+            #transform: scale(0.9, 0.9) translate(5%, 10%);
+            #transform: scale(0.5, 0.5) translate(50%, 50%);
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+        }
+
+        .leaflet-interactive {
+            cursor: pointer !important;
+        }
+
+
+        .zoomControl {
+            position: absolute;
+            display: block;
+            top: 30px;
+            left: 30px;
+            z-index: 9999;
+            background-color: white;
+            opacity: 0.85;
+            border: 1px solid gray;
+            border-radius: 5mm;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .zoomControl .mp {
+                display: table-cell;
+                width: 1cm;
+                height: 1cm;
+                text-align: center;
+                vertical-align: middle;
+                #font: 5mm/1.5 Arial, Helvetica, sans-serif;
+                font-family: "Lucida Console", Monaco, monospace;
+                font-size: 5mm;
+                color: gray;
+            }
+
+                .zoomControl .mp:hover {
+                    background-color: #F0F0F0;
+                }
+    </style>
 
 </head>
 
 <body>
     <div id="map"></div>
 
+    <div class="zoomControl">
+        <div class="mp" style="border-top-left-radius: 5mm; border-top-right-radius: 5mm;" onclick="map.zoomHome()">&#x2606;</div><div style="clear: both;"></div>
+        <div class="mp" onclick="map.zoomIn()">+</div><div style="clear: both;"></div>
+        <div class="mp" style="border-bottom-left-radius: 5mm; border-bottom-right-radius: 5mm;" onclick="map.zoomOut()">-</div><div style="clear: both;"></div>
+    </div>
 
     <script>
 
@@ -152,8 +218,8 @@
         var style = document.location.origin + document.location.pathname.replace(/[^\/]*$/, '') + "styles/bright/style.json";
         // style = "https://localhost:44378/styles/bright/style.json";
 
-        var map = L.map('map', { /*zoomControl: false, */ minZoom: 2, maxZoom: 22 }).setView([latitude, longitude], 15);
-        
+        var map = L.map('map', { zoomControl: false, minZoom: 2, maxZoom: 22 }).setView([latitude, longitude], 15);
+
         var gl = L.mapboxGL( // 'https://localhost:44378/{x}/{y}/{z}',
             {
                 accessToken: 'no-token',
@@ -163,36 +229,36 @@
                 updateInterval: IEdetection().crap ? 5 : 20, // per 50 ms
                 attribution: '<a target="blank" href="https://github.com/ststeiger/VectorTileServer ">Steiger&apos;s public vector tile server</a> | <a target="blank" href="https://openmaptiles.org ">OpenMapTiles</a> | Map data &copy; <a target="blank" href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
                 //style: 'https://raw.githubusercontent.com/osm2vectortiles/mapbox-gl-styles/master/styles/bright-v9-cdn.json'
-                "style": style 
+                "style": style
             }
         ).addTo(map);
 
-        gl._glMap.on('load', function () 
+        gl._glMap.on('load', function ()
         {
             var keys = Object.keys(gl._glMap.style._layers);
 
-            for (var i = 0; i < keys.length; ++i) 
+            for (var i = 0; i < keys.length; ++i)
             {
-                if (((gl._glMap.style._layers[keys[i]].layout || {})._values || {})["text-field"]) 
+                if (((gl._glMap.style._layers[keys[i]].layout || {})._values || {})["text-field"])
                 {
-                    if (gl._glMap.style._layers[keys[i]].layout._values["text-field"].value.value.indexOf("name:") != -1) 
+                    if (gl._glMap.style._layers[keys[i]].layout._values["text-field"].value.value.indexOf("name:") != -1)
                     {
                         // var languageField = "name:" + getUserLanguage();
                         // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", languageField], ["get", "name:latin"], ["get", "name:nonlatin"]]);
                         gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
                     }
-                    
+
                 }
-                
-            } // Next i 
-            
+
+            } // Next i
+
         });
 
         var mapBounds = L.latLngBounds([
             [43.71, 7.349],
             [43.77, 7.491]
         ]);
-        
+
         L.marker([latitude, longitude])
             .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
             .addTo(map)
@@ -205,6 +271,16 @@
             var lng = coord.lng;
             console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
         });
+
+
+        var assumeSwiss = [[45.77694774030000246512, 6.02260949058999983663], [47.83082754170000328031, 10.44270145019999951330]];
+        var initialBounds = L.latLngBounds(assumeSwiss);
+
+        map.zoomHome = function (homeView)
+        {
+            map.fitBounds(homeView);
+        }.bind(this, initialBounds);
+
 
     </script>
 </body>
