@@ -137,3 +137,24 @@ ll multiply(ll x, ll n)
 } 
 
 ==> (x << n)
+
+
+
+
+leaflet to wkt and vice-versa 
+
+https://jsfiddle.net/6tt646oc/3/
+https://jsfiddle.net/ve4Lkdsh/
+https://github.com/Esri/terraformer-wkt-parser
+
+https://leafletjs.com/plugins.html
+
+https://arthur-e.github.io/Wicket/
+
+https://gis.stackovernet.com/de/q/44123
+
+https://gis.stackexchange.com/questions/162842/convert-wkt-to-geojson-with-leaflet
+
+
+https://www.geeksforgeeks.org/characteristics-of-data-in-geographical-information-system-gis/
+
