@@ -18,6 +18,8 @@ namespace TestSQLite
 
 
 
+
+
     class Program
     {
 
@@ -179,12 +181,14 @@ JOIN images ON map.tile_id = images.tile_id
         public static int InvertTmsY(int tmsY, int zoom)
         {
             return (1 << zoom) - tmsY - 1; // = 2^zoom - tmsY - 1
-        } // End Function FromTmsY 
+        } // End Function InvertTmsY 
+
 
         public static long InvertTmsY(long tmsY, long zoom)
         {
             return (1L << (int)zoom) - tmsY - 1L; // = 2^zoom - tmsY - 1
-        } // End Function FromTmsY 
+        } // End Function InvertTmsY 
+
 
         public static void TestGetTile()
         {
@@ -204,6 +208,14 @@ JOIN images ON map.tile_id = images.tile_id
 
         static void Main(string[] args)
         {
+            string[] files = GetZoomLevelFiles(@"D:\temp", 20);
+            string[] queries = GetZoomLevelQueries(20);
+
+            System.Console.WriteLine(files);
+            System.Console.WriteLine(queries);
+
+            SpeedUpPlanetFile();
+
 
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();
@@ -231,8 +243,12 @@ JOIN images ON map.tile_id = images.tile_id
 
             SQLiteConnection.CreateFile(dataTarget);
 
+            int previousZoomLevel = -1;
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+
             // https://stackoverflow.com/questions/633274/what-causes-a-journal-file-to-be-created-in-sqlite/633390
-            using (SQLiteConnection targetConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3; Journal Mode=Off;", dataTarget)))
+            using (SQLiteConnection targetConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3; Journal Mode=Off; Synchronous=OFF", dataTarget)))
             {
                 if (targetConnection.State != System.Data.ConnectionState.Open)
                     targetConnection.Open();
@@ -260,7 +276,7 @@ JOIN images ON map.tile_id = images.tile_id
 
 
 
-                    writeCommand.CommandText = @"INSERT INTO tiles(id, tile_data) VALUES (@id, @tile)"; ;
+                    writeCommand.CommandText = @"INSERT INTO tiles(id, tile_data) VALUES (@id, @tile)";
                     writeCommand.Parameters.Add("@id", System.Data.DbType.Int64).Value = 0;
                     writeCommand.Parameters.Add("@tile", System.Data.DbType.Binary).Value = System.DBNull.Value;
 
@@ -278,7 +294,21 @@ JOIN images ON map.tile_id = images.tile_id
                                 int zoom_level = reader.GetInt32(reader.GetOrdinal("zoom_level"));
                                 int x = reader.GetInt32(reader.GetOrdinal("tile_row"));
                                 int y = reader.GetInt32(reader.GetOrdinal("tile_column"));
+
                                 y = InvertTmsY(y, zoom_level); // To TMS
+
+                                if (previousZoomLevel != zoom_level)
+                                {
+                                    sw.Stop();
+                                    previousZoomLevel = zoom_level;
+                                    System.Console.Write("Reached zoom-level ");
+                                    System.Console.WriteLine(zoom_level);
+
+                                    System.Console.Write("Elapsed time (ms): ");
+                                    System.Console.WriteLine(sw.ElapsedMilliseconds);
+                                    sw.Reset();
+                                    sw.Start();
+                                } // End if (previousZoomLevel != zoom_level) 
 
 
                                 long a = multiTableMode ? ToSingleNumberWithoutZoomLevel(x, y, zoom_level) : ToSingleNumber(x, y, zoom_level);
@@ -339,6 +369,38 @@ JOIN images ON map.tile_id = images.tile_id
             } // End Using targetConnection
 
         } // End Sub SpeedUpPlanetFile 
+
+
+        public static string[] GetZoomLevelFiles(string baseDir, long maxZoomLevel)
+        {
+            string[] files = new string[maxZoomLevel];
+
+            for (int i = 0; i < maxZoomLevel; ++i)
+            {
+                files[i] = @"planet_at_zoom_" + i.ToString(System.Globalization.CultureInfo.InvariantCulture).PadLeft(2, '0') + ".db3";
+                files[i] = System.IO.Path.Combine(baseDir, files[i]);
+
+                files[i] = string.Format("Data Source={0};Version=3; Read Only=True;", files[i]);
+            } // Next i 
+
+            return files;
+        } // End Function GetZoomLevelFiles 
+
+
+        public static string[] GetZoomLevelQueries(long maxZoomLevel)
+        {
+            string[] queries = new string[maxZoomLevel];
+
+            for (int i = 0; i < maxZoomLevel; ++i)
+            {
+                queries[i] = string.Format("SELECT tile_data FROM tiles_{0} WHERE id = @id", i.ToString(System.Globalization.CultureInfo.InvariantCulture).PadLeft(2, '0'));
+            } // Next i 
+
+            // queries[0] = "SELECT tile_data FROM tiles WHERE id = @id";
+
+            return queries;
+        } // End Function GetZoomLevelQueries 
+
 
 
 
