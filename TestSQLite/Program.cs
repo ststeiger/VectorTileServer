@@ -224,7 +224,7 @@ JOIN images ON map.tile_id = images.tile_id
 
         static void SpeedUpPlanetFile()
         {
-            const bool multiTableMode = true;
+            const bool multiTableMode = false;
 
             // string tilesQuery = "SELECT zoom_level, tile_row, tile_column, tile_data FROM tiles ORDER BY zoom_level, tile_row, tile_column LIMIT 10 OFFSET 0";
             string tilesQuery = "SELECT zoom_level, tile_row, tile_column, tile_data FROM tiles ORDER BY zoom_level, tile_row, tile_column ";
