@@ -215,8 +215,7 @@ JOIN images ON map.tile_id = images.tile_id
             System.Console.WriteLine(queries);
 
             SpeedUpPlanetFile();
-
-
+            
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();
         }
@@ -225,149 +224,151 @@ JOIN images ON map.tile_id = images.tile_id
         static void SpeedUpPlanetFile()
         {
             const bool multiTableMode = false;
+            const bool multiFileMode = true;
+            string mbTilesSource = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
+            string targetDirectory = @"E:\planet";
 
-            // string tilesQuery = "SELECT zoom_level, tile_row, tile_column, tile_data FROM tiles ORDER BY zoom_level, tile_row, tile_column LIMIT 10 OFFSET 0";
-            string tilesQuery = "SELECT zoom_level, tile_row, tile_column, tile_data FROM tiles ORDER BY zoom_level, tile_row, tile_column ";
-
-            string mbTilesSource = @"D:\username\Documents\Visual Studio 2017\Projects\VectorTileServer\VectorTileServer\wwwroot\2017-07-03_france_monaco.mbtiles";
-            mbTilesSource = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
-
-            string dataTarget = @"D:\username\Desktop\monaco.db3";
-            dataTarget = @"E:\planet{0}.db3";
-
-            dataTarget = string.Format(dataTarget, multiTableMode ? "_multiTableMode" : "");
-
-
-            if (System.IO.File.Exists(dataTarget))
-                System.IO.File.Delete(dataTarget);
-
-            SQLiteConnection.CreateFile(dataTarget);
-
-            int previousZoomLevel = -1;
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            sw.Start();
-
-            // https://stackoverflow.com/questions/633274/what-causes-a-journal-file-to-be-created-in-sqlite/633390
-            using (SQLiteConnection targetConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3; Journal Mode=Off; Synchronous=OFF", dataTarget)))
+            // https://stackoverflow.com/questions/12831504/optimizing-fast-access-to-a-readonly-sqlite-database
+            // https://blog.devart.com/increasing-sqlite-performance.html
+            using (SQLiteConnection sourceConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3; Read Only=True;", mbTilesSource)))
             {
-                if (targetConnection.State != System.Data.ConnectionState.Open)
-                    targetConnection.Open();
+                if (sourceConnection.State != System.Data.ConnectionState.Open)
+                    sourceConnection.Open();
 
-                using (SQLiteCommand writeCommand = new SQLiteCommand("", targetConnection))
+                long minZoomLevel = -1;
+                long maxZoomLevel = -1;
+
+                using (SQLiteCommand cmdCount = new SQLiteCommand("SELECT MIN(zoom_level) FROM tiles", sourceConnection))
                 {
+                    minZoomLevel = (long)cmdCount.ExecuteScalar();
+                }
 
-                    if (multiTableMode)
+                using (SQLiteCommand cmdCount = new SQLiteCommand("SELECT MAX(zoom_level) FROM tiles", sourceConnection))
+                {
+                    maxZoomLevel = (long)cmdCount.ExecuteScalar();
+                    maxZoomLevel++;
+                }
+                
+
+                bool isFirstZoomLevel = true;
+
+                System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+
+                for (long currentZoomLevel = minZoomLevel; currentZoomLevel < maxZoomLevel; ++currentZoomLevel)
+                {
+                    System.Console.Write(System.DateTime.Now.ToString("dd'.'MM'.'yyyy' 'HH':'mm':'ss.fff': '"));
+                    System.Console.Write("Started processing zoom-level ");
+                    System.Console.WriteLine(currentZoomLevel);
+
+                    sw.Start();
+                    
+                    string idDataType = (currentZoomLevel < 17) ? "INTEGER" : "BIGINTEGER";
+                    string tableZoomLevelString = multiTableMode ? ("_" + currentZoomLevel.ToString().PadLeft(2, '0')) : "";
+                    string fileZoomLevelString = multiFileMode ? ("_" + currentZoomLevel.ToString().PadLeft(2, '0')) : "";
+                    string insertCommand = string.Format("INSERT INTO tiles{0}(id, tile_data) VALUES (@id, @tile);", tableZoomLevelString);
+                    string targetDatabase = string.Format("{0}{1}{2}.db3", targetDirectory, multiTableMode ? "_mt" : "", fileZoomLevelString);
+
+
+                    if (isFirstZoomLevel || multiFileMode)
                     {
-                        for (int j = 0; j < 15; ++j)
+                        if (System.IO.File.Exists(targetDatabase))
+                            System.IO.File.Delete(targetDatabase);
+
+                        SQLiteConnection.CreateFile(targetDatabase);
+                    } // End if (isFirstZoomLevel || multiFileMode) 
+
+                    // https://stackoverflow.com/questions/633274/what-causes-a-journal-file-to-be-created-in-sqlite/633390
+                    // https://stackoverflow.com/questions/1711631/improve-insert-per-second-performance-of-sqlite
+                    using (SQLiteConnection targetConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3; Journal Mode=Off; Synchronous=OFF", targetDatabase)))
+                    {
+                        if (targetConnection.State != System.Data.ConnectionState.Open)
+                            targetConnection.Open();
+
+                        string createTableCommand = "CREATE TABLE tiles(id BIGINTEGER, tile_data BLOB);";
+
+                        if (multiTableMode || multiFileMode)
                         {
-                            if (j < 17)
-                                writeCommand.CommandText = string.Format(@"CREATE TABLE tiles_{0} (id INTEGER, tile_data BLOB);", j.ToString().PadLeft(2, '0'));
-                            else
-                                writeCommand.CommandText = string.Format(@"CREATE TABLE tiles_{0} (id BIGINTEGER, tile_data BLOB);", j.ToString().PadLeft(2, '0'));
+                            createTableCommand = string.Format("CREATE TABLE tiles{0}(id {1}, tile_data BLOB);", tableZoomLevelString, idDataType);
+                        }
 
-                            writeCommand.ExecuteNonQuery();
-                        } // Next j 
-                    }
-                    else
-                    {
-                        writeCommand.CommandText = @"CREATE TABLE tiles(id BIGINTEGER, tile_data BLOB)";
-                        writeCommand.ExecuteNonQuery();
-                    }
+                        if ((!multiTableMode && !multiFileMode && isFirstZoomLevel) || multiFileMode || multiTableMode)
+                        {
+                            using (SQLiteCommand cmdCreateTable = new SQLiteCommand(createTableCommand, targetConnection))
+                            {
+                                cmdCreateTable.ExecuteNonQuery();
+                            }
+                        } // End if ((!multiTableMode && !multiFileMode && isFirstZoomLevel) || multiFileMode || multiTableMode) 
 
 
+                        string tilesQuery = "SELECT zoom_level, tile_row, tile_column, tile_data FROM tiles WHERE zoom_level = @zoom_level ORDER BY tile_row, tile_column ";
 
-                    writeCommand.CommandText = @"INSERT INTO tiles(id, tile_data) VALUES (@id, @tile)";
-                    writeCommand.Parameters.Add("@id", System.Data.DbType.Int64).Value = 0;
-                    writeCommand.Parameters.Add("@tile", System.Data.DbType.Binary).Value = System.DBNull.Value;
-
-                    using (SQLiteConnection sourceConnection = new SQLiteConnection(string.Format("Data Source={0};Version=3; Read Only=True;", mbTilesSource)))
-                    {
-                        if (sourceConnection.State != System.Data.ConnectionState.Open)
-                            sourceConnection.Open();
 
                         using (SQLiteCommand readCommand = new SQLiteCommand(tilesQuery, sourceConnection))
                         {
+                            readCommand.Parameters.Add("@zoom_level", System.Data.DbType.Int32).Value = currentZoomLevel;
+
                             SQLiteDataReader reader = readCommand.ExecuteReader(System.Data.CommandBehavior.SequentialAccess);
-
-                            while (reader.Read())
+                            using (SQLiteCommand writeCommand = new SQLiteCommand(insertCommand, targetConnection))
                             {
-                                int zoom_level = reader.GetInt32(reader.GetOrdinal("zoom_level"));
-                                int x = reader.GetInt32(reader.GetOrdinal("tile_row"));
-                                int y = reader.GetInt32(reader.GetOrdinal("tile_column"));
+                                writeCommand.Parameters.Add("@id", System.Data.DbType.Int64).Value = 0;
+                                writeCommand.Parameters.Add("@tile", System.Data.DbType.Binary).Value = System.DBNull.Value;
 
-                                y = InvertTmsY(y, zoom_level); // To TMS
-
-                                if (previousZoomLevel != zoom_level)
+                                while (reader.Read())
                                 {
-                                    sw.Stop();
-                                    previousZoomLevel = zoom_level;
-                                    System.Console.Write(System.DateTime.Now.ToString("dd'.'MM'.'yyyy' 'HH':'mm':'ss.fff': '"));
-                                    System.Console.Write("Reached zoom-level ");
-                                    System.Console.WriteLine(zoom_level);
+                                    int zoom_level = reader.GetInt32(reader.GetOrdinal("zoom_level"));
+                                    int x = reader.GetInt32(reader.GetOrdinal("tile_row"));
+                                    int y = reader.GetInt32(reader.GetOrdinal("tile_column"));
+                                    y = InvertTmsY(y, zoom_level); // To TMS
 
-                                    System.Console.Write("Elapsed time (ms): ");
-                                    System.Console.WriteLine(sw.ElapsedMilliseconds);
-                                    sw.Reset();
-                                    sw.Start();
-                                } // End if (previousZoomLevel != zoom_level) 
+                                    long newId = (multiTableMode || multiFileMode) ? ToSingleNumberWithoutZoomLevel(x, y, zoom_level) : ToSingleNumber(x, y, zoom_level);
+                                    
+                                    byte[] data = null;
+                                    using (System.IO.MemoryStream stream = (System.IO.MemoryStream)reader.GetStream(reader.GetOrdinal("tile_data")))
+                                    {
+                                        data = stream.ToArray();
+                                    } // End Using stream 
 
+                                    writeCommand.Parameters["@id"].Value = newId;
+                                    writeCommand.Parameters["@tile"].Value = data;
+                                    writeCommand.Parameters["@tile"].Size = data.Length;
+                                    writeCommand.ExecuteNonQuery();
+                                } // Whend 
 
-                                long a = multiTableMode ? ToSingleNumberWithoutZoomLevel(x, y, zoom_level) : ToSingleNumber(x, y, zoom_level);
-
-
-                                byte[] data = null;
-
-                                using (System.IO.MemoryStream stream = (System.IO.MemoryStream)reader.GetStream(reader.GetOrdinal("tile_data")))
-                                {
-                                    data = stream.ToArray();
-                                } // End Using stream 
-
-                                if (multiTableMode)
-                                    writeCommand.CommandText = string.Format(@"INSERT INTO tiles_{0}(id, tile_data) VALUES (@id, @tile)", zoom_level.ToString().PadLeft(2, '0'));
-
-                                writeCommand.Parameters["@id"].Value = a;
-                                writeCommand.Parameters["@tile"].Value = data;
-                                writeCommand.Parameters["@tile"].Size = data.Length;
-                                writeCommand.ExecuteNonQuery();
-
-                                // System.Console.Write(a);
-                                // System.Console.Write(": ");
-                                // System.Console.WriteLine(data.Length);
-                            } // Whend 
+                            } // End Using writeCommand
 
                         } // End Using readCommand 
 
-                        if (sourceConnection.State != System.Data.ConnectionState.Closed)
-                            sourceConnection.Close();
-                    } // End Using sourceConnection 
 
-                    for (int j = writeCommand.Parameters.Count - 1; j > 0; --j)
-                    {
-                        writeCommand.Parameters.RemoveAt(j);
-                    } // Next j 
-
-                    if (multiTableMode)
-                    {
-                        for (int j = 0; j < 15; ++j)
+                        // https://stackoverflow.com/questions/1711631/improve-insert-per-second-performance-of-sqlite
+                        if ((!multiTableMode && !multiFileMode && isFirstZoomLevel) || multiFileMode || multiTableMode)
                         {
-                            writeCommand.CommandText = string.Format(@"CREATE INDEX IX_tiles_{0}_id ON tiles_{0}(id);", j.ToString().PadLeft(2, '0'));
-                            writeCommand.ExecuteNonQuery();
-                        } // Next j 
+                            string createIndexCommand = string.Format("CREATE INDEX IX_tiles{0}_id ON tiles{0}(id);", tableZoomLevelString);
+                            using (SQLiteCommand cmdCreateIndex = new SQLiteCommand(createIndexCommand, targetConnection))
+                            {
+                                cmdCreateIndex.ExecuteNonQuery();
+                            } // End Using cmdCreateIndex
+                        } // End if ((!multiTableMode && !multiFileMode && isFirstZoomLevel) || multiFileMode || multiTableMode) 
 
-                    }
-                    else
-                    {
-                        writeCommand.CommandText = @"CREATE INDEX IX_tiles_id ON tiles(id);";
-                        writeCommand.ExecuteNonQuery();
-                    }
+                        if (targetConnection.State != System.Data.ConnectionState.Closed)
+                            targetConnection.Close();
 
+                    } // End Using targetConnection 
 
-                } // End Using writeCommand 
+                    sw.Stop();
 
+                    System.Console.Write(System.DateTime.Now.ToString("dd'.'MM'.'yyyy' 'HH':'mm':'ss.fff': '"));
+                    System.Console.Write("Finished zoom-level ");
+                    System.Console.WriteLine(currentZoomLevel);
+                    System.Console.Write("Elapsed time (ms): ");
+                    System.Console.WriteLine(sw.ElapsedMilliseconds);
+                    sw.Reset();
 
-                if (targetConnection.State != System.Data.ConnectionState.Closed)
-                    targetConnection.Close();
-            } // End Using targetConnection
+                    isFirstZoomLevel = false;
+                } // Next currentZoomLevel 
+
+                if (sourceConnection.State != System.Data.ConnectionState.Closed)
+                    sourceConnection.Close();
+            } // End Using sourceConnection 
 
         } // End Sub SpeedUpPlanetFile 
 
