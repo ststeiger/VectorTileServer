@@ -301,6 +301,7 @@ JOIN images ON map.tile_id = images.tile_id
                                 {
                                     sw.Stop();
                                     previousZoomLevel = zoom_level;
+                                    System.Console.Write(System.DateTime.Now.ToString("dd'.'MM'.'yyyy' 'HH':'mm':'ss.fff': '"));
                                     System.Console.Write("Reached zoom-level ");
                                     System.Console.WriteLine(zoom_level);
 
