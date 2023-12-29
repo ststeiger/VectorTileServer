@@ -223,8 +223,8 @@ JOIN images ON map.tile_id = images.tile_id
 
         static void SpeedUpPlanetFile()
         {
-            const bool multiTableMode = false;
-            const bool multiFileMode = true;
+            const bool multiTableMode = true;
+            const bool multiFileMode = false;
             string mbTilesSource = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
             string targetDirectory = @"E:\planet";
 
