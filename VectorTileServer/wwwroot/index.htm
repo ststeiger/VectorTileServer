@@ -212,8 +212,13 @@
 
     <script>
 
-        var latitude = 43.725359;
-        var longitude = 7.418737;
+        // var latitude = 43.725359;
+        // var longitude = 7.418737;
+
+        var latitude = 47.39091206104782;
+        var longitude = 8.539123535156252;
+
+
 
         var style = document.location.origin + document.location.pathname.replace(/[^\/]*$/, '') + "styles/bright/style.json";
         // style = "https://localhost:44378/styles/bright/style.json";
@@ -245,7 +250,11 @@
                     {
                         // var languageField = "name:" + getUserLanguage();
                         // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", languageField], ["get", "name:latin"], ["get", "name:nonlatin"]]);
-                        gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:de"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ar"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:fr"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:rm"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
                     }
 
                 }

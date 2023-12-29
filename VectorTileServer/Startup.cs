@@ -36,8 +36,11 @@ namespace VectorTileServer
                 // options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            
+            services.AddControllersWithViews();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         } // End Sub ConfigureServices 
 
 
@@ -66,12 +69,25 @@ namespace VectorTileServer
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            /*
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            */
+            
+            app.UseRouting();
+            
+            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+            
         } // End Sub Configure 
 
 

@@ -73,6 +73,10 @@ FROM
         {
             string webRoot = this.m_env.WebRootPath;
             string path = System.IO.Path.Combine(webRoot, @"2017-07-03_france_monaco.mbtiles");
+            path = "/root/docker/openmaptiles/data/switzerland.mbtiles";
+            // path = "/root/Downloads/maptiler-osm-2020-02-10-v3.11-planet.mbtiles";
+            
+            
             if("COR".Equals(System.Environment.UserDomainName, System.StringComparison.InvariantCultureIgnoreCase))
                 path = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
 
