@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mono.Data.Sqlite", "Mono.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.CsharpSqlite", "Community.CsharpSqlite\Community.CsharpSqlite.csproj", "{81FF601A-15E7-47F4-BAC6-04DAAA6E78A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.CsharpSqlite.SQLiteClient", "Community.CsharpSqlite.SQLiteClient\Community.CsharpSqlite.SQLiteClient.csproj", "{33100788-86F5-48D1-8A55-A0BCB19F5069}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.CsharpSqlite.SQLiteClient", "Community.CsharpSqlite.SQLiteClient\Community.CsharpSqlite.SQLiteClient.csproj", "{33100788-86F5-48D1-8A55-A0BCB19F5069}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSQLite", "TestSQLite\TestSQLite.csproj", "{9DDF6C3F-FE03-4B32-982C-0DCBA15EF8A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSQLite", "TestSQLite\TestSQLite.csproj", "{9DDF6C3F-FE03-4B32-982C-0DCBA15EF8A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer2", "VectorTileServer2\VectorTileServer2.csproj", "{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{9DDF6C3F-FE03-4B32-982C-0DCBA15EF8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DDF6C3F-FE03-4B32-982C-0DCBA15EF8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DDF6C3F-FE03-4B32-982C-0DCBA15EF8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
