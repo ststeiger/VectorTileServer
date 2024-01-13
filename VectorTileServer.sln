@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29728.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer", "VectorTileServer\VectorTileServer.csproj", "{D1D8C089-9635-4849-93FD-321E9FB25A19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorTileServer", "VectorTileServer\VectorTileServer.csproj", "{D1D8C089-9635-4849-93FD-321E9FB25A19}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapbox.VectorTile", "Mapbox.VectorTile\Mapbox.VectorTile.csproj", "{4767DFBE-290F-4BAE-BD81-22405E88ADA9}"
 EndProject
@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.CsharpSqlite.SQLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSQLite", "TestSQLite\TestSQLite.csproj", "{9DDF6C3F-FE03-4B32-982C-0DCBA15EF8A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer2", "VectorTileServer2\VectorTileServer2.csproj", "{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorTileServer2", "VectorTileServer2\VectorTileServer2.csproj", "{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer3", "VectorTileServer3\VectorTileServer3.csproj", "{9BF8AF6E-1DA7-4F64-814B-CB4DB3755D74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A3C1B04-653E-4C85-95C2-5D1D1109D3F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BF8AF6E-1DA7-4F64-814B-CB4DB3755D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF8AF6E-1DA7-4F64-814B-CB4DB3755D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF8AF6E-1DA7-4F64-814B-CB4DB3755D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF8AF6E-1DA7-4F64-814B-CB4DB3755D74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
