@@ -9,8 +9,6 @@ using Microsoft.AspNetCore.Hosting; // for MapGroup, MapGet
 namespace VectorTileServer3
 {
 
-    public record Todo(int Id, string? Title, System.DateOnly? DueBy = null, bool IsComplete = false);
-
 
     public class Program
     {
@@ -33,13 +31,10 @@ namespace VectorTileServer3
                 //options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Standard);
             });
 
-
+            string path = System.IO.Path.Combine(builder.Environment.WebRootPath, "switzerland.mbtiles");
             
-            string path = System.IO.Path.Combine(builder.Environment.WebRootPath, @"2017-07-03_france_monaco.mbtiles");
             if ("COR".Equals(System.Environment.UserDomainName, System.StringComparison.InvariantCultureIgnoreCase))
                 path = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
-
-            path = @"C:\Users\Stefanski\Documents\Visual Studio 2022\Gitlab\VectorTileServer\VectorTileServer\App_Data\2017-07-03_france_monaco.mbtiles";
 
             libWebAppBasics.Database.IConnectionFactory factory =
                 new libWebAppBasics.Database.ConnectionFactory(
@@ -56,8 +51,7 @@ namespace VectorTileServer3
             app.MapGet("/test", async delegate (Microsoft.AspNetCore.Http.HttpContext context) {
                 context.Response.ContentType = "text/plain";
                 context.Response.StatusCode = 200;
-                byte[] content = System.Text.Encoding.UTF8.GetBytes("hello world");
-                await context.Response.Body.WriteAsync(content);
+                await context.Response.WriteAsync("Hello World !");
             });
 
 
@@ -212,14 +206,14 @@ namespace VectorTileServer3
             app.UseDefaultFiles(dfo);
             app.UseStaticFiles();
             // app.UseCookiePolicy();
-
-
-
+            
             app.Run();
 
-
             return await System.Threading.Tasks.Task.FromResult(0);
-        }
+        } // End Task Main 
 
-    }
-}
+
+    } // End Class Program 
+
+
+} // End Namespace 
