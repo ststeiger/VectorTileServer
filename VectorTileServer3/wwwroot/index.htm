@@ -212,8 +212,12 @@
 
     <script>
 
-        var latitude = 47.5429730849784;
-        var longitude = 9.185996371033918;
+        // var latitude = 47.5429730849784;
+        // var longitude = 9.185996371033918;
+
+        var latitude = 47.10071305273902;
+        var longitude = 9.610508637577594;
+
 
         var style = document.location.origin + document.location.pathname.replace(/[^\/]*$/, '') + "styles/bright/style.json";
         // style = "https://localhost:44378/styles/bright/style.json";
@@ -260,7 +264,7 @@
         ]);
 
         L.marker([latitude, longitude])
-            .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
+            .bindPopup("<b>Bergbahnen Malbun AG</b><br />Malbunstrasse 58<br />9497 Triesenberg FL<br />Tel. +423 265 40 00")
             .addTo(map)
             .openPopup();
 
