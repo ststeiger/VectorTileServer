@@ -249,7 +249,7 @@
                     {
                         // var languageField = "name:" + getUserLanguage();
                         // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", languageField], ["get", "name:latin"], ["get", "name:nonlatin"]]);
-                        gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:uk"], ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
                     }
 
                 }
@@ -264,7 +264,22 @@
         ]);
 
         L.marker([latitude, longitude])
-            .bindPopup("<b>Bergbahnen Malbun AG</b><br />Malbunstrasse 58<br />9497 Triesenberg FL<br />Tel. +423 265 40 00")
+            // .bindPopup("<b>Bergbahnen Malbun AG</b><br />Malbunstrasse 58<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+            // .bindPopup("<b>Cable Car Malbun Inc.</b><br />Malbun Street 58<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+
+            // FL: Fürstentum Liechtenstein
+            // PL: Principality of Liechtenstein
+            // КЛ: Княжество Лихтенштейн
+            // КЛ: Князівство Ліхтенштейн
+            // LI: Liechtenstein
+            // ЛИ: Лихтенштейн
+            // ЛІ: Ліхтенштейн
+            // .bindPopup("<b>Горные железные дороги Мальбун ЗАО</b><br />Мальбунская улица 58<br />ЛИ-9497 Тризенберг<br />Тел. +423 265 40 00")
+            // .bindPopup("<b>Горные железные дороги Мальбун ЗАО</b><br />Улица Мальбун 58<br />ЛИ-9497 Тризенберг<br />Тел. +423 265 40 00")
+            .bindPopup("<b>Гірські залізниці Мальбун ТОВ</b><br />Вулиця Мальбун 58<br />ЛІ-9497 Трізенберг<br />Тел. +423 265 40 00")
+            
+
+
             .addTo(map)
             .openPopup();
 

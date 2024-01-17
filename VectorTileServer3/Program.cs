@@ -99,6 +99,7 @@ namespace VectorTileServer3
                 try
                 {
                     y = FromTmsY(y, z);
+                    long fused64 = ((long)x << 32) | (long)y;
 
                     using (System.Data.Common.DbConnection conn = factory.Connection)
                     {
@@ -107,7 +108,8 @@ namespace VectorTileServer3
 
                         using (System.Data.Common.DbCommand cmd = conn.CreateCommand())
                         {
-                            cmd.CommandText = string.Format("SELECT * FROM tiles WHERE tile_column = {0} and tile_row = {1} and zoom_level = {2}", x, y, z);
+                            // cmd.CommandText = string.Format("SELECT * FROM tiles WHERE tile_column = {0} and tile_row = {1} and zoom_level = {2}", x, y, z);
+                            cmd.CommandText = string.Format("SELECT tms_tile AS tile_data FROM tms_map WHERE tms_zoom = {0} and tms_xy = {1}", z, fused64);
 
                             using (System.Data.Common.DbDataReader reader = cmd.ExecuteReader())
                             {
