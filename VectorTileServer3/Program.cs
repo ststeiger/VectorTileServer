@@ -34,8 +34,8 @@ namespace VectorTileServer3
             // string path = System.IO.Path.Combine(builder.Environment.WebRootPath, "switzerland.mbtiles");
             string path = System.IO.Path.Combine(builder.Environment.WebRootPath, "liechtenstein.mbtiles");
 
-            if ("COR".Equals(System.Environment.UserDomainName, System.StringComparison.InvariantCultureIgnoreCase))
-                path = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
+            //if ("COR".Equals(System.Environment.UserDomainName, System.StringComparison.InvariantCultureIgnoreCase))
+            //    path = @"D:\username\Downloads\2017-07-03_planet_z0_z14.mbtiles";
 
             if ("prodesk".Equals(System.Environment.MachineName, System.StringComparison.InvariantCultureIgnoreCase))
             {

@@ -3423,7 +3423,7 @@
       "filter": [
         "==",
         "class",
-        "cable_car"
+        "aerialway"
       ],
       "id": "cablecar",
       "layout": {
@@ -3455,7 +3455,7 @@
       "filter": [
         "==",
         "class",
-        "cable_car"
+        "aerialway"
       ],
       "id": "cablecar-dash",
       "layout": {
@@ -3466,8 +3466,8 @@
       "paint": {
         "line-color": "hsl(0, 0%, 70%)",
         "line-dasharray": [
-          2,
-          3
+          0.25,
+          4
         ],
         "line-width": {
           "base": 1,
