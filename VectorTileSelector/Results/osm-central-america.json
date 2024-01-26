@@ -1,0 +1,112 @@
+﻿[
+  {
+    "Continent": "central-america",
+    "Subregion": "Bahamas",
+    "Href": "central-america/bahamas-latest.osm.pbf",
+    "Size": 12687769,
+    "IsSpecialSubRegion": false,
+    "RegionName": "bahamas",
+    "SizeForHumans": "12.10 MB",
+    "RegionNameWithPrefix": "central-america/bahamas"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Belize",
+    "Href": "central-america/belize-latest.osm.pbf",
+    "Size": 16567500,
+    "IsSpecialSubRegion": false,
+    "RegionName": "belize",
+    "SizeForHumans": "15.80 MB",
+    "RegionNameWithPrefix": "central-america/belize"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Costa Rica",
+    "Href": "central-america/costa-rica-latest.osm.pbf",
+    "Size": 34498150,
+    "IsSpecialSubRegion": false,
+    "RegionName": "costa-rica",
+    "SizeForHumans": "32.90 MB",
+    "RegionNameWithPrefix": "central-america/costa-rica"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Cuba",
+    "Href": "central-america/cuba-latest.osm.pbf",
+    "Size": 51275366,
+    "IsSpecialSubRegion": false,
+    "RegionName": "cuba",
+    "SizeForHumans": "48.90 MB",
+    "RegionNameWithPrefix": "central-america/cuba"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "El Salvador",
+    "Href": "central-america/el-salvador-latest.osm.pbf",
+    "Size": 32191283,
+    "IsSpecialSubRegion": false,
+    "RegionName": "el-salvador",
+    "SizeForHumans": "30.70 MB",
+    "RegionNameWithPrefix": "central-america/el-salvador"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Guatemala",
+    "Href": "central-america/guatemala-latest.osm.pbf",
+    "Size": 116391936,
+    "IsSpecialSubRegion": false,
+    "RegionName": "guatemala",
+    "SizeForHumans": "111.00 MB",
+    "RegionNameWithPrefix": "central-america/guatemala"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Haiti and Dominican Republic",
+    "Href": "central-america/haiti-and-domrep-latest.osm.pbf",
+    "Size": 80740352,
+    "IsSpecialSubRegion": false,
+    "RegionName": "haiti-and-domrep",
+    "SizeForHumans": "77.00 MB",
+    "RegionNameWithPrefix": "central-america/haiti-and-domrep"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Honduras",
+    "Href": "central-america/honduras-latest.osm.pbf",
+    "Size": 58720256,
+    "IsSpecialSubRegion": false,
+    "RegionName": "honduras",
+    "SizeForHumans": "56.00 MB",
+    "RegionNameWithPrefix": "central-america/honduras"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Jamaica",
+    "Href": "central-america/jamaica-latest.osm.pbf",
+    "Size": 36490444,
+    "IsSpecialSubRegion": false,
+    "RegionName": "jamaica",
+    "SizeForHumans": "34.80 MB",
+    "RegionNameWithPrefix": "central-america/jamaica"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Nicaragua",
+    "Href": "central-america/nicaragua-latest.osm.pbf",
+    "Size": 42257612,
+    "IsSpecialSubRegion": false,
+    "RegionName": "nicaragua",
+    "SizeForHumans": "40.30 MB",
+    "RegionNameWithPrefix": "central-america/nicaragua"
+  },
+  {
+    "Continent": "central-america",
+    "Subregion": "Panama",
+    "Href": "central-america/panama-latest.osm.pbf",
+    "Size": 25270681,
+    "IsSpecialSubRegion": false,
+    "RegionName": "panama",
+    "SizeForHumans": "24.10 MB",
+    "RegionNameWithPrefix": "central-america/panama"
+  }
+]

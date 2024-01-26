@@ -1,0 +1,232 @@
+﻿[
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "American Oceania",
+    "Href": "australia-oceania/american-oceania-latest.osm.pbf",
+    "Size": 4613734,
+    "IsSpecialSubRegion": false,
+    "RegionName": "american-oceania",
+    "SizeForHumans": "4.40 MB",
+    "RegionNameWithPrefix": "australia-oceania/american-oceania"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Australia",
+    "Href": "australia-oceania/australia-latest.osm.pbf",
+    "Size": 718274560,
+    "IsSpecialSubRegion": false,
+    "RegionName": "australia",
+    "SizeForHumans": "685.00 MB",
+    "RegionNameWithPrefix": "australia-oceania/australia"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Cook Islands",
+    "Href": "australia-oceania/cook-islands-latest.osm.pbf",
+    "Size": 919552,
+    "IsSpecialSubRegion": false,
+    "RegionName": "cook-islands",
+    "SizeForHumans": "898.00 KB",
+    "RegionNameWithPrefix": "australia-oceania/cook-islands"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Fiji",
+    "Href": "australia-oceania/fiji-latest.osm.pbf",
+    "Size": 16567500,
+    "IsSpecialSubRegion": false,
+    "RegionName": "fiji",
+    "SizeForHumans": "15.80 MB",
+    "RegionNameWithPrefix": "australia-oceania/fiji"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "\u00CEle de Clipperton",
+    "Href": "australia-oceania/ile-de-clipperton-latest.osm.pbf",
+    "Size": 35532,
+    "IsSpecialSubRegion": false,
+    "RegionName": "ile-de-clipperton",
+    "SizeForHumans": "34.70 KB",
+    "RegionNameWithPrefix": "australia-oceania/ile-de-clipperton"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Kiribati",
+    "Href": "australia-oceania/kiribati-latest.osm.pbf",
+    "Size": 2306867,
+    "IsSpecialSubRegion": false,
+    "RegionName": "kiribati",
+    "SizeForHumans": "2.20 MB",
+    "RegionNameWithPrefix": "australia-oceania/kiribati"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Marshall Islands",
+    "Href": "australia-oceania/marshall-islands-latest.osm.pbf",
+    "Size": 1048576,
+    "IsSpecialSubRegion": false,
+    "RegionName": "marshall-islands",
+    "SizeForHumans": "1.00 MB",
+    "RegionNameWithPrefix": "australia-oceania/marshall-islands"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Micronesia",
+    "Href": "australia-oceania/micronesia-latest.osm.pbf",
+    "Size": 1468006,
+    "IsSpecialSubRegion": false,
+    "RegionName": "micronesia",
+    "SizeForHumans": "1.40 MB",
+    "RegionNameWithPrefix": "australia-oceania/micronesia"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Nauru",
+    "Href": "australia-oceania/nauru-latest.osm.pbf",
+    "Size": 232448,
+    "IsSpecialSubRegion": false,
+    "RegionName": "nauru",
+    "SizeForHumans": "227.00 KB",
+    "RegionNameWithPrefix": "australia-oceania/nauru"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "New Caledonia",
+    "Href": "australia-oceania/new-caledonia-latest.osm.pbf",
+    "Size": 13002342,
+    "IsSpecialSubRegion": false,
+    "RegionName": "new-caledonia",
+    "SizeForHumans": "12.40 MB",
+    "RegionNameWithPrefix": "australia-oceania/new-caledonia"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "New Zealand",
+    "Href": "australia-oceania/new-zealand-latest.osm.pbf",
+    "Size": 333447168,
+    "IsSpecialSubRegion": false,
+    "RegionName": "new-zealand",
+    "SizeForHumans": "318.00 MB",
+    "RegionNameWithPrefix": "australia-oceania/new-zealand"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Niue",
+    "Href": "australia-oceania/niue-latest.osm.pbf",
+    "Size": 391168,
+    "IsSpecialSubRegion": false,
+    "RegionName": "niue",
+    "SizeForHumans": "382.00 KB",
+    "RegionNameWithPrefix": "australia-oceania/niue"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Palau",
+    "Href": "australia-oceania/palau-latest.osm.pbf",
+    "Size": 612352,
+    "IsSpecialSubRegion": false,
+    "RegionName": "palau",
+    "SizeForHumans": "598.00 KB",
+    "RegionNameWithPrefix": "australia-oceania/palau"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Papua New Guinea",
+    "Href": "australia-oceania/papua-new-guinea-latest.osm.pbf",
+    "Size": 33554432,
+    "IsSpecialSubRegion": false,
+    "RegionName": "papua-new-guinea",
+    "SizeForHumans": "32.00 MB",
+    "RegionNameWithPrefix": "australia-oceania/papua-new-guinea"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Pitcairn Islands",
+    "Href": "australia-oceania/pitcairn-islands-latest.osm.pbf",
+    "Size": 101376,
+    "IsSpecialSubRegion": false,
+    "RegionName": "pitcairn-islands",
+    "SizeForHumans": "99.00 KB",
+    "RegionNameWithPrefix": "australia-oceania/pitcairn-islands"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Polyn\u00E9sie fran\u00E7aise (French Polynesia)",
+    "Href": "australia-oceania/polynesie-francaise-latest.osm.pbf",
+    "Size": 13107200,
+    "IsSpecialSubRegion": false,
+    "RegionName": "polynesie-francaise",
+    "SizeForHumans": "12.50 MB",
+    "RegionNameWithPrefix": "australia-oceania/polynesie-francaise"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Samoa",
+    "Href": "australia-oceania/samoa-latest.osm.pbf",
+    "Size": 2831155,
+    "IsSpecialSubRegion": false,
+    "RegionName": "samoa",
+    "SizeForHumans": "2.70 MB",
+    "RegionNameWithPrefix": "australia-oceania/samoa"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Solomon Islands",
+    "Href": "australia-oceania/solomon-islands-latest.osm.pbf",
+    "Size": 7654604,
+    "IsSpecialSubRegion": false,
+    "RegionName": "solomon-islands",
+    "SizeForHumans": "7.30 MB",
+    "RegionNameWithPrefix": "australia-oceania/solomon-islands"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Tokelau",
+    "Href": "australia-oceania/tokelau-latest.osm.pbf",
+    "Size": 132096,
+    "IsSpecialSubRegion": false,
+    "RegionName": "tokelau",
+    "SizeForHumans": "129.00 KB",
+    "RegionNameWithPrefix": "australia-oceania/tokelau"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Tonga",
+    "Href": "australia-oceania/tonga-latest.osm.pbf",
+    "Size": 3460300,
+    "IsSpecialSubRegion": false,
+    "RegionName": "tonga",
+    "SizeForHumans": "3.30 MB",
+    "RegionNameWithPrefix": "australia-oceania/tonga"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Tuvalu",
+    "Href": "australia-oceania/tuvalu-latest.osm.pbf",
+    "Size": 342016,
+    "IsSpecialSubRegion": false,
+    "RegionName": "tuvalu",
+    "SizeForHumans": "334.00 KB",
+    "RegionNameWithPrefix": "australia-oceania/tuvalu"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Vanuatu",
+    "Href": "australia-oceania/vanuatu-latest.osm.pbf",
+    "Size": 5662310,
+    "IsSpecialSubRegion": false,
+    "RegionName": "vanuatu",
+    "SizeForHumans": "5.40 MB",
+    "RegionNameWithPrefix": "australia-oceania/vanuatu"
+  },
+  {
+    "Continent": "australia-oceania",
+    "Subregion": "Wallis et Futuna",
+    "Href": "australia-oceania/wallis-et-futuna-latest.osm.pbf",
+    "Size": 478208,
+    "IsSpecialSubRegion": false,
+    "RegionName": "wallis-et-futuna",
+    "SizeForHumans": "467.00 KB",
+    "RegionNameWithPrefix": "australia-oceania/wallis-et-futuna"
+  }
+]

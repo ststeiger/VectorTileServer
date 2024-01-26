@@ -1,0 +1,562 @@
+﻿[
+  {
+    "Continent": "africa",
+    "Subregion": "Algeria",
+    "Href": "africa/algeria-latest.osm.pbf",
+    "Size": 283115520,
+    "IsSpecialSubRegion": false,
+    "RegionName": "algeria",
+    "SizeForHumans": "270.00 MB",
+    "RegionNameWithPrefix": "africa/algeria"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Angola",
+    "Href": "africa/angola-latest.osm.pbf",
+    "Size": 67108864,
+    "IsSpecialSubRegion": false,
+    "RegionName": "angola",
+    "SizeForHumans": "64.00 MB",
+    "RegionNameWithPrefix": "africa/angola"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Benin",
+    "Href": "africa/benin-latest.osm.pbf",
+    "Size": 41104179,
+    "IsSpecialSubRegion": false,
+    "RegionName": "benin",
+    "SizeForHumans": "39.20 MB",
+    "RegionNameWithPrefix": "africa/benin"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Botswana",
+    "Href": "africa/botswana-latest.osm.pbf",
+    "Size": 84934656,
+    "IsSpecialSubRegion": false,
+    "RegionName": "botswana",
+    "SizeForHumans": "81.00 MB",
+    "RegionNameWithPrefix": "africa/botswana"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Burkina Faso",
+    "Href": "africa/burkina-faso-latest.osm.pbf",
+    "Size": 70254592,
+    "IsSpecialSubRegion": false,
+    "RegionName": "burkina-faso",
+    "SizeForHumans": "67.00 MB",
+    "RegionNameWithPrefix": "africa/burkina-faso"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Burundi",
+    "Href": "africa/burundi-latest.osm.pbf",
+    "Size": 43515904,
+    "IsSpecialSubRegion": false,
+    "RegionName": "burundi",
+    "SizeForHumans": "41.50 MB",
+    "RegionNameWithPrefix": "africa/burundi"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Cameroon",
+    "Href": "africa/cameroon-latest.osm.pbf",
+    "Size": 195035136,
+    "IsSpecialSubRegion": false,
+    "RegionName": "cameroon",
+    "SizeForHumans": "186.00 MB",
+    "RegionNameWithPrefix": "africa/cameroon"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Canary Islands",
+    "Href": "africa/canary-islands-latest.osm.pbf",
+    "Size": 52219084,
+    "IsSpecialSubRegion": false,
+    "RegionName": "canary-islands",
+    "SizeForHumans": "49.80 MB",
+    "RegionNameWithPrefix": "africa/canary-islands"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Cape Verde",
+    "Href": "africa/cape-verde-latest.osm.pbf",
+    "Size": 10905190,
+    "IsSpecialSubRegion": false,
+    "RegionName": "cape-verde",
+    "SizeForHumans": "10.40 MB",
+    "RegionNameWithPrefix": "africa/cape-verde"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Central African Republic",
+    "Href": "africa/central-african-republic-latest.osm.pbf",
+    "Size": 93323264,
+    "IsSpecialSubRegion": false,
+    "RegionName": "central-african-republic",
+    "SizeForHumans": "89.00 MB",
+    "RegionNameWithPrefix": "africa/central-african-republic"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Chad",
+    "Href": "africa/chad-latest.osm.pbf",
+    "Size": 91226112,
+    "IsSpecialSubRegion": false,
+    "RegionName": "chad",
+    "SizeForHumans": "87.00 MB",
+    "RegionNameWithPrefix": "africa/chad"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Comores",
+    "Href": "africa/comores-latest.osm.pbf",
+    "Size": 3774873,
+    "IsSpecialSubRegion": false,
+    "RegionName": "comores",
+    "SizeForHumans": "3.60 MB",
+    "RegionNameWithPrefix": "africa/comores"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Congo (Republic/Brazzaville)",
+    "Href": "africa/congo-brazzaville-latest.osm.pbf",
+    "Size": 27996979,
+    "IsSpecialSubRegion": false,
+    "RegionName": "congo-brazzaville",
+    "SizeForHumans": "26.70 MB",
+    "RegionNameWithPrefix": "africa/congo-brazzaville"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Congo (Democratic Republic/Kinshasa)",
+    "Href": "africa/congo-democratic-republic-latest.osm.pbf",
+    "Size": 382730240,
+    "IsSpecialSubRegion": false,
+    "RegionName": "congo-democratic-republic",
+    "SizeForHumans": "365.00 MB",
+    "RegionNameWithPrefix": "africa/congo-democratic-republic"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Djibouti",
+    "Href": "africa/djibouti-latest.osm.pbf",
+    "Size": 6606028,
+    "IsSpecialSubRegion": false,
+    "RegionName": "djibouti",
+    "SizeForHumans": "6.30 MB",
+    "RegionNameWithPrefix": "africa/djibouti"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Egypt",
+    "Href": "africa/egypt-latest.osm.pbf",
+    "Size": 165675008,
+    "IsSpecialSubRegion": false,
+    "RegionName": "egypt",
+    "SizeForHumans": "158.00 MB",
+    "RegionNameWithPrefix": "africa/egypt"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Equatorial Guinea",
+    "Href": "africa/equatorial-guinea-latest.osm.pbf",
+    "Size": 5872025,
+    "IsSpecialSubRegion": false,
+    "RegionName": "equatorial-guinea",
+    "SizeForHumans": "5.60 MB",
+    "RegionNameWithPrefix": "africa/equatorial-guinea"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Eritrea",
+    "Href": "africa/eritrea-latest.osm.pbf",
+    "Size": 17825792,
+    "IsSpecialSubRegion": false,
+    "RegionName": "eritrea",
+    "SizeForHumans": "17.00 MB",
+    "RegionNameWithPrefix": "africa/eritrea"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Ethiopia",
+    "Href": "africa/ethiopia-latest.osm.pbf",
+    "Size": 96468992,
+    "IsSpecialSubRegion": false,
+    "RegionName": "ethiopia",
+    "SizeForHumans": "92.00 MB",
+    "RegionNameWithPrefix": "africa/ethiopia"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Gabon",
+    "Href": "africa/gabon-latest.osm.pbf",
+    "Size": 19713228,
+    "IsSpecialSubRegion": false,
+    "RegionName": "gabon",
+    "SizeForHumans": "18.80 MB",
+    "RegionNameWithPrefix": "africa/gabon"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Ghana",
+    "Href": "africa/ghana-latest.osm.pbf",
+    "Size": 80740352,
+    "IsSpecialSubRegion": false,
+    "RegionName": "ghana",
+    "SizeForHumans": "77.00 MB",
+    "RegionNameWithPrefix": "africa/ghana"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Guinea",
+    "Href": "africa/guinea-latest.osm.pbf",
+    "Size": 108003328,
+    "IsSpecialSubRegion": false,
+    "RegionName": "guinea",
+    "SizeForHumans": "103.00 MB",
+    "RegionNameWithPrefix": "africa/guinea"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Guinea-Bissau",
+    "Href": "africa/guinea-bissau-latest.osm.pbf",
+    "Size": 10066329,
+    "IsSpecialSubRegion": false,
+    "RegionName": "guinea-bissau",
+    "SizeForHumans": "9.60 MB",
+    "RegionNameWithPrefix": "africa/guinea-bissau"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Ivory Coast",
+    "Href": "africa/ivory-coast-latest.osm.pbf",
+    "Size": 56623104,
+    "IsSpecialSubRegion": false,
+    "RegionName": "ivory-coast",
+    "SizeForHumans": "54.00 MB",
+    "RegionNameWithPrefix": "africa/ivory-coast"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Kenya",
+    "Href": "africa/kenya-latest.osm.pbf",
+    "Size": 282066944,
+    "IsSpecialSubRegion": false,
+    "RegionName": "kenya",
+    "SizeForHumans": "269.00 MB",
+    "RegionNameWithPrefix": "africa/kenya"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Lesotho",
+    "Href": "africa/lesotho-latest.osm.pbf",
+    "Size": 116391936,
+    "IsSpecialSubRegion": false,
+    "RegionName": "lesotho",
+    "SizeForHumans": "111.00 MB",
+    "RegionNameWithPrefix": "africa/lesotho"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Liberia",
+    "Href": "africa/liberia-latest.osm.pbf",
+    "Size": 34812723,
+    "IsSpecialSubRegion": false,
+    "RegionName": "liberia",
+    "SizeForHumans": "33.20 MB",
+    "RegionNameWithPrefix": "africa/liberia"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Libya",
+    "Href": "africa/libya-latest.osm.pbf",
+    "Size": 65011712,
+    "IsSpecialSubRegion": false,
+    "RegionName": "libya",
+    "SizeForHumans": "62.00 MB",
+    "RegionNameWithPrefix": "africa/libya"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Madagascar",
+    "Href": "africa/madagascar-latest.osm.pbf",
+    "Size": 336592896,
+    "IsSpecialSubRegion": false,
+    "RegionName": "madagascar",
+    "SizeForHumans": "321.00 MB",
+    "RegionNameWithPrefix": "africa/madagascar"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Malawi",
+    "Href": "africa/malawi-latest.osm.pbf",
+    "Size": 131072000,
+    "IsSpecialSubRegion": false,
+    "RegionName": "malawi",
+    "SizeForHumans": "125.00 MB",
+    "RegionNameWithPrefix": "africa/malawi"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Mali",
+    "Href": "africa/mali-latest.osm.pbf",
+    "Size": 164626432,
+    "IsSpecialSubRegion": false,
+    "RegionName": "mali",
+    "SizeForHumans": "157.00 MB",
+    "RegionNameWithPrefix": "africa/mali"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Mauritania",
+    "Href": "africa/mauritania-latest.osm.pbf",
+    "Size": 24641536,
+    "IsSpecialSubRegion": false,
+    "RegionName": "mauritania",
+    "SizeForHumans": "23.50 MB",
+    "RegionNameWithPrefix": "africa/mauritania"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Mauritius",
+    "Href": "africa/mauritius-latest.osm.pbf",
+    "Size": 7340032,
+    "IsSpecialSubRegion": false,
+    "RegionName": "mauritius",
+    "SizeForHumans": "7.00 MB",
+    "RegionNameWithPrefix": "africa/mauritius"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Morocco",
+    "Href": "africa/morocco-latest.osm.pbf",
+    "Size": 222298112,
+    "IsSpecialSubRegion": false,
+    "RegionName": "morocco",
+    "SizeForHumans": "212.00 MB",
+    "RegionNameWithPrefix": "africa/morocco"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Mozambique",
+    "Href": "africa/mozambique-latest.osm.pbf",
+    "Size": 189792256,
+    "IsSpecialSubRegion": false,
+    "RegionName": "mozambique",
+    "SizeForHumans": "181.00 MB",
+    "RegionNameWithPrefix": "africa/mozambique"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Namibia",
+    "Href": "africa/namibia-latest.osm.pbf",
+    "Size": 44879052,
+    "IsSpecialSubRegion": false,
+    "RegionName": "namibia",
+    "SizeForHumans": "42.80 MB",
+    "RegionNameWithPrefix": "africa/namibia"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Niger",
+    "Href": "africa/niger-latest.osm.pbf",
+    "Size": 65011712,
+    "IsSpecialSubRegion": false,
+    "RegionName": "niger",
+    "SizeForHumans": "62.00 MB",
+    "RegionNameWithPrefix": "africa/niger"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Nigeria",
+    "Href": "africa/nigeria-latest.osm.pbf",
+    "Size": 482344960,
+    "IsSpecialSubRegion": false,
+    "RegionName": "nigeria",
+    "SizeForHumans": "460.00 MB",
+    "RegionNameWithPrefix": "africa/nigeria"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Rwanda",
+    "Href": "africa/rwanda-latest.osm.pbf",
+    "Size": 48549068,
+    "IsSpecialSubRegion": false,
+    "RegionName": "rwanda",
+    "SizeForHumans": "46.30 MB",
+    "RegionNameWithPrefix": "africa/rwanda"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Saint Helena, Ascension, and Tristan da Cunha",
+    "Href": "africa/saint-helena-ascension-and-tristan-da-cunha-latest.osm.pbf",
+    "Size": 532480,
+    "IsSpecialSubRegion": false,
+    "RegionName": "saint-helena-ascension-and-tristan-da-cunha",
+    "SizeForHumans": "520.00 KB",
+    "RegionNameWithPrefix": "africa/saint-helena-ascension-and-tristan-da-cunha"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Sao Tome and Principe",
+    "Href": "africa/sao-tome-and-principe-latest.osm.pbf",
+    "Size": 1048576,
+    "IsSpecialSubRegion": false,
+    "RegionName": "sao-tome-and-principe",
+    "SizeForHumans": "1.00 MB",
+    "RegionNameWithPrefix": "africa/sao-tome-and-principe"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Senegal and Gambia",
+    "Href": "africa/senegal-and-gambia-latest.osm.pbf",
+    "Size": 98566144,
+    "IsSpecialSubRegion": false,
+    "RegionName": "senegal-and-gambia",
+    "SizeForHumans": "94.00 MB",
+    "RegionNameWithPrefix": "africa/senegal-and-gambia"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Seychelles",
+    "Href": "africa/seychelles-latest.osm.pbf",
+    "Size": 2621440,
+    "IsSpecialSubRegion": false,
+    "RegionName": "seychelles",
+    "SizeForHumans": "2.50 MB",
+    "RegionNameWithPrefix": "africa/seychelles"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Sierra Leone",
+    "Href": "africa/sierra-leone-latest.osm.pbf",
+    "Size": 38692454,
+    "IsSpecialSubRegion": false,
+    "RegionName": "sierra-leone",
+    "SizeForHumans": "36.90 MB",
+    "RegionNameWithPrefix": "africa/sierra-leone"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Somalia",
+    "Href": "africa/somalia-latest.osm.pbf",
+    "Size": 142606336,
+    "IsSpecialSubRegion": false,
+    "RegionName": "somalia",
+    "SizeForHumans": "136.00 MB",
+    "RegionNameWithPrefix": "africa/somalia"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "South Africa",
+    "Href": "africa/south-africa-latest.osm.pbf",
+    "Size": 328204288,
+    "IsSpecialSubRegion": false,
+    "RegionName": "south-africa",
+    "SizeForHumans": "313.00 MB",
+    "RegionNameWithPrefix": "africa/south-africa"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "South Sudan",
+    "Href": "africa/south-sudan-latest.osm.pbf",
+    "Size": 110100480,
+    "IsSpecialSubRegion": false,
+    "RegionName": "south-sudan",
+    "SizeForHumans": "105.00 MB",
+    "RegionNameWithPrefix": "africa/south-sudan"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Sudan",
+    "Href": "africa/sudan-latest.osm.pbf",
+    "Size": 99614720,
+    "IsSpecialSubRegion": false,
+    "RegionName": "sudan",
+    "SizeForHumans": "95.00 MB",
+    "RegionNameWithPrefix": "africa/sudan"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Swaziland",
+    "Href": "africa/swaziland-latest.osm.pbf",
+    "Size": 27996979,
+    "IsSpecialSubRegion": false,
+    "RegionName": "swaziland",
+    "SizeForHumans": "26.70 MB",
+    "RegionNameWithPrefix": "africa/swaziland"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Tanzania",
+    "Href": "africa/tanzania-latest.osm.pbf",
+    "Size": 679477248,
+    "IsSpecialSubRegion": false,
+    "RegionName": "tanzania",
+    "SizeForHumans": "648.00 MB",
+    "RegionNameWithPrefix": "africa/tanzania"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Togo",
+    "Href": "africa/togo-latest.osm.pbf",
+    "Size": 56623104,
+    "IsSpecialSubRegion": false,
+    "RegionName": "togo",
+    "SizeForHumans": "54.00 MB",
+    "RegionNameWithPrefix": "africa/togo"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Tunisia",
+    "Href": "africa/tunisia-latest.osm.pbf",
+    "Size": 79691776,
+    "IsSpecialSubRegion": false,
+    "RegionName": "tunisia",
+    "SizeForHumans": "76.00 MB",
+    "RegionNameWithPrefix": "africa/tunisia"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Uganda",
+    "Href": "africa/uganda-latest.osm.pbf",
+    "Size": 308281344,
+    "IsSpecialSubRegion": false,
+    "RegionName": "uganda",
+    "SizeForHumans": "294.00 MB",
+    "RegionNameWithPrefix": "africa/uganda"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Zambia",
+    "Href": "africa/zambia-latest.osm.pbf",
+    "Size": 241172480,
+    "IsSpecialSubRegion": false,
+    "RegionName": "zambia",
+    "SizeForHumans": "230.00 MB",
+    "RegionNameWithPrefix": "africa/zambia"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "Zimbabwe",
+    "Href": "africa/zimbabwe-latest.osm.pbf",
+    "Size": 168820736,
+    "IsSpecialSubRegion": false,
+    "RegionName": "zimbabwe",
+    "SizeForHumans": "161.00 MB",
+    "RegionNameWithPrefix": "africa/zimbabwe"
+  },
+  {
+    "Continent": "africa",
+    "Subregion": "South Africa (includes Lesotho)",
+    "Href": "africa/south-africa-and-lesotho-latest.osm.pbf",
+    "Size": 442499072,
+    "IsSpecialSubRegion": true,
+    "RegionName": "south-africa-and-lesotho",
+    "SizeForHumans": "422.00 MB",
+    "RegionNameWithPrefix": "africa/south-africa-and-lesotho"
+  }
+]

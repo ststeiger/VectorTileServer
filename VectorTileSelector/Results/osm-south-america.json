@@ -1,0 +1,122 @@
+﻿[
+  {
+    "Continent": "south-america",
+    "Subregion": "Argentina",
+    "Href": "south-america/argentina-latest.osm.pbf",
+    "Size": 341835776,
+    "IsSpecialSubRegion": false,
+    "RegionName": "argentina",
+    "SizeForHumans": "326.00 MB",
+    "RegionNameWithPrefix": "south-america/argentina"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Bolivia",
+    "Href": "south-america/bolivia-latest.osm.pbf",
+    "Size": 140509184,
+    "IsSpecialSubRegion": false,
+    "RegionName": "bolivia",
+    "SizeForHumans": "134.00 MB",
+    "RegionNameWithPrefix": "south-america/bolivia"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Brazil",
+    "Href": "south-america/brazil-latest.osm.pbf",
+    "Size": 1717986918,
+    "IsSpecialSubRegion": false,
+    "RegionName": "brazil",
+    "SizeForHumans": "1.60 GB",
+    "RegionNameWithPrefix": "south-america/brazil"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Chile",
+    "Href": "south-america/chile-latest.osm.pbf",
+    "Size": 294649856,
+    "IsSpecialSubRegion": false,
+    "RegionName": "chile",
+    "SizeForHumans": "281.00 MB",
+    "RegionNameWithPrefix": "south-america/chile"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Colombia",
+    "Href": "south-america/colombia-latest.osm.pbf",
+    "Size": 268435456,
+    "IsSpecialSubRegion": false,
+    "RegionName": "colombia",
+    "SizeForHumans": "256.00 MB",
+    "RegionNameWithPrefix": "south-america/colombia"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Ecuador",
+    "Href": "south-america/ecuador-latest.osm.pbf",
+    "Size": 104857600,
+    "IsSpecialSubRegion": false,
+    "RegionName": "ecuador",
+    "SizeForHumans": "100.00 MB",
+    "RegionNameWithPrefix": "south-america/ecuador"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Guyana",
+    "Href": "south-america/guyana-latest.osm.pbf",
+    "Size": 12163481,
+    "IsSpecialSubRegion": false,
+    "RegionName": "guyana",
+    "SizeForHumans": "11.60 MB",
+    "RegionNameWithPrefix": "south-america/guyana"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Paraguay",
+    "Href": "south-america/paraguay-latest.osm.pbf",
+    "Size": 141557760,
+    "IsSpecialSubRegion": false,
+    "RegionName": "paraguay",
+    "SizeForHumans": "135.00 MB",
+    "RegionNameWithPrefix": "south-america/paraguay"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Peru",
+    "Href": "south-america/peru-latest.osm.pbf",
+    "Size": 212860928,
+    "IsSpecialSubRegion": false,
+    "RegionName": "peru",
+    "SizeForHumans": "203.00 MB",
+    "RegionNameWithPrefix": "south-america/peru"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Suriname",
+    "Href": "south-america/suriname-latest.osm.pbf",
+    "Size": 19922944,
+    "IsSpecialSubRegion": false,
+    "RegionName": "suriname",
+    "SizeForHumans": "19.00 MB",
+    "RegionNameWithPrefix": "south-america/suriname"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Uruguay",
+    "Href": "south-america/uruguay-latest.osm.pbf",
+    "Size": 47605350,
+    "IsSpecialSubRegion": false,
+    "RegionName": "uruguay",
+    "SizeForHumans": "45.40 MB",
+    "RegionNameWithPrefix": "south-america/uruguay"
+  },
+  {
+    "Continent": "south-america",
+    "Subregion": "Venezuela",
+    "Href": "south-america/venezuela-latest.osm.pbf",
+    "Size": 88080384,
+    "IsSpecialSubRegion": false,
+    "RegionName": "venezuela",
+    "SizeForHumans": "84.00 MB",
+    "RegionNameWithPrefix": "south-america/venezuela"
+  }
+]

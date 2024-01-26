@@ -1,0 +1,82 @@
+﻿[
+  {
+    "Continent": "earth",
+    "Subregion": "Africa",
+    "Href": "africa-latest.osm.pbf",
+    "Size": 6657199308,
+    "IsSpecialSubRegion": false,
+    "RegionName": "africa",
+    "SizeForHumans": "6.20 GB",
+    "RegionNameWithPrefix": "africa"
+  },
+  {
+    "Continent": "earth",
+    "Subregion": "Antarctica",
+    "Href": "antarctica-latest.osm.pbf",
+    "Size": 32820428,
+    "IsSpecialSubRegion": false,
+    "RegionName": "antarctica",
+    "SizeForHumans": "31.30 MB",
+    "RegionNameWithPrefix": "antarctica"
+  },
+  {
+    "Continent": "earth",
+    "Subregion": "Asia",
+    "Href": "asia-latest.osm.pbf",
+    "Size": 13421772800,
+    "IsSpecialSubRegion": false,
+    "RegionName": "asia",
+    "SizeForHumans": "12.50 GB",
+    "RegionNameWithPrefix": "asia"
+  },
+  {
+    "Continent": "earth",
+    "Subregion": "Australia and Oceania",
+    "Href": "australia-oceania-latest.osm.pbf",
+    "Size": 1181116006,
+    "IsSpecialSubRegion": false,
+    "RegionName": "australia-oceania",
+    "SizeForHumans": "1.10 GB",
+    "RegionNameWithPrefix": "australia-oceania"
+  },
+  {
+    "Continent": "earth",
+    "Subregion": "Central America",
+    "Href": "central-america-latest.osm.pbf",
+    "Size": 678428672,
+    "IsSpecialSubRegion": false,
+    "RegionName": "central-america",
+    "SizeForHumans": "647.00 MB",
+    "RegionNameWithPrefix": "central-america"
+  },
+  {
+    "Continent": "earth",
+    "Subregion": "Europe",
+    "Href": "europe-latest.osm.pbf",
+    "Size": 30064771072,
+    "IsSpecialSubRegion": false,
+    "RegionName": "europe",
+    "SizeForHumans": "28.00 GB",
+    "RegionNameWithPrefix": "europe"
+  },
+  {
+    "Continent": "earth",
+    "Subregion": "North America",
+    "Href": "north-america-latest.osm.pbf",
+    "Size": 14388140441,
+    "IsSpecialSubRegion": false,
+    "RegionName": "north-america",
+    "SizeForHumans": "13.40 GB",
+    "RegionNameWithPrefix": "north-america"
+  },
+  {
+    "Continent": "earth",
+    "Subregion": "South America",
+    "Href": "south-america-latest.osm.pbf",
+    "Size": 3435973836,
+    "IsSpecialSubRegion": false,
+    "RegionName": "south-america",
+    "SizeForHumans": "3.20 GB",
+    "RegionNameWithPrefix": "south-america"
+  }
+]

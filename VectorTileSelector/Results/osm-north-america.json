@@ -1,0 +1,92 @@
+﻿[
+  {
+    "Continent": "north-america",
+    "Subregion": "Canada",
+    "Href": "north-america/canada-latest.osm.pbf",
+    "Size": 3543348019,
+    "IsSpecialSubRegion": false,
+    "RegionName": "canada",
+    "SizeForHumans": "3.30 GB",
+    "RegionNameWithPrefix": "north-america/canada"
+  },
+  {
+    "Continent": "north-america",
+    "Subregion": "Greenland",
+    "Href": "north-america/greenland-latest.osm.pbf",
+    "Size": 16462643,
+    "IsSpecialSubRegion": false,
+    "RegionName": "greenland",
+    "SizeForHumans": "15.70 MB",
+    "RegionNameWithPrefix": "north-america/greenland"
+  },
+  {
+    "Continent": "north-america",
+    "Subregion": "Mexico",
+    "Href": "north-america/mexico-latest.osm.pbf",
+    "Size": 566231040,
+    "IsSpecialSubRegion": false,
+    "RegionName": "mexico",
+    "SizeForHumans": "540.00 MB",
+    "RegionNameWithPrefix": "north-america/mexico"
+  },
+  {
+    "Continent": "north-america",
+    "Subregion": "United States of America",
+    "Href": "north-america/us-latest.osm.pbf",
+    "Size": 10200547328,
+    "IsSpecialSubRegion": false,
+    "RegionName": "us",
+    "SizeForHumans": "9.50 GB",
+    "RegionNameWithPrefix": "north-america/us"
+  },
+  {
+    "Continent": "north-america",
+    "Subregion": "US Midwest",
+    "Href": "north-america/us-midwest-latest.osm.pbf",
+    "Size": 2040109465,
+    "IsSpecialSubRegion": true,
+    "RegionName": "us-midwest",
+    "SizeForHumans": "1.90 GB",
+    "RegionNameWithPrefix": "north-america/us-midwest"
+  },
+  {
+    "Continent": "north-america",
+    "Subregion": "US Northeast",
+    "Href": "north-america/us-northeast-latest.osm.pbf",
+    "Size": 1503238553,
+    "IsSpecialSubRegion": true,
+    "RegionName": "us-northeast",
+    "SizeForHumans": "1.40 GB",
+    "RegionNameWithPrefix": "north-america/us-northeast"
+  },
+  {
+    "Continent": "north-america",
+    "Subregion": "US Pacific",
+    "Href": "north-america/us-pacific-latest.osm.pbf",
+    "Size": 147849216,
+    "IsSpecialSubRegion": true,
+    "RegionName": "us-pacific",
+    "SizeForHumans": "141.00 MB",
+    "RegionNameWithPrefix": "north-america/us-pacific"
+  },
+  {
+    "Continent": "north-america",
+    "Subregion": "US South",
+    "Href": "north-america/us-south-latest.osm.pbf",
+    "Size": 3543348019,
+    "IsSpecialSubRegion": true,
+    "RegionName": "us-south",
+    "SizeForHumans": "3.30 GB",
+    "RegionNameWithPrefix": "north-america/us-south"
+  },
+  {
+    "Continent": "north-america",
+    "Subregion": "US West",
+    "Href": "north-america/us-west-latest.osm.pbf",
+    "Size": 2791728742,
+    "IsSpecialSubRegion": true,
+    "RegionName": "us-west",
+    "SizeForHumans": "2.60 GB",
+    "RegionNameWithPrefix": "north-america/us-west"
+  }
+]

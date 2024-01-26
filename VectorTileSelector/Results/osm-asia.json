@@ -1,0 +1,392 @@
+﻿[
+  {
+    "Continent": "asia",
+    "Subregion": "Afghanistan",
+    "Href": "asia/afghanistan-latest.osm.pbf",
+    "Size": 98566144,
+    "IsSpecialSubRegion": false,
+    "RegionName": "afghanistan",
+    "SizeForHumans": "94.00 MB",
+    "RegionNameWithPrefix": "asia/afghanistan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Armenia",
+    "Href": "asia/armenia-latest.osm.pbf",
+    "Size": 45193625,
+    "IsSpecialSubRegion": false,
+    "RegionName": "armenia",
+    "SizeForHumans": "43.10 MB",
+    "RegionNameWithPrefix": "asia/armenia"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Azerbaijan",
+    "Href": "asia/azerbaijan-latest.osm.pbf",
+    "Size": 37539020,
+    "IsSpecialSubRegion": false,
+    "RegionName": "azerbaijan",
+    "SizeForHumans": "35.80 MB",
+    "RegionNameWithPrefix": "asia/azerbaijan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Bangladesh",
+    "Href": "asia/bangladesh-latest.osm.pbf",
+    "Size": 308281344,
+    "IsSpecialSubRegion": false,
+    "RegionName": "bangladesh",
+    "SizeForHumans": "294.00 MB",
+    "RegionNameWithPrefix": "asia/bangladesh"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Bhutan",
+    "Href": "asia/bhutan-latest.osm.pbf",
+    "Size": 22439526,
+    "IsSpecialSubRegion": false,
+    "RegionName": "bhutan",
+    "SizeForHumans": "21.40 MB",
+    "RegionNameWithPrefix": "asia/bhutan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Cambodia",
+    "Href": "asia/cambodia-latest.osm.pbf",
+    "Size": 32925286,
+    "IsSpecialSubRegion": false,
+    "RegionName": "cambodia",
+    "SizeForHumans": "31.40 MB",
+    "RegionNameWithPrefix": "asia/cambodia"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "China",
+    "Href": "asia/china-latest.osm.pbf",
+    "Size": 1073741824,
+    "IsSpecialSubRegion": false,
+    "RegionName": "china",
+    "SizeForHumans": "1.00 GB",
+    "RegionNameWithPrefix": "asia/china"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "East Timor",
+    "Href": "asia/east-timor-latest.osm.pbf",
+    "Size": 15728640,
+    "IsSpecialSubRegion": false,
+    "RegionName": "east-timor",
+    "SizeForHumans": "15.00 MB",
+    "RegionNameWithPrefix": "asia/east-timor"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "GCC States",
+    "Href": "asia/gcc-states-latest.osm.pbf",
+    "Size": 202375168,
+    "IsSpecialSubRegion": false,
+    "RegionName": "gcc-states",
+    "SizeForHumans": "193.00 MB",
+    "RegionNameWithPrefix": "asia/gcc-states"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "India",
+    "Href": "asia/india-latest.osm.pbf",
+    "Size": 1503238553,
+    "IsSpecialSubRegion": false,
+    "RegionName": "india",
+    "SizeForHumans": "1.40 GB",
+    "RegionNameWithPrefix": "asia/india"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Indonesia (with East Timor)",
+    "Href": "asia/indonesia-latest.osm.pbf",
+    "Size": 1610612736,
+    "IsSpecialSubRegion": false,
+    "RegionName": "indonesia",
+    "SizeForHumans": "1.50 GB",
+    "RegionNameWithPrefix": "asia/indonesia"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Iran",
+    "Href": "asia/iran-latest.osm.pbf",
+    "Size": 202375168,
+    "IsSpecialSubRegion": false,
+    "RegionName": "iran",
+    "SizeForHumans": "193.00 MB",
+    "RegionNameWithPrefix": "asia/iran"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Iraq",
+    "Href": "asia/iraq-latest.osm.pbf",
+    "Size": 73400320,
+    "IsSpecialSubRegion": false,
+    "RegionName": "iraq",
+    "SizeForHumans": "70.00 MB",
+    "RegionNameWithPrefix": "asia/iraq"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Israel and Palestine",
+    "Href": "asia/israel-and-palestine-latest.osm.pbf",
+    "Size": 103809024,
+    "IsSpecialSubRegion": false,
+    "RegionName": "israel-and-palestine",
+    "SizeForHumans": "99.00 MB",
+    "RegionNameWithPrefix": "asia/israel-and-palestine"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Japan",
+    "Href": "asia/japan-latest.osm.pbf",
+    "Size": 1932735283,
+    "IsSpecialSubRegion": false,
+    "RegionName": "japan",
+    "SizeForHumans": "1.80 GB",
+    "RegionNameWithPrefix": "asia/japan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Jordan",
+    "Href": "asia/jordan-latest.osm.pbf",
+    "Size": 28730982,
+    "IsSpecialSubRegion": false,
+    "RegionName": "jordan",
+    "SizeForHumans": "27.40 MB",
+    "RegionNameWithPrefix": "asia/jordan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Kazakhstan",
+    "Href": "asia/kazakhstan-latest.osm.pbf",
+    "Size": 174063616,
+    "IsSpecialSubRegion": false,
+    "RegionName": "kazakhstan",
+    "SizeForHumans": "166.00 MB",
+    "RegionNameWithPrefix": "asia/kazakhstan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Kyrgyzstan",
+    "Href": "asia/kyrgyzstan-latest.osm.pbf",
+    "Size": 42781900,
+    "IsSpecialSubRegion": false,
+    "RegionName": "kyrgyzstan",
+    "SizeForHumans": "40.80 MB",
+    "RegionNameWithPrefix": "asia/kyrgyzstan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Laos",
+    "Href": "asia/laos-latest.osm.pbf",
+    "Size": 46556774,
+    "IsSpecialSubRegion": false,
+    "RegionName": "laos",
+    "SizeForHumans": "44.40 MB",
+    "RegionNameWithPrefix": "asia/laos"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Lebanon",
+    "Href": "asia/lebanon-latest.osm.pbf",
+    "Size": 42362470,
+    "IsSpecialSubRegion": false,
+    "RegionName": "lebanon",
+    "SizeForHumans": "40.40 MB",
+    "RegionNameWithPrefix": "asia/lebanon"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Malaysia, Singapore, and Brunei",
+    "Href": "asia/malaysia-singapore-brunei-latest.osm.pbf",
+    "Size": 211812352,
+    "IsSpecialSubRegion": false,
+    "RegionName": "malaysia-singapore-brunei",
+    "SizeForHumans": "202.00 MB",
+    "RegionNameWithPrefix": "asia/malaysia-singapore-brunei"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Maldives",
+    "Href": "asia/maldives-latest.osm.pbf",
+    "Size": 3040870,
+    "IsSpecialSubRegion": false,
+    "RegionName": "maldives",
+    "SizeForHumans": "2.90 MB",
+    "RegionNameWithPrefix": "asia/maldives"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Mongolia",
+    "Href": "asia/mongolia-latest.osm.pbf",
+    "Size": 54525952,
+    "IsSpecialSubRegion": false,
+    "RegionName": "mongolia",
+    "SizeForHumans": "52.00 MB",
+    "RegionNameWithPrefix": "asia/mongolia"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Myanmar (a.k.a. Burma)",
+    "Href": "asia/myanmar-latest.osm.pbf",
+    "Size": 154140672,
+    "IsSpecialSubRegion": false,
+    "RegionName": "myanmar",
+    "SizeForHumans": "147.00 MB",
+    "RegionNameWithPrefix": "asia/myanmar"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Nepal",
+    "Href": "asia/nepal-latest.osm.pbf",
+    "Size": 385875968,
+    "IsSpecialSubRegion": false,
+    "RegionName": "nepal",
+    "SizeForHumans": "368.00 MB",
+    "RegionNameWithPrefix": "asia/nepal"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "North Korea",
+    "Href": "asia/north-korea-latest.osm.pbf",
+    "Size": 68157440,
+    "IsSpecialSubRegion": false,
+    "RegionName": "north-korea",
+    "SizeForHumans": "65.00 MB",
+    "RegionNameWithPrefix": "asia/north-korea"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Pakistan",
+    "Href": "asia/pakistan-latest.osm.pbf",
+    "Size": 112197632,
+    "IsSpecialSubRegion": false,
+    "RegionName": "pakistan",
+    "SizeForHumans": "107.00 MB",
+    "RegionNameWithPrefix": "asia/pakistan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Philippines",
+    "Href": "asia/philippines-latest.osm.pbf",
+    "Size": 534773760,
+    "IsSpecialSubRegion": false,
+    "RegionName": "philippines",
+    "SizeForHumans": "510.00 MB",
+    "RegionNameWithPrefix": "asia/philippines"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Russian Federation",
+    "Href": "russia-latest.osm.pbf",
+    "Size": 3650722201,
+    "IsSpecialSubRegion": false,
+    "RegionName": "russia",
+    "SizeForHumans": "3.40 GB",
+    "RegionNameWithPrefix": "russia"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "South Korea",
+    "Href": "asia/south-korea-latest.osm.pbf",
+    "Size": 201326592,
+    "IsSpecialSubRegion": false,
+    "RegionName": "south-korea",
+    "SizeForHumans": "192.00 MB",
+    "RegionNameWithPrefix": "asia/south-korea"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Sri Lanka",
+    "Href": "asia/sri-lanka-latest.osm.pbf",
+    "Size": 131072000,
+    "IsSpecialSubRegion": false,
+    "RegionName": "sri-lanka",
+    "SizeForHumans": "125.00 MB",
+    "RegionNameWithPrefix": "asia/sri-lanka"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Syria",
+    "Href": "asia/syria-latest.osm.pbf",
+    "Size": 66060288,
+    "IsSpecialSubRegion": false,
+    "RegionName": "syria",
+    "SizeForHumans": "63.00 MB",
+    "RegionNameWithPrefix": "asia/syria"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Taiwan",
+    "Href": "asia/taiwan-latest.osm.pbf",
+    "Size": 243269632,
+    "IsSpecialSubRegion": false,
+    "RegionName": "taiwan",
+    "SizeForHumans": "232.00 MB",
+    "RegionNameWithPrefix": "asia/taiwan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Tajikistan",
+    "Href": "asia/tajikistan-latest.osm.pbf",
+    "Size": 44459622,
+    "IsSpecialSubRegion": false,
+    "RegionName": "tajikistan",
+    "SizeForHumans": "42.40 MB",
+    "RegionNameWithPrefix": "asia/tajikistan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Thailand",
+    "Href": "asia/thailand-latest.osm.pbf",
+    "Size": 281018368,
+    "IsSpecialSubRegion": false,
+    "RegionName": "thailand",
+    "SizeForHumans": "268.00 MB",
+    "RegionNameWithPrefix": "asia/thailand"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Turkmenistan",
+    "Href": "asia/turkmenistan-latest.osm.pbf",
+    "Size": 15414067,
+    "IsSpecialSubRegion": false,
+    "RegionName": "turkmenistan",
+    "SizeForHumans": "14.70 MB",
+    "RegionNameWithPrefix": "asia/turkmenistan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Uzbekistan",
+    "Href": "asia/uzbekistan-latest.osm.pbf",
+    "Size": 85983232,
+    "IsSpecialSubRegion": false,
+    "RegionName": "uzbekistan",
+    "SizeForHumans": "82.00 MB",
+    "RegionNameWithPrefix": "asia/uzbekistan"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Vietnam",
+    "Href": "asia/vietnam-latest.osm.pbf",
+    "Size": 290455552,
+    "IsSpecialSubRegion": false,
+    "RegionName": "vietnam",
+    "SizeForHumans": "277.00 MB",
+    "RegionNameWithPrefix": "asia/vietnam"
+  },
+  {
+    "Continent": "asia",
+    "Subregion": "Yemen",
+    "Href": "asia/yemen-latest.osm.pbf",
+    "Size": 39950745,
+    "IsSpecialSubRegion": false,
+    "RegionName": "yemen",
+    "SizeForHumans": "38.10 MB",
+    "RegionNameWithPrefix": "asia/yemen"
+  }
+]

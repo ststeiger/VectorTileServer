@@ -1,0 +1,542 @@
+﻿[
+  {
+    "Continent": "europe",
+    "Subregion": "Albania",
+    "Href": "europe/albania-latest.osm.pbf",
+    "Size": 43725619,
+    "IsSpecialSubRegion": false,
+    "RegionName": "albania",
+    "SizeForHumans": "41.70 MB",
+    "RegionNameWithPrefix": "europe/albania"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Andorra",
+    "Href": "europe/andorra-latest.osm.pbf",
+    "Size": 2516582,
+    "IsSpecialSubRegion": false,
+    "RegionName": "andorra",
+    "SizeForHumans": "2.40 MB",
+    "RegionNameWithPrefix": "europe/andorra"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Austria",
+    "Href": "europe/austria-latest.osm.pbf",
+    "Size": 738197504,
+    "IsSpecialSubRegion": false,
+    "RegionName": "austria",
+    "SizeForHumans": "704.00 MB",
+    "RegionNameWithPrefix": "europe/austria"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Azores",
+    "Href": "europe/azores-latest.osm.pbf",
+    "Size": 14365491,
+    "IsSpecialSubRegion": false,
+    "RegionName": "azores",
+    "SizeForHumans": "13.70 MB",
+    "RegionNameWithPrefix": "europe/azores"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Belarus",
+    "Href": "europe/belarus-latest.osm.pbf",
+    "Size": 296747008,
+    "IsSpecialSubRegion": false,
+    "RegionName": "belarus",
+    "SizeForHumans": "283.00 MB",
+    "RegionNameWithPrefix": "europe/belarus"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Belgium",
+    "Href": "europe/belgium-latest.osm.pbf",
+    "Size": 580911104,
+    "IsSpecialSubRegion": false,
+    "RegionName": "belgium",
+    "SizeForHumans": "554.00 MB",
+    "RegionNameWithPrefix": "europe/belgium"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Bosnia-Herzegovina",
+    "Href": "europe/bosnia-herzegovina-latest.osm.pbf",
+    "Size": 131072000,
+    "IsSpecialSubRegion": false,
+    "RegionName": "bosnia-herzegovina",
+    "SizeForHumans": "125.00 MB",
+    "RegionNameWithPrefix": "europe/bosnia-herzegovina"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Bulgaria",
+    "Href": "europe/bulgaria-latest.osm.pbf",
+    "Size": 138412032,
+    "IsSpecialSubRegion": false,
+    "RegionName": "bulgaria",
+    "SizeForHumans": "132.00 MB",
+    "RegionNameWithPrefix": "europe/bulgaria"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Croatia",
+    "Href": "europe/croatia-latest.osm.pbf",
+    "Size": 165675008,
+    "IsSpecialSubRegion": false,
+    "RegionName": "croatia",
+    "SizeForHumans": "158.00 MB",
+    "RegionNameWithPrefix": "europe/croatia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Cyprus",
+    "Href": "europe/cyprus-latest.osm.pbf",
+    "Size": 27367833,
+    "IsSpecialSubRegion": false,
+    "RegionName": "cyprus",
+    "SizeForHumans": "26.10 MB",
+    "RegionNameWithPrefix": "europe/cyprus"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Czech Republic",
+    "Href": "europe/czech-republic-latest.osm.pbf",
+    "Size": 844103680,
+    "IsSpecialSubRegion": false,
+    "RegionName": "czech-republic",
+    "SizeForHumans": "805.00 MB",
+    "RegionNameWithPrefix": "europe/czech-republic"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Denmark",
+    "Href": "europe/denmark-latest.osm.pbf",
+    "Size": 439353344,
+    "IsSpecialSubRegion": false,
+    "RegionName": "denmark",
+    "SizeForHumans": "419.00 MB",
+    "RegionNameWithPrefix": "europe/denmark"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Estonia",
+    "Href": "europe/estonia-latest.osm.pbf",
+    "Size": 104857600,
+    "IsSpecialSubRegion": false,
+    "RegionName": "estonia",
+    "SizeForHumans": "100.00 MB",
+    "RegionNameWithPrefix": "europe/estonia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Faroe Islands",
+    "Href": "europe/faroe-islands-latest.osm.pbf",
+    "Size": 6396313,
+    "IsSpecialSubRegion": false,
+    "RegionName": "faroe-islands",
+    "SizeForHumans": "6.10 MB",
+    "RegionNameWithPrefix": "europe/faroe-islands"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Finland",
+    "Href": "europe/finland-latest.osm.pbf",
+    "Size": 608174080,
+    "IsSpecialSubRegion": false,
+    "RegionName": "finland",
+    "SizeForHumans": "580.00 MB",
+    "RegionNameWithPrefix": "europe/finland"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "France",
+    "Href": "europe/france-latest.osm.pbf",
+    "Size": 4509715660,
+    "IsSpecialSubRegion": false,
+    "RegionName": "france",
+    "SizeForHumans": "4.20 GB",
+    "RegionNameWithPrefix": "europe/france"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Georgia",
+    "Href": "europe/georgia-latest.osm.pbf",
+    "Size": 77594624,
+    "IsSpecialSubRegion": false,
+    "RegionName": "georgia",
+    "SizeForHumans": "74.00 MB",
+    "RegionNameWithPrefix": "europe/georgia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Germany",
+    "Href": "europe/germany-latest.osm.pbf",
+    "Size": 4294967296,
+    "IsSpecialSubRegion": false,
+    "RegionName": "germany",
+    "SizeForHumans": "4.00 GB",
+    "RegionNameWithPrefix": "europe/germany"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Greece",
+    "Href": "europe/greece-latest.osm.pbf",
+    "Size": 299892736,
+    "IsSpecialSubRegion": false,
+    "RegionName": "greece",
+    "SizeForHumans": "286.00 MB",
+    "RegionNameWithPrefix": "europe/greece"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Guernsey and Jersey",
+    "Href": "europe/guernsey-jersey-latest.osm.pbf",
+    "Size": 3565158,
+    "IsSpecialSubRegion": false,
+    "RegionName": "guernsey-jersey",
+    "SizeForHumans": "3.40 MB",
+    "RegionNameWithPrefix": "europe/guernsey-jersey"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Hungary",
+    "Href": "europe/hungary-latest.osm.pbf",
+    "Size": 251658240,
+    "IsSpecialSubRegion": false,
+    "RegionName": "hungary",
+    "SizeForHumans": "240.00 MB",
+    "RegionNameWithPrefix": "europe/hungary"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Iceland",
+    "Href": "europe/iceland-latest.osm.pbf",
+    "Size": 58720256,
+    "IsSpecialSubRegion": false,
+    "RegionName": "iceland",
+    "SizeForHumans": "56.00 MB",
+    "RegionNameWithPrefix": "europe/iceland"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Ireland and Northern Ireland",
+    "Href": "europe/ireland-and-northern-ireland-latest.osm.pbf",
+    "Size": 301989888,
+    "IsSpecialSubRegion": false,
+    "RegionName": "ireland-and-northern-ireland",
+    "SizeForHumans": "288.00 MB",
+    "RegionNameWithPrefix": "europe/ireland-and-northern-ireland"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Isle of Man",
+    "Href": "europe/isle-of-man-latest.osm.pbf",
+    "Size": 5033164,
+    "IsSpecialSubRegion": false,
+    "RegionName": "isle-of-man",
+    "SizeForHumans": "4.80 MB",
+    "RegionNameWithPrefix": "europe/isle-of-man"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Italy",
+    "Href": "europe/italy-latest.osm.pbf",
+    "Size": 1932735283,
+    "IsSpecialSubRegion": false,
+    "RegionName": "italy",
+    "SizeForHumans": "1.80 GB",
+    "RegionNameWithPrefix": "europe/italy"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Kosovo",
+    "Href": "europe/kosovo-latest.osm.pbf",
+    "Size": 25060966,
+    "IsSpecialSubRegion": false,
+    "RegionName": "kosovo",
+    "SizeForHumans": "23.90 MB",
+    "RegionNameWithPrefix": "europe/kosovo"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Latvia",
+    "Href": "europe/latvia-latest.osm.pbf",
+    "Size": 115343360,
+    "IsSpecialSubRegion": false,
+    "RegionName": "latvia",
+    "SizeForHumans": "110.00 MB",
+    "RegionNameWithPrefix": "europe/latvia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Liechtenstein",
+    "Href": "europe/liechtenstein-latest.osm.pbf",
+    "Size": 2936012,
+    "IsSpecialSubRegion": false,
+    "RegionName": "liechtenstein",
+    "SizeForHumans": "2.80 MB",
+    "RegionNameWithPrefix": "europe/liechtenstein"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Lithuania",
+    "Href": "europe/lithuania-latest.osm.pbf",
+    "Size": 190840832,
+    "IsSpecialSubRegion": false,
+    "RegionName": "lithuania",
+    "SizeForHumans": "182.00 MB",
+    "RegionNameWithPrefix": "europe/lithuania"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Luxembourg",
+    "Href": "europe/luxembourg-latest.osm.pbf",
+    "Size": 41104179,
+    "IsSpecialSubRegion": false,
+    "RegionName": "luxembourg",
+    "SizeForHumans": "39.20 MB",
+    "RegionNameWithPrefix": "europe/luxembourg"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Macedonia",
+    "Href": "europe/macedonia-latest.osm.pbf",
+    "Size": 24431820,
+    "IsSpecialSubRegion": false,
+    "RegionName": "macedonia",
+    "SizeForHumans": "23.30 MB",
+    "RegionNameWithPrefix": "europe/macedonia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Malta",
+    "Href": "europe/malta-latest.osm.pbf",
+    "Size": 5976883,
+    "IsSpecialSubRegion": false,
+    "RegionName": "malta",
+    "SizeForHumans": "5.70 MB",
+    "RegionNameWithPrefix": "europe/malta"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Moldova",
+    "Href": "europe/moldova-latest.osm.pbf",
+    "Size": 70254592,
+    "IsSpecialSubRegion": false,
+    "RegionName": "moldova",
+    "SizeForHumans": "67.00 MB",
+    "RegionNameWithPrefix": "europe/moldova"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Monaco",
+    "Href": "europe/monaco-latest.osm.pbf",
+    "Size": 537600,
+    "IsSpecialSubRegion": false,
+    "RegionName": "monaco",
+    "SizeForHumans": "525.00 KB",
+    "RegionNameWithPrefix": "europe/monaco"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Montenegro",
+    "Href": "europe/montenegro-latest.osm.pbf",
+    "Size": 28730982,
+    "IsSpecialSubRegion": false,
+    "RegionName": "montenegro",
+    "SizeForHumans": "27.40 MB",
+    "RegionNameWithPrefix": "europe/montenegro"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Netherlands",
+    "Href": "europe/netherlands-latest.osm.pbf",
+    "Size": 1288490188,
+    "IsSpecialSubRegion": false,
+    "RegionName": "netherlands",
+    "SizeForHumans": "1.20 GB",
+    "RegionNameWithPrefix": "europe/netherlands"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Norway",
+    "Href": "europe/norway-latest.osm.pbf",
+    "Size": 1288490188,
+    "IsSpecialSubRegion": false,
+    "RegionName": "norway",
+    "SizeForHumans": "1.20 GB",
+    "RegionNameWithPrefix": "europe/norway"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Poland",
+    "Href": "europe/poland-latest.osm.pbf",
+    "Size": 1825361100,
+    "IsSpecialSubRegion": false,
+    "RegionName": "poland",
+    "SizeForHumans": "1.70 GB",
+    "RegionNameWithPrefix": "europe/poland"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Portugal",
+    "Href": "europe/portugal-latest.osm.pbf",
+    "Size": 325058560,
+    "IsSpecialSubRegion": false,
+    "RegionName": "portugal",
+    "SizeForHumans": "310.00 MB",
+    "RegionNameWithPrefix": "europe/portugal"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Romania",
+    "Href": "europe/romania-latest.osm.pbf",
+    "Size": 270532608,
+    "IsSpecialSubRegion": false,
+    "RegionName": "romania",
+    "SizeForHumans": "258.00 MB",
+    "RegionNameWithPrefix": "europe/romania"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Russian Federation",
+    "Href": "russia-latest.osm.pbf",
+    "Size": 3650722201,
+    "IsSpecialSubRegion": false,
+    "RegionName": "russia",
+    "SizeForHumans": "3.40 GB",
+    "RegionNameWithPrefix": "russia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Serbia",
+    "Href": "europe/serbia-latest.osm.pbf",
+    "Size": 179306496,
+    "IsSpecialSubRegion": false,
+    "RegionName": "serbia",
+    "SizeForHumans": "171.00 MB",
+    "RegionNameWithPrefix": "europe/serbia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Slovakia",
+    "Href": "europe/slovakia-latest.osm.pbf",
+    "Size": 286261248,
+    "IsSpecialSubRegion": false,
+    "RegionName": "slovakia",
+    "SizeForHumans": "273.00 MB",
+    "RegionNameWithPrefix": "europe/slovakia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Slovenia",
+    "Href": "europe/slovenia-latest.osm.pbf",
+    "Size": 282066944,
+    "IsSpecialSubRegion": false,
+    "RegionName": "slovenia",
+    "SizeForHumans": "269.00 MB",
+    "RegionNameWithPrefix": "europe/slovenia"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Spain",
+    "Href": "europe/spain-latest.osm.pbf",
+    "Size": 1181116006,
+    "IsSpecialSubRegion": false,
+    "RegionName": "spain",
+    "SizeForHumans": "1.10 GB",
+    "RegionNameWithPrefix": "europe/spain"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Sweden",
+    "Href": "europe/sweden-latest.osm.pbf",
+    "Size": 697303040,
+    "IsSpecialSubRegion": false,
+    "RegionName": "sweden",
+    "SizeForHumans": "665.00 MB",
+    "RegionNameWithPrefix": "europe/sweden"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Switzerland",
+    "Href": "europe/switzerland-latest.osm.pbf",
+    "Size": 450887680,
+    "IsSpecialSubRegion": false,
+    "RegionName": "switzerland",
+    "SizeForHumans": "430.00 MB",
+    "RegionNameWithPrefix": "europe/switzerland"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Turkey",
+    "Href": "europe/turkey-latest.osm.pbf",
+    "Size": 545259520,
+    "IsSpecialSubRegion": false,
+    "RegionName": "turkey",
+    "SizeForHumans": "520.00 MB",
+    "RegionNameWithPrefix": "europe/turkey"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Ukraine (with Crimea)",
+    "Href": "europe/ukraine-latest.osm.pbf",
+    "Size": 767557632,
+    "IsSpecialSubRegion": false,
+    "RegionName": "ukraine",
+    "SizeForHumans": "732.00 MB",
+    "RegionNameWithPrefix": "europe/ukraine"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "United Kingdom",
+    "Href": "europe/united-kingdom-latest.osm.pbf",
+    "Size": 1717986918,
+    "IsSpecialSubRegion": false,
+    "RegionName": "united-kingdom",
+    "SizeForHumans": "1.60 GB",
+    "RegionNameWithPrefix": "europe/united-kingdom"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Alps",
+    "Href": "europe/alps-latest.osm.pbf",
+    "Size": 2040109465,
+    "IsSpecialSubRegion": true,
+    "RegionName": "alps",
+    "SizeForHumans": "1.90 GB",
+    "RegionNameWithPrefix": "europe/alps"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Britain and Ireland",
+    "Href": "europe/britain-and-ireland-latest.osm.pbf",
+    "Size": 2040109465,
+    "IsSpecialSubRegion": true,
+    "RegionName": "britain-and-ireland",
+    "SizeForHumans": "1.90 GB",
+    "RegionNameWithPrefix": "europe/britain-and-ireland"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Germany, Austria, Switzerland",
+    "Href": "europe/dach-latest.osm.pbf",
+    "Size": 5476083302,
+    "IsSpecialSubRegion": true,
+    "RegionName": "dach",
+    "SizeForHumans": "5.10 GB",
+    "RegionNameWithPrefix": "europe/dach"
+  },
+  {
+    "Continent": "europe",
+    "Subregion": "Great Britain",
+    "Href": "europe/great-britain-latest.osm.pbf",
+    "Size": 1717986918,
+    "IsSpecialSubRegion": true,
+    "RegionName": "great-britain",
+    "SizeForHumans": "1.60 GB",
+    "RegionNameWithPrefix": "europe/great-britain"
+  }
+]
