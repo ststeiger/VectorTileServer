@@ -42,7 +42,8 @@ namespace VectorTileSelector
 
         } // End Task Test 
 
-        static async System.Threading.Tasks.Task<System.Collections.Generic.List<RegionData>>
+
+        private static async System.Threading.Tasks.Task<System.Collections.Generic.List<RegionData>>
             ExtractDataFromWebsiteAsync(string url)
         {
             string html = null;
@@ -51,7 +52,7 @@ namespace VectorTileSelector
             if (string.IsNullOrEmpty(cacheFile))
             {
                 cacheFile = "earth";
-            }
+            } // End if (string.IsNullOrEmpty(cacheFile)) 
 
             string cacheLocation = System.IO.Path.Combine(@"D:\", "osm-" + cacheFile+".htm");
             string jsonLocation = System.IO.Path.Combine(@"D:\", "osm-" + cacheFile+".json");
@@ -65,11 +66,14 @@ namespace VectorTileSelector
             {
                 using (System.Net.Http.HttpClient client = new System.Net.Http.HttpClient())
                 {
-                    System.Net.Http.HttpResponseMessage response = await client.GetAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    html = await response.Content.ReadAsStringAsync();
-                    System.IO.File.WriteAllText(cacheLocation, html, System.Text.Encoding.UTF8);
-                }
+                    using (System.Net.Http.HttpResponseMessage response = await client.GetAsync(url))
+                    { 
+                        response.EnsureSuccessStatusCode();
+                        html = await response.Content.ReadAsStringAsync();
+                        System.IO.File.WriteAllText(cacheLocation, html, System.Text.Encoding.UTF8);
+                    }// End Using response 
+
+                } // End Using client 
             }
 
             System.Collections.Generic.List<RegionData> regionData = ExtractData(html);
@@ -78,15 +82,16 @@ namespace VectorTileSelector
             for (int i = 0; i < regionData.Count; ++i)
             {
                 regionData[i].Continent = cacheFile;
-            }
+            } // Next i 
 
             string json = System.Text.Json.JsonSerializer.Serialize(regionData, regionData.GetType(),
                 new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
 
             System.IO.File.WriteAllText(jsonLocation, json, System.Text.Encoding.UTF8);
+            // await RegionData.InsertList(regionData);
 
             return regionData;
-        }
+        } // End Task ExtractDataFromWebsiteAsync 
 
 
         public static System.Collections.Generic.List<RegionData> ExtractTableData(
@@ -134,7 +139,7 @@ namespace VectorTileSelector
         } // End Function ExtractTableData 
 
 
-        static void RemoveInvisibleDivs(HtmlAgilityPack.HtmlDocument doc)
+        private static void RemoveInvisibleDivs(HtmlAgilityPack.HtmlDocument doc)
         {
             // Select all div elements
             HtmlAgilityPack.HtmlNodeCollection divs = doc.DocumentNode.SelectNodes("//div");
@@ -157,11 +162,13 @@ namespace VectorTileSelector
                             div.Remove(); // Remove the div
                         }
 
-                    }
-                }
-            }
+                    } // End if (styleAttribute != null) 
 
-        }
+                } // Next div 
+
+            } // End if (divs != null) 
+
+        } // End Sub RemoveInvisibleDivs 
 
 
         public static System.Collections.Generic.List<RegionData> ExtractData(string html)
@@ -174,12 +181,12 @@ namespace VectorTileSelector
 
             // Select the table with id "subregions"
             extractedData.AddRange(ExtractTableData(doc, "specialsubregions"));
-
+            
             return extractedData;
-        }
+        } // End Function ExtractData 
 
 
-    }
+    } // End Class TestAgility 
 
 
     class RegionData
@@ -204,7 +211,7 @@ namespace VectorTileSelector
 
                 return regname;
             }
-        }
+        } // End Property RegionName 
 
 
         public string SizeForHumans
@@ -213,7 +220,7 @@ namespace VectorTileSelector
             {
                 return SizeParser.ConvertBytesToSize(this.Size);
             }
-        }
+        } // End Property SizeForHumans 
 
 
         public string RegionNameWithPrefix
@@ -224,12 +231,78 @@ namespace VectorTileSelector
 
                 return regname;
             }
-        }
+        } // End Property RegionNameWithPrefix 
 
 
 
-    }
+        private static string GetPgCs()
+        {
+            // Create SqlConnectionStringBuilder instance
+            Npgsql.NpgsqlConnectionStringBuilder builder = new Npgsql.NpgsqlConnectionStringBuilder();
+
+            // Set the data source to the machine name
+            builder.Host = "localhost"; // System.Environment.MachineName;
+            builder.Port = 5432;
+            builder.Database = "openmaptiles";
+
+            // Set integrated security to true
+            builder.IntegratedSecurity = false;
+            builder.Username = "postgres";
+            builder.Password = "TOP_SECRET";
+
+            // Build the connection string
+            string connectionString = builder.ConnectionString;
+
+            return connectionString;
+        } // End Function GetPgCs 
 
 
+        private static string GetMsCs()
+        {
+            // Create SqlConnectionStringBuilder instance
+            var builder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder();
 
-}
+            // Set the data source to the machine name
+            builder.DataSource = System.Environment.MachineName;
+            builder.InitialCatalog = "openmaptiles";
+
+            // Set integrated security to true
+            builder.IntegratedSecurity = true;
+            builder.Encrypt = false;
+
+            // Build the connection string
+            string connectionString = builder.ConnectionString;
+
+            return connectionString;
+        } // End Function GetMsCs 
+
+
+        public static async System.Threading.Tasks.Task InsertList(System.Collections.Generic.IEnumerable<RegionData> list)
+        {
+            // SQL query for insertion
+            string sql = @"
+INSERT INTO region_data (continent, subregion, href, size, is_special_subregion) 
+VALUES (@Continent, @Subregion, @Href, @Size, @IsSpecialSubRegion); 
+";
+
+            using (System.Data.Common.DbConnection connection =
+                new Microsoft.Data.SqlClient.SqlConnection(GetMsCs())
+                // new Npgsql.NpgsqlConnection(GetPgCs())
+            )
+            {
+                // Open the connection
+                if (connection.State != System.Data.ConnectionState.Open)
+                    await connection.OpenAsync();
+
+                await Dapper.SqlMapper.ExecuteAsync(connection, sql, list);
+
+                if (connection.State != System.Data.ConnectionState.Closed)
+                    await connection.CloseAsync();
+            } // End Using connection 
+        } // End Task InsertList 
+
+
+    } // End Class RegionData 
+
+
+} // End Namespace 
