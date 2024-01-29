@@ -18,7 +18,9 @@ namespace VectorTileSelector
                     "https://download.geofabrik.de/central-america.html",
                     "https://download.geofabrik.de/europe.html",
                     "https://download.geofabrik.de/north-america.html",
-                    "https://download.geofabrik.de/south-america.html"
+                    "https://download.geofabrik.de/south-america.html",
+                    "https://download.geofabrik.de/north-america/canada.html",
+                    "https://download.geofabrik.de/north-america/us.html"
                 };
 
 
