@@ -65,6 +65,37 @@ ORDER BY size DESC
 
 
 
+-- Falsch, eigent sich aber für unterregionale Daten.
+--SELECT 
+--	 continent 
+--	-- ,SUM(size) AS size 
+	 
+--	,CASE 
+--		WHEN SUM(size)>=CONVERT(bigint,POWER(CONVERT(decimal(38,0),(1024)),(4))) 
+--			THEN CONCAT(CONVERT(decimal(18,2),SUM(size)/CONVERT(decimal(18,2),POWER(CONVERT(decimal(38,0),(1024)),(4)))),' TB') 
+--		WHEN SUM(size)>=CONVERT(bigint,POWER(CONVERT(decimal(38,0),(1024)),(3))) 
+--			THEN CONCAT(CONVERT(decimal(18,2),SUM(size)/CONVERT(decimal(18,2),POWER(CONVERT(decimal(38,0),(1024)),(3)))),' GB') 
+--		WHEN SUM(size)>=CONVERT(bigint,POWER(CONVERT(decimal(38,0),(1024)),(2))) 
+--			THEN CONCAT(CONVERT(decimal(18,2),SUM(size)/CONVERT(decimal(18,2),POWER(CONVERT(decimal(38,0),(1024)),(2)))),' MB') 
+--		WHEN SUM(size)>=CONVERT(bigint,POWER(CONVERT(decimal(38,0),(1024)),(1))) 
+--			THEN CONCAT(CONVERT(decimal(18,2),SUM(size)/CONVERT(decimal(18,2),POWER(CONVERT(decimal(38,0),(1024)),(1)))),' KB') 
+--		ELSE CONCAT(CONVERT(decimal(18,2),SUM(size)),' B') 
+--	 END AS size_for_humans 
+
+--	,CAST(ROUND(SUM(size) * 100.0 / SUM(SUM(size)) OVER (), 2) AS decimal(5,2)) AS percentage_of_total 
+--FROM region_data 
+
+--WHERE (1=1) 
+--AND continent <> 'earth' 
+
+--GROUP BY continent 
+
+--ORDER BY SUM(size) DESC 
+
+
+
+
+
 ;WITH cte_ranked_regions AS 
 ( 
     SELECT 

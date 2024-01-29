@@ -1,4 +1,5 @@
 
+using System;
 using Microsoft.Extensions.DependencyInjection; // for ConfigureHttpJsonOptions
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -125,7 +126,17 @@ namespace VectorTileServer3
                                             return;
                                         } // End if (stream == null)
 
-
+                         
+                                        // ,map.tile_id = MD5 
+                                        // using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+                                        // {
+                                        //     byte[] hashBytes = md5.ComputeHash(stream);
+                                        //     string ba = System.BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                                        //     System.Console.WriteLine("x: {0}, y: {1}, z: {2} md5: {3}", x, y, z, ba);
+                                        //     stream.Position = 0;
+                                        // }
+                                        
+                                        
                                         httpContext.Response.StatusCode = 200;
                                         httpContext.Response.ContentType = "application/x-protobuf";
 
