@@ -10,6 +10,23 @@ namespace VectorTileSelector
         
         // Vector-tile rendering
         // https://gis.stackexchange.com/questions/339396/openlayers-vector-tile-rendering-problem-on-net-core-2-2
+        // https://github.com/pramsey/crunchyblog/blob/master/tile-server/index.md
+        // https://github.com/pramsey/minimal-mvt/tree/master
+        // https://github.com/Oslandia/postile
+        // https://github.com/tobinbradley/dirt-simple-postgis-http-api
+        // https://github.com/maplibre/martin
+        
+        // https://github.com/search?q=+ST_AsMVT+language%3AC%23+&type=code
+        // https://github.com/apdevelop/tile-map-service
+        // https://github.com/lucasvra/postgis-tile-server
+        // https://github.com/giserver/giserver-dotnet-libs
+        // https://github.com/NieneB/webmapping_for_developers
+        // https://github.com/WernerMairl/tile-map-service-net5/blob/e87a62917ee230fb5d30238845c2f4e7da219887/Src/TileMapService/TileSources/PostGISTileSource.cs#L130
+        
+        // https://www.youtube.com/watch?v=E1YJV6I_rhY
+        // https://github.com/apdevelop/linq2db-postgis-extensions/blob/ed9425f1b22101e8eccb0bce4896b841d4f448c3/LinqToDBPostGisNetTopologySuite/GeometryOutput.cs#L403
+        // https://github.com/kmichael500/planarian/blob/0869520c38f60755f5085ede8efe389aa55721a9/Planarian/Planarian/Modules/Map/Controllers/MapRepository.cs#L185
+        // https://github.com/lucasvra/postgis-tile-server/blob/e36f48cbbbd0402a91d50f3599e1274613f2a4f7/Controllers/TileController.cs#L80
         public static async System.Threading.Tasks.Task Test()
         {
             try
