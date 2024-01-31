@@ -7,6 +7,9 @@ namespace VectorTileSelector
 
     class TestAgility
     {
+        
+        // Vector-tile rendering
+        // https://gis.stackexchange.com/questions/339396/openlayers-vector-tile-rendering-problem-on-net-core-2-2
         public static async System.Threading.Tasks.Task Test()
         {
             try
