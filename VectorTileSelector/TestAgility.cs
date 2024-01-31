@@ -1,4 +1,6 @@
 ﻿
+using Dapper;
+
 namespace VectorTileSelector
 {
 
@@ -22,13 +24,17 @@ namespace VectorTileSelector
                     "https://download.geofabrik.de/north-america/canada.html",
                     "https://download.geofabrik.de/north-america/us.html"
                 };
-
+                
+                
+                await RegionData.ClearDb();
 
                 foreach (string page in pages)
                 {
                     System.Collections.Generic.List<RegionData> extractedData = 
                         await ExtractDataFromWebsiteAsync(page);
 
+                    await RegionData.InsertList(extractedData);
+                    
                     foreach (RegionData data in extractedData)
                     {
                         System.Console.WriteLine($"Subregion: {data.Subregion}, RegionName: {data.RegionName}, Special: {data.IsSpecialSubRegion}, Size: {SizeParser.ConvertBytesToSize(data.Size)}");
@@ -88,10 +94,8 @@ namespace VectorTileSelector
 
             string json = System.Text.Json.JsonSerializer.Serialize(regionData, regionData.GetType(),
                 new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
-
-            System.IO.File.WriteAllText(jsonLocation, json, System.Text.Encoding.UTF8);
-            // await RegionData.InsertList(regionData);
-
+            
+            await System.IO.File.WriteAllTextAsync(jsonLocation, json, System.Text.Encoding.UTF8);
             return regionData;
         } // End Task ExtractDataFromWebsiteAsync 
 
@@ -278,6 +282,37 @@ namespace VectorTileSelector
             return connectionString;
         } // End Function GetMsCs 
 
+        
+        private static System.Data.Common.DbConnection GetConnection()
+        {
+            System.Data.Common.DbConnection dbc = new Microsoft.Data.SqlClient.SqlConnection(GetMsCs());
+            dbc.ConnectionString = GetMsCs();
+            // System.Data.Common.DbConnection dbc = new Npgsql.NpgsqlConnection(GetPgCs())
+            // dbc.ConnectionString = GetPgCs();
+            return dbc;
+        }
+        
+        
+        public static async System.Threading.Tasks.Task ClearDb()
+        {
+            // SQL query for insertion
+            string sql = @"DELETE FROM region_data; ";
+            
+            using (System.Data.Common.DbConnection connection = GetConnection())
+            {
+                // Open the connection
+                if (connection.State != System.Data.ConnectionState.Open)
+                    await connection.OpenAsync();
+                
+                await Dapper.SqlMapper.ExecuteAsync(connection, sql);
+
+                if (connection.State != System.Data.ConnectionState.Closed)
+                    await connection.CloseAsync();
+            } // End Using connection 
+        } // End Task InsertList 
+
+
+
 
         public static async System.Threading.Tasks.Task InsertList(System.Collections.Generic.IEnumerable<RegionData> list)
         {
@@ -287,15 +322,12 @@ INSERT INTO region_data (continent, subregion, href, size, is_special_subregion)
 VALUES (@Continent, @Subregion, @Href, @Size, @IsSpecialSubRegion); 
 ";
 
-            using (System.Data.Common.DbConnection connection =
-                new Microsoft.Data.SqlClient.SqlConnection(GetMsCs())
-                // new Npgsql.NpgsqlConnection(GetPgCs())
-            )
+            using (System.Data.Common.DbConnection connection = GetConnection())
             {
                 // Open the connection
                 if (connection.State != System.Data.ConnectionState.Open)
                     await connection.OpenAsync();
-
+                
                 await Dapper.SqlMapper.ExecuteAsync(connection, sql, list);
 
                 if (connection.State != System.Data.ConnectionState.Closed)
