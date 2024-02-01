@@ -28,22 +28,30 @@ namespace VectorTileServer3
             , IWebHostEnvironment env 
         )
         {
-            System.Console.Write("DisplayUrl: ");
-            System.Console.WriteLine(context.Request.GetDisplayUrl());
-            System.Console.Write("Host: ");
-            System.Console.WriteLine(context.Request.Host.Host);
-            System.Console.Write("PathBase: ");
-            System.Console.WriteLine( context.Request.PathBase);
-            
+            // System.Console.Write("DisplayUrl: ");
+            // System.Console.WriteLine(context.Request.GetDisplayUrl());
+            // System.Console.Write("Host: ");
+            // System.Console.WriteLine(context.Request.Host.Host;); // foo.bar.xyz.example.com
+            // System.Console.Write("Protocol: ");
+            // System.Console.WriteLine(context.Request.Protocol); // HTTP/1.1
             
             string fn = System.IO.Path.GetFileName(context.Request.Path);
             
-            // System.Console.WriteLine(context.Request.Protocol); // HTTP/1.1
+            
             string server = context.Request.Scheme + System.Uri.SchemeDelimiter + context.Request.Host.Host;
                 
             if(context.Request.Host.Port.HasValue && context.Request.Host.Port.Value != 80 && context.Request.Host.Port.Value != 443)
                 server = server + ":" + System.Convert.ToString( context.Request.Host.Port.Value, System.Globalization.CultureInfo.InvariantCulture);
-
+            
+            // IIS Virtual-Directory 
+            if (context.Request.PathBase.HasValue && context.Request.PathBase.Value != null)
+            {
+                if (!server.EndsWith("/") && !context.Request.PathBase.Value.StartsWith('/'))
+                    server += "/";
+                
+                server += context.Request.PathBase.Value;
+            }
+            
             if (!server.EndsWith("/"))
                 server += "/";
             
@@ -72,7 +80,7 @@ namespace VectorTileServer3
             }
             
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = 200;
+            context.Response.StatusCode = 404;
             string styleJson = "{ \"error\": \"404\", \"message\": \"Not Found\", \"code\": 404 }";
             await context.Response.WriteAsync(styleJson);
         }
