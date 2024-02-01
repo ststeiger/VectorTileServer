@@ -3,7 +3,8 @@ using System;
 using Microsoft.Extensions.DependencyInjection; // for ConfigureHttpJsonOptions
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting; // for MapGroup, MapGet
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Extensions; // for MapGroup, MapGet
 
 
 
@@ -20,11 +21,75 @@ namespace VectorTileServer3
         {
             return (1 << zoom) - tmsY - 1; // 2^zoom - tmsY - 1
         } // End Function FromTmsY 
+        
+        
+        public static async System.Threading.Tasks.Task DynamicPathAdjustedJsonHandlerAsync(
+            Microsoft.AspNetCore.Http.HttpContext context
+            , IWebHostEnvironment env 
+        )
+        {
+            System.Console.Write("DisplayUrl: ");
+            System.Console.WriteLine(context.Request.GetDisplayUrl());
+            System.Console.Write("Host: ");
+            System.Console.WriteLine(context.Request.Host.Host);
+            System.Console.Write("PathBase: ");
+            System.Console.WriteLine( context.Request.PathBase);
+            
+            
+            string fn = System.IO.Path.GetFileName(context.Request.Path);
+            
+            // System.Console.WriteLine(context.Request.Protocol); // HTTP/1.1
+            string server = context.Request.Scheme + System.Uri.SchemeDelimiter + context.Request.Host.Host;
+                
+            if(context.Request.Host.Port.HasValue && context.Request.Host.Port.Value != 80 && context.Request.Host.Port.Value != 443)
+                server = server + ":" + System.Convert.ToString( context.Request.Host.Port.Value, System.Globalization.CultureInfo.InvariantCulture);
 
-
+            if (!server.EndsWith("/"))
+                server += "/";
+            
+            
+            if ("style.json".Equals(fn))
+            {
+                string mapped = System.IO.Path.Combine(env.WebRootPath, "styles", "bright", "style_TEMPLATE.json");
+                string content = await System.IO.File.ReadAllTextAsync(mapped, System.Text.Encoding.UTF8);
+                content = content.Replace("{@server}", server);
+                
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = 200;
+                await context.Response.WriteAsync(content);
+                return;
+            }
+            else if ("v3.json".Equals(fn))
+            {
+                string mapped = System.IO.Path.Combine(env.WebRootPath, "styles", "bright", "v3_TEMPLATE.json");
+                string content = await System.IO.File.ReadAllTextAsync(mapped, System.Text.Encoding.UTF8);
+                content = content.Replace("{@server}", server);
+                
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = 200;
+                await context.Response.WriteAsync(content);
+                return;
+            }
+            
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = 200;
+            string styleJson = "{ \"error\": \"404\", \"message\": \"Not Found\", \"code\": 404 }";
+            await context.Response.WriteAsync(styleJson);
+        }
+        
+        
 
         public static async System.Threading.Tasks.Task<int> Main(string[] args)
         {
+            string? appPath = System.Environment.GetEnvironmentVariable("ASPNETCORE_APPL_PATH");
+            System.Console.WriteLine(appPath);
+            
+            IIS_ConfigurationData props = IIS_ConfigurationData.Init();
+            System.Console.WriteLine(props);
+
+            
+            
+            
             Microsoft.AspNetCore.Builder.WebApplicationBuilder builder = Microsoft.AspNetCore.Builder.WebApplication.CreateSlimBuilder(args);
 
             builder.Services.ConfigureHttpJsonOptions(options =>
@@ -60,6 +125,10 @@ namespace VectorTileServer3
 
 
             Microsoft.AspNetCore.Builder.WebApplication app = builder.Build();
+            
+            
+            app.MapGet("/styles/bright/v3.json", DynamicPathAdjustedJsonHandlerAsync);
+            app.MapGet("/styles/bright/style.json", DynamicPathAdjustedJsonHandlerAsync);
             
 
             app.MapGet("/test", async delegate (Microsoft.AspNetCore.Http.HttpContext context) {
