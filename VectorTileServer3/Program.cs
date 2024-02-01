@@ -40,11 +40,16 @@ namespace VectorTileServer3
 
             if ("prodesk".Equals(System.Environment.MachineName, System.StringComparison.InvariantCultureIgnoreCase))
             {
-                path = "/root/docker/openmaptiles/data/switzerland.mbtiles";
                 path = "/root/docker/openmaptiles/data/liechtenstein.mbtiles";
             }
-
-
+            
+            
+            if ("ThinkPadT16".Equals(System.Environment.MachineName, System.StringComparison.InvariantCultureIgnoreCase))
+            {
+                path = "/root/docker/openmaptiles/data/switzerland.mbtiles";
+                // path = "/root/docker/openmaptiles/data/liechtenstein.mbtiles";
+            }
+            
             libWebAppBasics.Database.IConnectionFactory factory =
                 new libWebAppBasics.Database.ConnectionFactory(
                   string.Format("Data Source={0};Version=3;", path)
