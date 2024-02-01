@@ -191,8 +191,8 @@ namespace VectorTileServer3
 
                         using (System.Data.Common.DbCommand cmd = conn.CreateCommand())
                         {
-                            // cmd.CommandText = string.Format("SELECT * FROM tiles WHERE tile_column = {0} and tile_row = {1} and zoom_level = {2}", x, y, z);
-                            cmd.CommandText = string.Format("SELECT tms_tile AS tile_data FROM tms_map WHERE tms_zoom = {0} and tms_xy = {1}", z, fused64);
+                            cmd.CommandText = string.Format("SELECT tile_data FROM tiles WHERE tile_column = {0} and tile_row = {1} and zoom_level = {2}", x, y, z);
+                            // cmd.CommandText = string.Format("SELECT tms_tile AS tile_data FROM tms_map WHERE tms_zoom = {0} and tms_xy = {1}", z, fused64);
 
                             using (System.Data.Common.DbDataReader reader = cmd.ExecuteReader())
                             {
