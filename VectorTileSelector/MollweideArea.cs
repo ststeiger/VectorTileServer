@@ -28,12 +28,14 @@ namespace VectorTileSelector
             System.Collections.Generic.List<Xml2CSharp.Coordinates> ls = region_boundaries.Document.Placemark.MultiGeometry.Polygon.OuterBoundaryIs.LinearRing.CoordinateList;
             double area = CalculatePolygonArea(ls);
 
+            System.Console.WriteLine(area);
+
             // Burundi spheric: 28'034'768'830
             // Burundi Mollweide = 27'970'515'322.824875
             // Burundi AlbersA: 27'844'821'510.476734
+            // Burundi CEAW:    27'844'703'736 Projected.World.CylindricalEqualAreaworld
             // Burundi actual:  27'834'000'000 = 27,834 km² 
 
-            System.Console.WriteLine(area);
         } // End Sub Test 
 
 
@@ -65,9 +67,13 @@ namespace VectorTileSelector
 
             DotSpatial.Projections.ProjectionInfo fromWgs84 = DotSpatial.Projections.ProjectionInfo.FromEpsgCode(4326); // WGS84
 
+
+            DotSpatial.Projections.ProjectionInfo equalAreaProjection = DotSpatial.Projections.KnownCoordinateSystems.Projected.World.CylindricalEqualAreaworld;
+
+
             // Mollweide equal-area projection 
             // DotSpatial.Projections.ProjectionInfo toMollweide = DotSpatial.Projections.ProjectionInfo.FromEpsgCode(53009); // not working 
-            
+
             // https://epsg.io/102013
             // DotSpatial.Projections.ProjectionInfo toAlbers = DotSpatial.Projections.ProjectionInfo.FromEpsgCode(102013); // not working 
 
@@ -129,6 +135,11 @@ PROJCS[""Sphere_Mollweide"",
             //");
 
 
+            // toAlbers = DotSpatial.Projections.KnownCoordinateSystems.Projected.Europe.EuropeAlbersEqualAreaConic;
+            // toAlbers = DotSpatial.Projections.KnownCoordinateSystems.Projected.Asia.AsiaNorthAlbersEqualAreaConic;
+            // toAlbers = DotSpatial.Projections.KnownCoordinateSystems.Projected.Asia.AsiaSouthAlbersEqualAreaConic;
+
+
             // Begin Reproject 
 
             double[] latLonPoints = new double[points.Count * 2];
@@ -144,7 +155,7 @@ PROJCS[""Sphere_Mollweide"",
             } // Next i 
 
             DotSpatial.Projections.Reproject.ReprojectPoints(
-                latLonPoints, z, fromWgs84, toMollweide
+                latLonPoints, z, fromWgs84, equalAreaProjection
                 , 0, latLonPoints.Length / 2
             );
 
