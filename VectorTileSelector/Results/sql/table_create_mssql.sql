@@ -10,6 +10,7 @@ CREATE TABLE region_data
     ,href national character varying(255) 
     ,size bigint 
     ,is_special_subregion bit 
+	,spheric_area_m2 bigint 
 	 
 	,region_name AS 
 	( 
@@ -46,3 +47,6 @@ ADD size_for_humans AS (
     END
 ) PERSISTED;
 */ 
+
+
+-- ALTER TABLE region_data ADD spheric_area_m2 bigint NULL; 

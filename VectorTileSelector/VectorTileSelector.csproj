@@ -12,4 +12,8 @@
     <PackageReference Include="Npgsql" Version="5.0.17" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Results\kml\" />
+  </ItemGroup>
+
 </Project>

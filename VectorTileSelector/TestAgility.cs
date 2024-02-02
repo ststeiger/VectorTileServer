@@ -259,66 +259,13 @@ namespace VectorTileSelector
             }
         } // End Property RegionNameWithPrefix 
 
-
-
-        private static string GetPgCs()
-        {
-            // Create SqlConnectionStringBuilder instance
-            Npgsql.NpgsqlConnectionStringBuilder builder = new Npgsql.NpgsqlConnectionStringBuilder();
-
-            // Set the data source to the machine name
-            builder.Host = "localhost"; // System.Environment.MachineName;
-            builder.Port = 5432;
-            builder.Database = "openmaptiles";
-
-            // Set integrated security to true
-            builder.IntegratedSecurity = false;
-            builder.Username = "postgres";
-            builder.Password = "TOP_SECRET";
-
-            // Build the connection string
-            string connectionString = builder.ConnectionString;
-
-            return connectionString;
-        } // End Function GetPgCs 
-
-
-        private static string GetMsCs()
-        {
-            // Create SqlConnectionStringBuilder instance
-            var builder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder();
-
-            // Set the data source to the machine name
-            builder.DataSource = System.Environment.MachineName;
-            builder.InitialCatalog = "openmaptiles";
-
-            // Set integrated security to true
-            builder.IntegratedSecurity = true;
-            builder.Encrypt = false;
-
-            // Build the connection string
-            string connectionString = builder.ConnectionString;
-
-            return connectionString;
-        } // End Function GetMsCs 
-
-        
-        private static System.Data.Common.DbConnection GetConnection()
-        {
-            System.Data.Common.DbConnection dbc = new Microsoft.Data.SqlClient.SqlConnection(GetMsCs());
-            dbc.ConnectionString = GetMsCs();
-            // System.Data.Common.DbConnection dbc = new Npgsql.NpgsqlConnection(GetPgCs())
-            // dbc.ConnectionString = GetPgCs();
-            return dbc;
-        }
-        
         
         public static async System.Threading.Tasks.Task ClearDb()
         {
             // SQL query for insertion
             string sql = @"DELETE FROM region_data; ";
             
-            using (System.Data.Common.DbConnection connection = GetConnection())
+            using (System.Data.Common.DbConnection connection = Db.Connection)
             {
                 // Open the connection
                 if (connection.State != System.Data.ConnectionState.Open)
@@ -342,7 +289,7 @@ INSERT INTO region_data (continent, subregion, href, size, is_special_subregion)
 VALUES (@Continent, @Subregion, @Href, @Size, @IsSpecialSubRegion); 
 ";
 
-            using (System.Data.Common.DbConnection connection = GetConnection())
+            using (System.Data.Common.DbConnection connection = Db.Connection)
             {
                 // Open the connection
                 if (connection.State != System.Data.ConnectionState.Open)

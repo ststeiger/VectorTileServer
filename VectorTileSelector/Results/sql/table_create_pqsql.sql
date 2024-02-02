@@ -11,6 +11,7 @@ CREATE TABLE region_data
 	,href character varying(255) 
 	,size bigint 
 	,is_special_subregion boolean 
+	,spheric_area_m2 bigint 
 	 
 	,region_name character varying(255) GENERATED ALWAYS AS 
 	(
@@ -41,3 +42,6 @@ CREATE TABLE region_data
     ) STORED
 	
 );
+
+
+ALTER TABLE region_data ADD spheric_area_m2 bigint NULL; 

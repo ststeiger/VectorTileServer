@@ -117,3 +117,114 @@ WHERE row_num < 4
 
 ORDER BY row_num, size 
 ; 
+
+
+
+
+SELECT 
+	 continent 
+	,subregion 
+	-- ,size 
+	-- , 
+	,region_name 
+	,size_for_humans 
+	,size 
+	,spheric_area_m2 
+	 
+	 -- I call this the "OpenStreetMap Development coefficient" 
+	,CAST(size AS float) / CAST(spheric_area_m2 AS float) AS area_size_ratio 
+FROM region_data 
+WHERE (1=1) 
+-- AND region_name = 'russia' -- yes, it's there even if continent "russia" is excluded 
+
+AND continent <> 'earth'  
+AND continent NOT IN ('us', 'brazil', 'canada', 'russia') 
+AND COALESCE(is_special_subregion, 0) = 0 
+-- AND continent NOT IN ('africa', 'asia', 'australia-oceania', 'europe' , 'north-america', 'central-america', 'south-america') 
+-- AND continent NOT IN ( 'africa', 'australia-oceania', 'asia', 'europe', 'north-america', 'central-america', 'south-america', 'brazil', 'canada', 'us', 'russia' )
+-- AND continent = 'africa'  
+-- AND continent = 'asia' 
+-- AND continent = 'europe'  
+-- AND continent = 'us' 
+-- AND continent = 'canada' 
+-- AND continent = 'north-america' 
+-- AND continent = 'south-america' 
+-- AND continent = 'central-america' 
+-- AND continent = 'australia-oceania' 
+
+-- not an island 
+AND subregion NOT IN 
+(
+	
+	'Bahamas'
+	,'Fiji'
+	,'Comores'
+	,'Prince Edward Island'
+	,'Nova Scotia'
+	 
+	,'Azores'
+	,'Faroe Islands'
+	,'Canary Islands'
+	,'Isle of Man'
+	,'Guernsey and Jersey'
+	 
+	 -- ,'Cyprus' 
+	 -- ,'Malta' 
+	 -- ,'Iceland' 
+	-- ,'Ireland and Northern Ireland' 
+	-- ,'Britain and Ireland' 
+	-- ,'Australia' -- yes, it's an island, and too much desert on it ;) 
+	-- ,'New Zealand' 
+	-- ,'Rhode Island' 
+	 
+	-- ,'Puerto Rico'
+	,'US Pacific' -- Alaska and Hawai 
+	 
+	-- ,'Cuba'
+	-- ,'Haiti and Dominican Republic'
+	-- ,'Sri Lanka'
+	-- ,'Philippines'
+	-- ,'Indonesia (with East Timor)'
+
+	-- 'Madagascar'
+
+	--,'Crimean Federal District'
+	-- ,'Taiwan'
+
+	,'Kiribati'
+	,'Samoa'
+	,'Sao Tome and Principe'
+	,'Papua New Guinea'
+	,'New Caledonia'
+	,'Maldives'
+	,'Vanuatu'
+	,'Mauritius'
+	,'Tonga'
+	,'Hawaii'
+	,'Solomon Islands'
+	,'Greenland'
+	,'American Oceania'
+	,'Seychelles'
+	,'Polynésie française (French Polynesia)'
+	,'Tuvalu'
+	,'Wallis et Futuna'
+	,'Palau'
+	,'Niue'
+	,'Île de Clipperton'
+	,'Nauru'
+	,'Marshall Islands'
+	,'Cook Islands'
+	,'Micronesia'
+	,'Tokelau'
+	,'Saint Helena, Ascension, and Tristan da Cunha'
+	,'Pitcairn Islands'
+)
+
+
+ORDER BY 
+	 CASE WHEN spheric_area_m2 < 0 THEN 0 ELSE 1 END  
+	 -- ,continent 
+	 -- ,subregion 
+	 -- ,size 
+	,area_size_ratio DESC 
+	 
