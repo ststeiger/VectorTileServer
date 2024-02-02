@@ -114,8 +114,11 @@ AND subregion = @Subregion
         {
             // SizeParser.Test();
             // await GeofabrikDownloader.FetchAndDownloadAsync(Db.KmlDirectory, Db.Connection);
+            // await UpdateSizeAsync();
 
-            await UpdateSizeAsync();
+            MollweideArea.Test();
+
+
             // await TestAgility.Test();
             // await TestAngle.Test();
 
