@@ -1,0 +1,18 @@
+
+Area:
+D:\username\Documents\Visual Studio 2017\Projects\TestPlotly\TestSpatial\TestArea.cs
+D:\username\Documents\Visual Studio 2017\Projects\TestPlotly\TestSpatial\Code\CoordinateExtension.cs
+
+
+ESRI -> SwissGrid
+D:\username\Documents\Visual Studio 2017\Projects\ExportDatabase\ExportDatabase\SwissGrid.cs
+D:\username\Documents\Visual Studio 2017\Projects\OsmPolygon\OsmPolygon\MoveMe\MoveMe.cs
+
+Examples:
+D:\username\Documents\Visual Studio 2017\Projects\DotSpatial\Source\Examples\
+D:\username\Documents\Visual Studio 2017\Projects\DotSpatial\Source\DotSpatial.Projections.Tests\Geographic\SpheroidBased.cs
+
+
+PolygonUnion
+D:\username\Documents\Visual Studio 2017\Projects\AnySqlWebAdmin\AnySqlWebAdmin\Code\PolygonUnion\Program.cs
+D:\username\Documents\Visual Studio 2017\Projects\AnySqlWebAdmin\AnySqlWebAdmin\Code\PolygonUnion\CoordinateExtension.cs
