@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Results\kml\" />
+    <Folder Include="Results\tile_size\" />
   </ItemGroup>
 
 </Project>

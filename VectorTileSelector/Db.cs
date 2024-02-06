@@ -39,6 +39,20 @@ namespace VectorTileSelector
                 return bd;
             }
         }
+
+
+        public static string TileSizeDirectory
+        {
+            get
+            {
+                string bd = System.AppDomain.CurrentDomain.BaseDirectory;
+                bd = System.IO.Path.Combine(ProjectDirectory, "Results", "tile_size");
+                bd = System.IO.Path.GetFullPath(bd);
+
+                return bd;
+            }
+        }
+
         public static string SqlDirectory
         {
             get
