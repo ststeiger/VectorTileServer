@@ -228,3 +228,29 @@ ORDER BY
 	 -- ,size 
 	,area_size_ratio DESC 
 	 
+
+
+
+
+;WITH CTE AS
+(
+	SELECT 
+		 continent 
+		,subregion 
+		,size 
+		,tile_size 
+		,tile_size / CAST(size AS float) AS factor 
+		 
+		,spheric_area_m2 
+		,equal_area_world_area_m2 
+		,ABS(spheric_area_m2 - equal_area_world_area_m2) AS delta_area 
+	FROM region_data 
+)
+SELECT * 
+	
+FROM CTE 
+-- WHERE subregion = 'Germany' 
+ORDER BY factor DESC 
+
+
+

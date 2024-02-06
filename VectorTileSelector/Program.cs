@@ -24,6 +24,7 @@ namespace VectorTileSelector
 		END AS download_name 
 	FROM region_data 
     WHERE spheric_area_m2 IS NULL 
+    OR equal_area_world_area_m2 IS NULL 
 ) 
 SELECT 
 	 continent 
@@ -35,7 +36,9 @@ FROM CTE
             string kmlDirectory = Db.KmlDirectory;
 
             string sqlUpdate = @"
-UPDATE region_data SET spheric_area_m2 = @SphericArea 
+UPDATE region_data 
+    SET  spheric_area_m2 = @SphericArea 
+        ,equal_area_world_area_m2 = @CylindricalEqualAreaworld 
 WHERE continent = @Continent 
 AND subregion = @Subregion 
 ";
@@ -75,6 +78,8 @@ AND subregion = @Subregion
 
                                 Xml2CSharp.RectBounds bounds = region_boundaries.Document.Placemark.MultiGeometry.Polygon.OuterBoundaryIs.LinearRing.RectangularBounds;
                                 double area = region_boundaries.Document.Placemark.MultiGeometry.Polygon.OuterBoundaryIs.LinearRing.SphericalPolygonArea;
+                                double mollweide_area = MollweideArea.CalculatePolygonArea(region_boundaries.Document.Placemark.MultiGeometry.Polygon.OuterBoundaryIs.LinearRing.CoordinateList);
+
 
                                 string area_meters = area.ToString("N0");
                                 // Burundi spheric: 28'034'768'830
@@ -86,6 +91,7 @@ AND subregion = @Subregion
                                 await Dapper.SqlMapper.ExecuteAsync(updateConnection, sqlUpdate, new
                                 {
                                     SphericArea = (long)area, // Replace with the actual value
+                                    CylindricalEqualAreaworld = (long)mollweide_area, // Replace with the actual value
                                     Continent = continent, // Replace with the actual value
                                     Subregion = subregion // Replace with the actual value
                                 });
@@ -114,10 +120,10 @@ AND subregion = @Subregion
         {
             // SizeParser.Test();
             // await GeofabrikDownloader.FetchAndDownloadAsync(Db.KmlDirectory, Db.Connection);
-            // await UpdateSizeAsync();
+            await UpdateSizeAsync();
 
             // MollweideArea.Test();
-            await MapTilerSizeCheck.UpdateTileSize(Db.TileSizeDirectory, Db.Connection);
+            // await MapTilerSizeCheck.UpdateTileSize(Db.TileSizeDirectory, Db.Connection);
 
 
             // await TestAgility.Test();
