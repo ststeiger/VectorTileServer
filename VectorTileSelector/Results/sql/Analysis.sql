@@ -254,3 +254,26 @@ ORDER BY factor DESC
 
 
 
+
+SELECT 
+	 continent 
+	,subregion 
+	,size 
+	,spheric_area_m2 
+	,equal_area_world_area_m2 
+	 
+	,size_for_humans 
+	,tile_size_for_humans 
+
+	,SUM(size) OVER (ORDER BY continent, subregion) /(1024*1024*1024) AS cumulative_size_gib 
+	,SUM(tile_size) OVER (ORDER BY continent, subregion) /(1024*1024*1024) AS cumulative_tile_size_gib 
+	 
+	,SUM(size) OVER () /(1024*1024*1024) AS total_size_gib 
+	,SUM(tile_size) OVER () /(1024*1024*1024) AS total_tile_size_gib 
+FROM region_data 
+WHERE continent = 'earth' 
+-- AND subregion NOT IN ('Antarctica', 'Africa', 'Asia', 'Central America', 'South America') 
+-- AND subregion NOT IN ('Antarctica', 'Africa') 
+-- ORDER BY tile_size 
+-- ORDER BY size 
+ORDER BY continent, subregion

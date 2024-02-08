@@ -1,0 +1,1674 @@
+<html>
+<head>
+    <title></title>
+
+    <script>
+
+        // incorrect
+        var data = [
+            {
+                "id": "1",
+                "country": "Luxembourg",
+                "median": 69.48
+            },
+            {
+                "id": "2",
+                "country": "Norway",
+                "median": 65.3
+            },
+            {
+                "id": "3",
+                "country": "United Arab Emirates",
+                "median": 65.14
+            },
+            {
+                "id": "4",
+                "country": "United States of America",
+                "median": 65.04
+            },
+            {
+                "id": "5",
+                "country": "Switzerland",
+                "median": 64.35
+            },
+            {
+                "id": "6",
+                "country": "Austria",
+                "median": 57.64
+            },
+            {
+                "id": "7",
+                "country": "Iceland",
+                "median": 56.52
+            },
+            {
+                "id": "8",
+                "country": "Canada",
+                "median": 55.42
+            },
+            {
+                "id": "9",
+                "country": "Germany",
+                "median": 54.82
+            },
+            {
+                "id": "10",
+                "country": "Netherlands",
+                "median": 54.42
+            },
+            {
+                "id": "11",
+                "country": "Denmark",
+                "median": 54.08
+            },
+            {
+                "id": "12",
+                "country": "Australia",
+                "median": 53.05
+            },
+            {
+                "id": "13",
+                "country": "Belgium",
+                "median": 52.63
+            },
+            {
+                "id": "14",
+                "country": "Finland",
+                "median": 51.26
+            },
+            {
+                "id": "15",
+                "country": "Sweden",
+                "median": 50.57
+            },
+            {
+                "id": "16",
+                "country": "France",
+                "median": 49.59
+            },
+            {
+                "id": "17",
+                "country": "Malta",
+                "median": 45.71
+            },
+            {
+                "id": "18",
+                "country": "United Kingdom",
+                "median": 45
+            },
+            {
+                "id": "19",
+                "country": "Ireland",
+                "median": 44.73
+            },
+            {
+                "id": "20",
+                "country": "Cyprus",
+                "median": 43.2
+            },
+            {
+                "id": "21",
+                "country": "Japan",
+                "median": 41.49
+            },
+            {
+                "id": "22",
+                "country": "Italy",
+                "median": 40.67
+            },
+            {
+                "id": "23",
+                "country": "Spain",
+                "median": 40.29
+            },
+            {
+                "id": "24",
+                "country": "Slovenia",
+                "median": 39.5
+            },
+            {
+                "id": "25",
+                "country": "Taiwan",
+                "median": 38.27
+            },
+            {
+                "id": "26",
+                "country": "South Korea",
+                "median": 37.62
+            },
+            {
+                "id": "27",
+                "country": "Estonia",
+                "median": 34.65
+            },
+            {
+                "id": "28",
+                "country": "Czech Republic",
+                "median": 34.56
+            },
+            {
+                "id": "29",
+                "country": "Israel",
+                "median": 33.65
+            },
+            {
+                "id": "30",
+                "country": "Lithuania",
+                "median": 30.71
+            },
+            {
+                "id": "31",
+                "country": "Portugal",
+                "median": 29.43
+            },
+            {
+                "id": "32",
+                "country": "Latvia",
+                "median": 26.94
+            },
+            {
+                "id": "33",
+                "country": "Croatia",
+                "median": 26.12
+            },
+            {
+                "id": "34",
+                "country": "Lebanon",
+                "median": 26.12
+            },
+            {
+                "id": "35",
+                "country": "Hungary",
+                "median": 24.76
+            },
+            {
+                "id": "36",
+                "country": "Slovakia",
+                "median": 24.76
+            },
+            {
+                "id": "37",
+                "country": "Greece",
+                "median": 24.61
+            },
+            {
+                "id": "38",
+                "country": "Panama",
+                "median": 21.85
+            },
+            {
+                "id": "39",
+                "country": "Malaysia",
+                "median": 21.62
+            },
+            {
+                "id": "40",
+                "country": "Bulgaria",
+                "median": 20.86
+            },
+            {
+                "id": "41",
+                "country": "Uruguay",
+                "median": 20.38
+            },
+            {
+                "id": "42",
+                "country": "Seychelles",
+                "median": 19.5
+            },
+            {
+                "id": "43",
+                "country": "Romania",
+                "median": 19.03
+            },
+            {
+                "id": "44",
+                "country": "Bosnia and Herzegovina",
+                "median": 17.6
+            },
+            {
+                "id": "45",
+                "country": "Russia",
+                "median": 17.41
+            },
+            {
+                "id": "46",
+                "country": "Belarus",
+                "median": 17.24
+            },
+            {
+                "id": "47",
+                "country": "Poland",
+                "median": 17.24
+            },
+            {
+                "id": "48",
+                "country": "Argentina",
+                "median": 17.23
+            },
+            {
+                "id": "49",
+                "country": "Chile",
+                "median": 17.01
+            },
+            {
+                "id": "50",
+                "country": "Turkey",
+                "median": 16.18
+            },
+            {
+                "id": "51",
+                "country": "Maldives",
+                "median": 15.83
+            },
+            {
+                "id": "52",
+                "country": "Montenegro",
+                "median": 14.62
+            },
+            {
+                "id": "53",
+                "country": "Bolivia",
+                "median": 14.02
+            },
+            {
+                "id": "54",
+                "country": "Costa Rica",
+                "median": 13.92
+            },
+            {
+                "id": "55",
+                "country": "Brazil",
+                "median": 13.49
+            },
+            {
+                "id": "56",
+                "country": "Jordan",
+                "median": 13.39
+            },
+            {
+                "id": "57",
+                "country": "Serbia",
+                "median": 13.2
+            },
+            {
+                "id": "58",
+                "country": "Albania",
+                "median": 13.08
+            },
+            {
+                "id": "59",
+                "country": "Saint Lucia",
+                "median": 13.05
+            },
+            {
+                "id": "60",
+                "country": "Thailand",
+                "median": 12.89
+            },
+            {
+                "id": "61",
+                "country": "Mauritius",
+                "median": 12.73
+            },
+            {
+                "id": "62",
+                "country": "Ukraine",
+                "median": 12.6
+            },
+            {
+                "id": "63",
+                "country": "Republic of Macedonia",
+                "median": 12.4
+            },
+            {
+                "id": "64",
+                "country": "Paraguay",
+                "median": 12.31
+            },
+            {
+                "id": "65",
+                "country": "Palestine",
+                "median": 11.42
+            },
+            {
+                "id": "66",
+                "country": "Tunisia",
+                "median": 11.38
+            },
+            {
+                "id": "67",
+                "country": "Vietnam",
+                "median": 10.92
+            },
+            {
+                "id": "68",
+                "country": "People's Republic of China",
+                "median": 10.72
+            },
+            {
+                "id": "69",
+                "country": "Dominican Republic",
+                "median": 10.63
+            },
+            {
+                "id": "70",
+                "country": "Moldova",
+                "median": 10.52
+            },
+            {
+                "id": "71",
+                "country": "Kazakhstan",
+                "median": 10.42
+            },
+            {
+                "id": "72",
+                "country": "Iran",
+                "median": 10.31
+            },
+            {
+                "id": "73",
+                "country": "Trinidad and Tobago",
+                "median": 10.17
+            },
+            {
+                "id": "74",
+                "country": "Jamaica",
+                "median": 9.95
+            },
+            {
+                "id": "75",
+                "country": "El Salvador",
+                "median": 9.89
+            },
+            {
+                "id": "76",
+                "country": "Gabon",
+                "median": 9.67
+            },
+            {
+                "id": "77",
+                "country": "Iraq",
+                "median": 9.61
+            },
+            {
+                "id": "78",
+                "country": "Mexico",
+                "median": 9.55
+            },
+            {
+                "id": "79",
+                "country": "Marshall Islands",
+                "median": 9.21
+            },
+            {
+                "id": "80",
+                "country": "Ecuador",
+                "median": 9.16
+            },
+            {
+                "id": "81",
+                "country": "Venezuela",
+                "median": 8.49
+            },
+            {
+                "id": "82",
+                "country": "Bhutan",
+                "median": 8.26
+            },
+            {
+                "id": "83",
+                "country": "Suriname",
+                "median": 8.14
+            },
+            {
+                "id": "84",
+                "country": "Kosovo",
+                "median": 8.11
+            },
+            {
+                "id": "85",
+                "country": "Mongolia",
+                "median": 8.1
+            },
+            {
+                "id": "86",
+                "country": "Nicaragua",
+                "median": 8.07
+            },
+            {
+                "id": "87",
+                "country": "Azerbaijan",
+                "median": 8.06
+            },
+            {
+                "id": "88",
+                "country": "Algeria",
+                "median": 8.04
+            },
+            {
+                "id": "89",
+                "country": "Peru",
+                "median": 7.93
+            },
+            {
+                "id": "90",
+                "country": "Colombia",
+                "median": 7.8
+            },
+            {
+                "id": "91",
+                "country": "Morocco",
+                "median": 7.71
+            },
+            {
+                "id": "92",
+                "country": "Syria",
+                "median": 6.95
+            },
+            {
+                "id": "93",
+                "country": "Honduras",
+                "median": 6.93
+            },
+            {
+                "id": "94",
+                "country": "Nauru",
+                "median": 6.68
+            },
+            {
+                "id": "95",
+                "country": "Fiji",
+                "median": 6.64
+            },
+            {
+                "id": "96",
+                "country": "Armenia",
+                "median": 6.62
+            },
+            {
+                "id": "97",
+                "country": "Sri Lanka",
+                "median": 6.59
+            },
+            {
+                "id": "98",
+                "country": "Guatemala",
+                "median": 6.17
+            },
+            {
+                "id": "99",
+                "country": "Guyana",
+                "median": 6.04
+            },
+            {
+                "id": "100",
+                "country": "Georgia",
+                "median": 6.03
+            },
+            {
+                "id": "101",
+                "country": "Indonesia",
+                "median": 5.74
+            },
+            {
+                "id": "102",
+                "country": "Namibia",
+                "median": 5.68
+            },
+            {
+                "id": "103",
+                "country": "Myanmar",
+                "median": 5.47
+            },
+            {
+                "id": "104",
+                "country": "Kyrgyzstan",
+                "median": 5.43
+            },
+            {
+                "id": "105",
+                "country": "Tajikistan",
+                "median": 5.33
+            },
+            {
+                "id": "106",
+                "country": "Mauritania",
+                "median": 5.3
+            },
+            {
+                "id": "107",
+                "country": "Philippines",
+                "median": 5.3
+            },
+            {
+                "id": "108",
+                "country": "Egypt",
+                "median": 5.07
+            },
+            {
+                "id": "109",
+                "country": "Belize",
+                "median": 4.92
+            },
+            {
+                "id": "110",
+                "country": "Botswana",
+                "median": 4.84
+            },
+            {
+                "id": "111",
+                "country": "Laos",
+                "median": 4.76
+            },
+            {
+                "id": "112",
+                "country": "South Africa",
+                "median": 4.76
+            },
+            {
+                "id": "113",
+                "country": "Vanuatu",
+                "median": 4.67
+            },
+            {
+                "id": "114",
+                "country": "Senegal",
+                "median": 4.44
+            },
+            {
+                "id": "115",
+                "country": "Comoros",
+                "median": 4.39
+            },
+            {
+                "id": "116",
+                "country": "Ivory Coast",
+                "median": 4.35
+            },
+            {
+                "id": "117",
+                "country": "Federated States of Micronesia",
+                "median": 4.23
+            },
+            {
+                "id": "118",
+                "country": "Nepal",
+                "median": 4.2
+            },
+            {
+                "id": "119",
+                "country": "Djibouti",
+                "median": 4.09
+            },
+            {
+                "id": "120",
+                "country": "Pakistan",
+                "median": 4.07
+            },
+            {
+                "id": "121",
+                "country": "São Tomé and Príncipe",
+                "median": 4
+            },
+            {
+                "id": "122",
+                "country": "The Gambia",
+                "median": 3.95
+            },
+            {
+                "id": "123",
+                "country": "Cameroon",
+                "median": 3.89
+            },
+            {
+                "id": "124",
+                "country": "India",
+                "median": 3.89
+            },
+            {
+                "id": "125",
+                "country": "Guinea",
+                "median": 3.8
+            },
+            {
+                "id": "126",
+                "country": "Mali",
+                "median": 3.78
+            },
+            {
+                "id": "127",
+                "country": "Ghana",
+                "median": 3.73
+            },
+            {
+                "id": "128",
+                "country": "Sudan",
+                "median": 3.66
+            },
+            {
+                "id": "129",
+                "country": "Bangladesh",
+                "median": 3.58
+            },
+            {
+                "id": "130",
+                "country": "Benin",
+                "median": 3.48
+            },
+            {
+                "id": "131",
+                "country": "Yemen",
+                "median": 3.44
+            },
+            {
+                "id": "132",
+                "country": "Angola",
+                "median": 3.42
+            },
+            {
+                "id": "133",
+                "country": "Guinea-Bissau",
+                "median": 3.31
+            },
+            {
+                "id": "134",
+                "country": "Lesotho",
+                "median": 3.24
+            },
+            {
+                "id": "135",
+                "country": "Togo",
+                "median": 3.21
+            },
+            {
+                "id": "136",
+                "country": "Haiti",
+                "median": 3.2
+            },
+            {
+                "id": "137",
+                "country": "Kenya",
+                "median": 3.1
+            },
+            {
+                "id": "138",
+                "country": "Liberia",
+                "median": 3.1
+            },
+            {
+                "id": "139",
+                "country": "Solomon Islands",
+                "median": 3.1
+            },
+            {
+                "id": "140",
+                "country": "Ethiopia",
+                "median": 3.06
+            },
+            {
+                "id": "141",
+                "country": "Burkina Faso",
+                "median": 3
+            },
+            {
+                "id": "142",
+                "country": "Sierra Leone",
+                "median": 2.96
+            },
+            {
+                "id": "143",
+                "country": "Eswatini",
+                "median": 2.95
+            },
+            {
+                "id": "144",
+                "country": "Nigeria",
+                "median": 2.95
+            },
+            {
+                "id": "145",
+                "country": "Chad",
+                "median": 2.88
+            },
+            {
+                "id": "146",
+                "country": "Zimbabwe",
+                "median": 2.65
+            },
+            {
+                "id": "147",
+                "country": "Papua New Guinea",
+                "median": 2.62
+            },
+            {
+                "id": "148",
+                "country": "Uganda",
+                "median": 2.47
+            },
+            {
+                "id": "149",
+                "country": "Turkmenistan",
+                "median": 2.4
+            },
+            {
+                "id": "150",
+                "country": "Tanzania",
+                "median": 2.33
+            },
+            {
+                "id": "151",
+                "country": "Niger",
+                "median": 2.13
+            },
+            {
+                "id": "152",
+                "country": "Rwanda",
+                "median": 2.07
+            },
+            {
+                "id": "153",
+                "country": "Burundi",
+                "median": 1.7
+            },
+            {
+                "id": "154",
+                "country": "Central African Republic",
+                "median": 1.68
+            },
+            {
+                "id": "155",
+                "country": "Mozambique",
+                "median": 1.6
+            },
+            {
+                "id": "156",
+                "country": "Zambia",
+                "median": 1.57
+            },
+            {
+                "id": "157",
+                "country": "Malawi",
+                "median": 1.53
+            },
+            {
+                "id": "158",
+                "country": "Somalia",
+                "median": 1.52
+            },
+            {
+                "id": "159",
+                "country": "South Sudan",
+                "median": 1.52
+            },
+            {
+                "id": "160",
+                "country": "Democratic Republic of the Congo",
+                "median": 1.46
+            },
+            {
+                "id": "161",
+                "country": "Uzbekistan",
+                "median": 1.23
+            },
+            {
+                "id": "162",
+                "country": "Madagascar",
+                "median": 1.12
+            }
+        ];
+
+    </script>
+
+</head>
+<body>
+    <table id="map-table" style="width: 919px;">
+        <thead>
+            <tr>
+                <th title="ID" tabindex="0" style="width: 37.4px; text-align: left;">#</th>
+                <th title="Country" tabindex="0" style="width: 384.4px; text-align: left;">Country</th>
+                <th title="Median Income" tabindex="0" style="width: 384.4px; text-align: left;">Median Income</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td title="Luxembourg">Luxembourg</td>
+                <td title="$69.48" data-order="1">$69.48</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td title="Norway">Norway</td>
+                <td title="$65.3" data-order="2">$65.3</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td title="United Arab Emirates">United Arab Emirates</td>
+                <td title="$65.14" data-order="3">$65.14</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td title="United States of America">United States of America</td>
+                <td title="$65.04" data-order="4">$65.04</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td title="Switzerland">Switzerland</td>
+                <td title="$64.35" data-order="5">$64.35</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td title="Austria">Austria</td>
+                <td title="$57.64" data-order="6">$57.64</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td title="Iceland">Iceland</td>
+                <td title="$56.52" data-order="7">$56.52</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td title="Canada">Canada</td>
+                <td title="$55.42" data-order="8">$55.42</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td title="Germany">Germany</td>
+                <td title="$54.82" data-order="9">$54.82</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td title="Netherlands">Netherlands</td>
+                <td title="$54.42" data-order="10">$54.42</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td title="Denmark">Denmark</td>
+                <td title="$54.08" data-order="11">$54.08</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td title="Australia">Australia</td>
+                <td title="$53.05" data-order="12">$53.05</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td title="Belgium">Belgium</td>
+                <td title="$52.63" data-order="13">$52.63</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td title="Finland">Finland</td>
+                <td title="$51.26" data-order="14">$51.26</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td title="Sweden">Sweden</td>
+                <td title="$50.57" data-order="15">$50.57</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td title="France">France</td>
+                <td title="$49.59" data-order="16">$49.59</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td title="Malta">Malta</td>
+                <td title="$45.71" data-order="17">$45.71</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td title="United Kingdom">United Kingdom</td>
+                <td title="$45" data-order="18">$45</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td title="Ireland">Ireland</td>
+                <td title="$44.73" data-order="19">$44.73</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td title="Cyprus">Cyprus</td>
+                <td title="$43.2" data-order="20">$43.2</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td title="Japan">Japan</td>
+                <td title="$41.49" data-order="21">$41.49</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td title="Italy">Italy</td>
+                <td title="$40.67" data-order="22">$40.67</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td title="Spain">Spain</td>
+                <td title="$40.29" data-order="23">$40.29</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td title="Slovenia">Slovenia</td>
+                <td title="$39.5" data-order="24">$39.5</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td title="Taiwan">Taiwan</td>
+                <td title="$38.27" data-order="25">$38.27</td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td title="South Korea">South Korea</td>
+                <td title="$37.62" data-order="26">$37.62</td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td title="Estonia">Estonia</td>
+                <td title="$34.65" data-order="27">$34.65</td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td title="Czech Republic">Czech Republic</td>
+                <td title="$34.56" data-order="28">$34.56</td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td title="Israel">Israel</td>
+                <td title="$33.65" data-order="29">$33.65</td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td title="Lithuania">Lithuania</td>
+                <td title="$30.71" data-order="30">$30.71</td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td title="Portugal">Portugal</td>
+                <td title="$29.43" data-order="31">$29.43</td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td title="Latvia">Latvia</td>
+                <td title="$26.94" data-order="32">$26.94</td>
+            </tr>
+            <tr>
+                <td>33</td>
+                <td title="Croatia">Croatia</td>
+                <td title="$26.12" data-order="33">$26.12</td>
+            </tr>
+            <tr>
+                <td>34</td>
+                <td title="Lebanon">Lebanon</td>
+                <td title="$26.12" data-order="34">$26.12</td>
+            </tr>
+            <tr>
+                <td>35</td>
+                <td title="Hungary">Hungary</td>
+                <td title="$24.76" data-order="35">$24.76</td>
+            </tr>
+            <tr>
+                <td>36</td>
+                <td title="Slovakia">Slovakia</td>
+                <td title="$24.76" data-order="36">$24.76</td>
+            </tr>
+            <tr>
+                <td>37</td>
+                <td title="Greece">Greece</td>
+                <td title="$24.61" data-order="37">$24.61</td>
+            </tr>
+            <tr>
+                <td>38</td>
+                <td title="Panama">Panama</td>
+                <td title="$21.85" data-order="38">$21.85</td>
+            </tr>
+            <tr>
+                <td>39</td>
+                <td title="Malaysia">Malaysia</td>
+                <td title="$21.62" data-order="39">$21.62</td>
+            </tr>
+            <tr>
+                <td>40</td>
+                <td title="Bulgaria">Bulgaria</td>
+                <td title="$20.86" data-order="40">$20.86</td>
+            </tr>
+            <tr>
+                <td>41</td>
+                <td title="Uruguay">Uruguay</td>
+                <td title="$20.38" data-order="41">$20.38</td>
+            </tr>
+            <tr>
+                <td>42</td>
+                <td title="Seychelles">Seychelles</td>
+                <td title="$19.5" data-order="42">$19.5</td>
+            </tr>
+            <tr>
+                <td>43</td>
+                <td title="Romania">Romania</td>
+                <td title="$19.03" data-order="43">$19.03</td>
+            </tr>
+            <tr>
+                <td>44</td>
+                <td title="Bosnia and Herzegovina">Bosnia and Herzegovina</td>
+                <td title="$17.6" data-order="44">$17.6</td>
+            </tr>
+            <tr>
+                <td>45</td>
+                <td title="Russia">Russia</td>
+                <td title="$17.41" data-order="45">$17.41</td>
+            </tr>
+            <tr>
+                <td>46</td>
+                <td title="Belarus">Belarus</td>
+                <td title="$17.24" data-order="46">$17.24</td>
+            </tr>
+            <tr>
+                <td>47</td>
+                <td title="Poland">Poland</td>
+                <td title="$17.24" data-order="47">$17.24</td>
+            </tr>
+            <tr>
+                <td>48</td>
+                <td title="Argentina">Argentina</td>
+                <td title="$17.23" data-order="48">$17.23</td>
+            </tr>
+            <tr>
+                <td>49</td>
+                <td title="Chile">Chile</td>
+                <td title="$17.01" data-order="49">$17.01</td>
+            </tr>
+            <tr>
+                <td>50</td>
+                <td title="Turkey">Turkey</td>
+                <td title="$16.18" data-order="50">$16.18</td>
+            </tr>
+            <tr>
+                <td>51</td>
+                <td title="Maldives">Maldives</td>
+                <td title="$15.83" data-order="51">$15.83</td>
+            </tr>
+            <tr>
+                <td>52</td>
+                <td title="Montenegro">Montenegro</td>
+                <td title="$14.62" data-order="52">$14.62</td>
+            </tr>
+            <tr>
+                <td>53</td>
+                <td title="Bolivia">Bolivia</td>
+                <td title="$14.02" data-order="53">$14.02</td>
+            </tr>
+            <tr>
+                <td>54</td>
+                <td title="Costa Rica">Costa Rica</td>
+                <td title="$13.92" data-order="54">$13.92</td>
+            </tr>
+            <tr>
+                <td>55</td>
+                <td title="Brazil">Brazil</td>
+                <td title="$13.49" data-order="55">$13.49</td>
+            </tr>
+            <tr>
+                <td>56</td>
+                <td title="Jordan">Jordan</td>
+                <td title="$13.39" data-order="56">$13.39</td>
+            </tr>
+            <tr>
+                <td>57</td>
+                <td title="Serbia">Serbia</td>
+                <td title="$13.2" data-order="57">$13.2</td>
+            </tr>
+            <tr>
+                <td>58</td>
+                <td title="Albania">Albania</td>
+                <td title="$13.08" data-order="58">$13.08</td>
+            </tr>
+            <tr>
+                <td>59</td>
+                <td title="Saint Lucia">Saint Lucia</td>
+                <td title="$13.05" data-order="59">$13.05</td>
+            </tr>
+            <tr>
+                <td>60</td>
+                <td title="Thailand">Thailand</td>
+                <td title="$12.89" data-order="60">$12.89</td>
+            </tr>
+            <tr>
+                <td>61</td>
+                <td title="Mauritius">Mauritius</td>
+                <td title="$12.73" data-order="61">$12.73</td>
+            </tr>
+            <tr>
+                <td>62</td>
+                <td title="Ukraine">Ukraine</td>
+                <td title="$12.6" data-order="62">$12.6</td>
+            </tr>
+            <tr>
+                <td>63</td>
+                <td title="Republic of Macedonia">Republic of Macedonia</td>
+                <td title="$12.4" data-order="63">$12.4</td>
+            </tr>
+            <tr>
+                <td>64</td>
+                <td title="Paraguay">Paraguay</td>
+                <td title="$12.31" data-order="64">$12.31</td>
+            </tr>
+            <tr>
+                <td>65</td>
+                <td title="Palestine">Palestine</td>
+                <td title="$11.42" data-order="65">$11.42</td>
+            </tr>
+            <tr>
+                <td>66</td>
+                <td title="Tunisia">Tunisia</td>
+                <td title="$11.38" data-order="66">$11.38</td>
+            </tr>
+            <tr>
+                <td>67</td>
+                <td title="Vietnam">Vietnam</td>
+                <td title="$10.92" data-order="67">$10.92</td>
+            </tr>
+            <tr>
+                <td>68</td>
+                <td title="People's Republic of China">People's Republic of China</td>
+                <td title="$10.72" data-order="68">$10.72</td>
+            </tr>
+            <tr>
+                <td>69</td>
+                <td title="Dominican Republic">Dominican Republic</td>
+                <td title="$10.63" data-order="69">$10.63</td>
+            </tr>
+            <tr>
+                <td>70</td>
+                <td title="Moldova">Moldova</td>
+                <td title="$10.52" data-order="70">$10.52</td>
+            </tr>
+            <tr>
+                <td>71</td>
+                <td title="Kazakhstan">Kazakhstan</td>
+                <td title="$10.42" data-order="71">$10.42</td>
+            </tr>
+            <tr>
+                <td>72</td>
+                <td title="Iran">Iran</td>
+                <td title="$10.31" data-order="72">$10.31</td>
+            </tr>
+            <tr>
+                <td>73</td>
+                <td title="Trinidad and Tobago">Trinidad and Tobago</td>
+                <td title="$10.17" data-order="73">$10.17</td>
+            </tr>
+            <tr>
+                <td>74</td>
+                <td title="Jamaica">Jamaica</td>
+                <td title="$9.95" data-order="74">$9.95</td>
+            </tr>
+            <tr>
+                <td>75</td>
+                <td title="El Salvador">El Salvador</td>
+                <td title="$9.89" data-order="75">$9.89</td>
+            </tr>
+            <tr>
+                <td>76</td>
+                <td title="Gabon">Gabon</td>
+                <td title="$9.67" data-order="76">$9.67</td>
+            </tr>
+            <tr>
+                <td>77</td>
+                <td title="Iraq">Iraq</td>
+                <td title="$9.61" data-order="77">$9.61</td>
+            </tr>
+            <tr>
+                <td>78</td>
+                <td title="Mexico">Mexico</td>
+                <td title="$9.55" data-order="78">$9.55</td>
+            </tr>
+            <tr>
+                <td>79</td>
+                <td title="Marshall Islands">Marshall Islands</td>
+                <td title="$9.21" data-order="79">$9.21</td>
+            </tr>
+            <tr>
+                <td>80</td>
+                <td title="Ecuador">Ecuador</td>
+                <td title="$9.16" data-order="80">$9.16</td>
+            </tr>
+            <tr>
+                <td>81</td>
+                <td title="Venezuela">Venezuela</td>
+                <td title="$8.49" data-order="81">$8.49</td>
+            </tr>
+            <tr>
+                <td>82</td>
+                <td title="Bhutan">Bhutan</td>
+                <td title="$8.26" data-order="82">$8.26</td>
+            </tr>
+            <tr>
+                <td>83</td>
+                <td title="Suriname">Suriname</td>
+                <td title="$8.14" data-order="83">$8.14</td>
+            </tr>
+            <tr>
+                <td>84</td>
+                <td title="Kosovo">Kosovo</td>
+                <td title="$8.11" data-order="84">$8.11</td>
+            </tr>
+            <tr>
+                <td>85</td>
+                <td title="Mongolia">Mongolia</td>
+                <td title="$8.1" data-order="85">$8.1</td>
+            </tr>
+            <tr>
+                <td>86</td>
+                <td title="Nicaragua">Nicaragua</td>
+                <td title="$8.07" data-order="86">$8.07</td>
+            </tr>
+            <tr>
+                <td>87</td>
+                <td title="Azerbaijan">Azerbaijan</td>
+                <td title="$8.06" data-order="87">$8.06</td>
+            </tr>
+            <tr>
+                <td>88</td>
+                <td title="Algeria">Algeria</td>
+                <td title="$8.04" data-order="88">$8.04</td>
+            </tr>
+            <tr>
+                <td>89</td>
+                <td title="Peru">Peru</td>
+                <td title="$7.93" data-order="89">$7.93</td>
+            </tr>
+            <tr>
+                <td>90</td>
+                <td title="Colombia">Colombia</td>
+                <td title="$7.8" data-order="90">$7.8</td>
+            </tr>
+            <tr>
+                <td>91</td>
+                <td title="Morocco">Morocco</td>
+                <td title="$7.71" data-order="91">$7.71</td>
+            </tr>
+            <tr>
+                <td>92</td>
+                <td title="Syria">Syria</td>
+                <td title="$6.95" data-order="92">$6.95</td>
+            </tr>
+            <tr>
+                <td>93</td>
+                <td title="Honduras">Honduras</td>
+                <td title="$6.93" data-order="93">$6.93</td>
+            </tr>
+            <tr>
+                <td>94</td>
+                <td title="Nauru">Nauru</td>
+                <td title="$6.68" data-order="94">$6.68</td>
+            </tr>
+            <tr>
+                <td>95</td>
+                <td title="Fiji">Fiji</td>
+                <td title="$6.64" data-order="95">$6.64</td>
+            </tr>
+            <tr>
+                <td>96</td>
+                <td title="Armenia">Armenia</td>
+                <td title="$6.62" data-order="96">$6.62</td>
+            </tr>
+            <tr>
+                <td>97</td>
+                <td title="Sri Lanka">Sri Lanka</td>
+                <td title="$6.59" data-order="97">$6.59</td>
+            </tr>
+            <tr>
+                <td>98</td>
+                <td title="Guatemala">Guatemala</td>
+                <td title="$6.17" data-order="98">$6.17</td>
+            </tr>
+            <tr>
+                <td>99</td>
+                <td title="Guyana">Guyana</td>
+                <td title="$6.04" data-order="99">$6.04</td>
+            </tr>
+            <tr>
+                <td>100</td>
+                <td title="Georgia">Georgia</td>
+                <td title="$6.03" data-order="100">$6.03</td>
+            </tr>
+            <tr>
+                <td>101</td>
+                <td title="Indonesia">Indonesia</td>
+                <td title="$5.74" data-order="101">$5.74</td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td title="Namibia">Namibia</td>
+                <td title="$5.68" data-order="102">$5.68</td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td title="Myanmar">Myanmar</td>
+                <td title="$5.47" data-order="103">$5.47</td>
+            </tr>
+            <tr>
+                <td>104</td>
+                <td title="Kyrgyzstan">Kyrgyzstan</td>
+                <td title="$5.43" data-order="104">$5.43</td>
+            </tr>
+            <tr>
+                <td>105</td>
+                <td title="Tajikistan">Tajikistan</td>
+                <td title="$5.33" data-order="105">$5.33</td>
+            </tr>
+            <tr>
+                <td>106</td>
+                <td title="Mauritania">Mauritania</td>
+                <td title="$5.3" data-order="106">$5.3</td>
+            </tr>
+            <tr>
+                <td>107</td>
+                <td title="Philippines">Philippines</td>
+                <td title="$5.3" data-order="107">$5.3</td>
+            </tr>
+            <tr>
+                <td>108</td>
+                <td title="Egypt">Egypt</td>
+                <td title="$5.07" data-order="108">$5.07</td>
+            </tr>
+            <tr>
+                <td>109</td>
+                <td title="Belize">Belize</td>
+                <td title="$4.92" data-order="109">$4.92</td>
+            </tr>
+            <tr>
+                <td>110</td>
+                <td title="Botswana">Botswana</td>
+                <td title="$4.84" data-order="110">$4.84</td>
+            </tr>
+            <tr>
+                <td>111</td>
+                <td title="Laos">Laos</td>
+                <td title="$4.76" data-order="111">$4.76</td>
+            </tr>
+            <tr>
+                <td>112</td>
+                <td title="South Africa">South Africa</td>
+                <td title="$4.76" data-order="112">$4.76</td>
+            </tr>
+            <tr>
+                <td>113</td>
+                <td title="Vanuatu">Vanuatu</td>
+                <td title="$4.67" data-order="113">$4.67</td>
+            </tr>
+            <tr>
+                <td>114</td>
+                <td title="Senegal">Senegal</td>
+                <td title="$4.44" data-order="114">$4.44</td>
+            </tr>
+            <tr>
+                <td>115</td>
+                <td title="Comoros">Comoros</td>
+                <td title="$4.39" data-order="115">$4.39</td>
+            </tr>
+            <tr>
+                <td>116</td>
+                <td title="Ivory Coast">Ivory Coast</td>
+                <td title="$4.35" data-order="116">$4.35</td>
+            </tr>
+            <tr>
+                <td>117</td>
+                <td title="Federated States of Micronesia">Federated States of Micronesia</td>
+                <td title="$4.23" data-order="117">$4.23</td>
+            </tr>
+            <tr>
+                <td>118</td>
+                <td title="Nepal">Nepal</td>
+                <td title="$4.2" data-order="118">$4.2</td>
+            </tr>
+            <tr>
+                <td>119</td>
+                <td title="Djibouti">Djibouti</td>
+                <td title="$4.09" data-order="119">$4.09</td>
+            </tr>
+            <tr>
+                <td>120</td>
+                <td title="Pakistan">Pakistan</td>
+                <td title="$4.07" data-order="120">$4.07</td>
+            </tr>
+            <tr>
+                <td>121</td>
+                <td title="São Tomé and Príncipe">São Tomé and Príncipe</td>
+                <td title="$4" data-order="121">$4</td>
+            </tr>
+            <tr>
+                <td>122</td>
+                <td title="The Gambia">The Gambia</td>
+                <td title="$3.95" data-order="122">$3.95</td>
+            </tr>
+            <tr>
+                <td>123</td>
+                <td title="Cameroon">Cameroon</td>
+                <td title="$3.89" data-order="123">$3.89</td>
+            </tr>
+            <tr>
+                <td>124</td>
+                <td title="India">India</td>
+                <td title="$3.89" data-order="124">$3.89</td>
+            </tr>
+            <tr>
+                <td>125</td>
+                <td title="Guinea">Guinea</td>
+                <td title="$3.8" data-order="125">$3.8</td>
+            </tr>
+            <tr>
+                <td>126</td>
+                <td title="Mali">Mali</td>
+                <td title="$3.78" data-order="126">$3.78</td>
+            </tr>
+            <tr>
+                <td>127</td>
+                <td title="Ghana">Ghana</td>
+                <td title="$3.73" data-order="127">$3.73</td>
+            </tr>
+            <tr>
+                <td>128</td>
+                <td title="Sudan">Sudan</td>
+                <td title="$3.66" data-order="128">$3.66</td>
+            </tr>
+            <tr>
+                <td>129</td>
+                <td title="Bangladesh">Bangladesh</td>
+                <td title="$3.58" data-order="129">$3.58</td>
+            </tr>
+            <tr>
+                <td>130</td>
+                <td title="Benin">Benin</td>
+                <td title="$3.48" data-order="130">$3.48</td>
+            </tr>
+            <tr>
+                <td>131</td>
+                <td title="Yemen">Yemen</td>
+                <td title="$3.44" data-order="131">$3.44</td>
+            </tr>
+            <tr>
+                <td>132</td>
+                <td title="Angola">Angola</td>
+                <td title="$3.42" data-order="132">$3.42</td>
+            </tr>
+            <tr>
+                <td>133</td>
+                <td title="Guinea-Bissau">Guinea-Bissau</td>
+                <td title="$3.31" data-order="133">$3.31</td>
+            </tr>
+            <tr>
+                <td>134</td>
+                <td title="Lesotho">Lesotho</td>
+                <td title="$3.24" data-order="134">$3.24</td>
+            </tr>
+            <tr>
+                <td>135</td>
+                <td title="Togo">Togo</td>
+                <td title="$3.21" data-order="135">$3.21</td>
+            </tr>
+            <tr>
+                <td>136</td>
+                <td title="Haiti">Haiti</td>
+                <td title="$3.2" data-order="136">$3.2</td>
+            </tr>
+            <tr>
+                <td>137</td>
+                <td title="Kenya">Kenya</td>
+                <td title="$3.1" data-order="137">$3.1</td>
+            </tr>
+            <tr>
+                <td>138</td>
+                <td title="Liberia">Liberia</td>
+                <td title="$3.1" data-order="138">$3.1</td>
+            </tr>
+            <tr>
+                <td>139</td>
+                <td title="Solomon Islands">Solomon Islands</td>
+                <td title="$3.1" data-order="139">$3.1</td>
+            </tr>
+            <tr>
+                <td>140</td>
+                <td title="Ethiopia">Ethiopia</td>
+                <td title="$3.06" data-order="140">$3.06</td>
+            </tr>
+            <tr>
+                <td>141</td>
+                <td title="Burkina Faso">Burkina Faso</td>
+                <td title="$3" data-order="141">$3</td>
+            </tr>
+            <tr>
+                <td>142</td>
+                <td title="Sierra Leone">Sierra Leone</td>
+                <td title="$2.96" data-order="142">$2.96</td>
+            </tr>
+            <tr>
+                <td>143</td>
+                <td title="Eswatini">Eswatini</td>
+                <td title="$2.95" data-order="143">$2.95</td>
+            </tr>
+            <tr>
+                <td>144</td>
+                <td title="Nigeria">Nigeria</td>
+                <td title="$2.95" data-order="144">$2.95</td>
+            </tr>
+            <tr>
+                <td>145</td>
+                <td title="Chad">Chad</td>
+                <td title="$2.88" data-order="145">$2.88</td>
+            </tr>
+            <tr>
+                <td>146</td>
+                <td title="Zimbabwe">Zimbabwe</td>
+                <td title="$2.65" data-order="146">$2.65</td>
+            </tr>
+            <tr>
+                <td>147</td>
+                <td title="Papua New Guinea">Papua New Guinea</td>
+                <td title="$2.62" data-order="147">$2.62</td>
+            </tr>
+            <tr>
+                <td>148</td>
+                <td title="Uganda">Uganda</td>
+                <td title="$2.47" data-order="148">$2.47</td>
+            </tr>
+            <tr>
+                <td>149</td>
+                <td title="Turkmenistan">Turkmenistan</td>
+                <td title="$2.4" data-order="149">$2.4</td>
+            </tr>
+            <tr>
+                <td>150</td>
+                <td title="Tanzania">Tanzania</td>
+                <td title="$2.33" data-order="150">$2.33</td>
+            </tr>
+            <tr>
+                <td>151</td>
+                <td title="Niger">Niger</td>
+                <td title="$2.13" data-order="151">$2.13</td>
+            </tr>
+            <tr>
+                <td>152</td>
+                <td title="Rwanda">Rwanda</td>
+                <td title="$2.07" data-order="152">$2.07</td>
+            </tr>
+            <tr>
+                <td>153</td>
+                <td title="Burundi">Burundi</td>
+                <td title="$1.7" data-order="153">$1.7</td>
+            </tr>
+            <tr>
+                <td>154</td>
+                <td title="Central African Republic">Central African Republic</td>
+                <td title="$1.68" data-order="154">$1.68</td>
+            </tr>
+            <tr>
+                <td>155</td>
+                <td title="Mozambique">Mozambique</td>
+                <td title="$1.6" data-order="155">$1.6</td>
+            </tr>
+            <tr>
+                <td>156</td>
+                <td title="Zambia">Zambia</td>
+                <td title="$1.57" data-order="156">$1.57</td>
+            </tr>
+            <tr>
+                <td>157</td>
+                <td title="Malawi">Malawi</td>
+                <td title="$1.53" data-order="157">$1.53</td>
+            </tr>
+            <tr>
+                <td>158</td>
+                <td title="Somalia">Somalia</td>
+                <td title="$1.52" data-order="158">$1.52</td>
+            </tr>
+            <tr>
+                <td>159</td>
+                <td title="South Sudan">South Sudan</td>
+                <td title="$1.52" data-order="159">$1.52</td>
+            </tr>
+            <tr>
+                <td>160</td>
+                <td title="Democratic Republic of the Congo">Democratic Republic of the Congo</td>
+                <td title="$1.46" data-order="160">$1.46</td>
+            </tr>
+            <tr>
+                <td>161</td>
+                <td title="Uzbekistan">Uzbekistan</td>
+                <td title="$1.23" data-order="161">$1.23</td>
+            </tr>
+            <tr>
+                <td>162</td>
+                <td title="Madagascar">Madagascar</td>
+                <td title="$1.12" data-order="162">$1.12</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+
+        // Source: https://wisevoter.com/country-rankings/median-income-by-country/
+        function extractData()
+        {
+            var rows = document.querySelectorAll("#map-table > tbody > tr")
+            var data = [];
+
+            for (let i = 0; i < rows.length; ++i)
+            {
+                // console.log(rows[i]);
+                var id = rows[i].querySelector("td:nth-child(1)").innerText;
+                var country = rows[i].querySelector("td:nth-child(2)").innerText;
+                var median = parseFloat(rows[i].querySelector("td:nth-child(3)").innerText.replaceAll("$", ""));
+                // console.log(id, country, median);
+                data.push({ id, country, median });
+            }
+
+            // console.log(JSON.stringify(data, null, 2));
+            return data;
+        }
+
+        // console.log(JSON.stringify(extractData(), null, 2));
+        console.log("data", JSON.stringify(data, null, 2));
+    </script>
+
+</body>
+</html>

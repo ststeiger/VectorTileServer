@@ -11,6 +11,8 @@ CREATE TABLE region_data
     ,size bigint 
     ,is_special_subregion bit 
 	,spheric_area_m2 bigint 
+	,equal_area_world_area_m2 bigint 
+	,tile_size bigint 
 	 
 	,region_name AS 
 	( 
@@ -30,6 +32,23 @@ CREATE TABLE region_data
 			ELSE CONCAT(CAST(size AS DECIMAL(18, 2)), ' B')
 		END
 	) PERSISTED
+	 
+
+	,tile_size_for_humans AS 
+	(
+		CASE 
+			WHEN tile_size>=CONVERT(bigint,POWER(CONVERT(decimal(38,0),(1024)),(4))) 
+				THEN CONCAT(CONVERT(decimal(18,2),tile_size/CONVERT(decimal(18,2),POWER(CONVERT(decimal(38,0),(1024)),(4)))),' TB') 
+			WHEN tile_size>=CONVERT(bigint,POWER(CONVERT(decimal(38,0),(1024)),(3))) 
+				THEN CONCAT(CONVERT(decimal(18,2),tile_size/CONVERT(decimal(18,2),POWER(CONVERT(decimal(38,0),(1024)),(3)))),' GB') 
+			WHEN tile_size>=CONVERT(bigint,POWER(CONVERT(decimal(38,0),(1024)),(2))) 
+				THEN CONCAT(CONVERT(decimal(18,2),tile_size/CONVERT(decimal(18,2),POWER(CONVERT(decimal(38,0),(1024)),(2)))),' MB') 
+			WHEN tile_size>=CONVERT(bigint,POWER(CONVERT(decimal(38,0),(1024)),(1))) 
+				THEN CONCAT(CONVERT(decimal(18,2),tile_size/CONVERT(decimal(18,2),POWER(CONVERT(decimal(38,0),(1024)),(1)))),' KB') 
+			ELSE CONCAT(CONVERT(decimal(18,2),tile_size),' B') 
+		END 
+	) PERSISTED NOT NULL 
+
 
 	,region_name_with_prefix AS (LEFT(href, LEN(href) - LEN('-latest.osm.pbf'))) PERSISTED 
 );
