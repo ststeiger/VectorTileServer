@@ -208,7 +208,7 @@ JOIN images ON map.tile_id = images.tile_id
 
         static void Main(string[] args)
         {
-            BoundingBoxParser.Test();
+            System.Console.WriteLine(BoundingBox.Parse("41.06894,11.36768,55.51167,19.03189"));
             
             /*
             
