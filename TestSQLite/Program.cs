@@ -208,6 +208,10 @@ JOIN images ON map.tile_id = images.tile_id
 
         static void Main(string[] args)
         {
+            BoundingBoxParser.Test();
+            
+            /*
+            
             string[] files = GetZoomLevelFiles(@"D:\temp", 20);
             string[] queries = GetZoomLevelQueries(20);
 
@@ -215,6 +219,7 @@ JOIN images ON map.tile_id = images.tile_id
             System.Console.WriteLine(queries);
 
             SpeedUpPlanetFile();
+            */
             
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();
