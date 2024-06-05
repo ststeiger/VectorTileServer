@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.34301.259
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorTileServer", "VectorTileServer\VectorTileServer.csproj", "{D1D8C089-9635-4849-93FD-321E9FB25A19}"
 EndProject
@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorTileServer2", "Vector
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorTileServer3", "VectorTileServer3\VectorTileServer3.csproj", "{9BF8AF6E-1DA7-4F64-814B-CB4DB3755D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileSelector", "VectorTileSelector\VectorTileSelector.csproj", "{4297FF14-8AC3-4200-A5E6-529EA9925771}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorTileSelector", "VectorTileSelector\VectorTileSelector.csproj", "{4297FF14-8AC3-4200-A5E6-529EA9925771}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLite.FullyManaged", "SQLite.FullyManaged\SQLite.FullyManaged.csproj", "{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{4297FF14-8AC3-4200-A5E6-529EA9925771}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4297FF14-8AC3-4200-A5E6-529EA9925771}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4297FF14-8AC3-4200-A5E6-529EA9925771}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
