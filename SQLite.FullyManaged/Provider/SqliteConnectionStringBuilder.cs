@@ -98,24 +98,14 @@ namespace SQLite.FullyManaged
         {
             get
             {
-                System.Uri x = new System.Uri(this.Uri, System.UriKind.RelativeOrAbsolute);
-                string s = x.AbsolutePath;
-                s = s.Replace('/', System.IO.Path.DirectorySeparatorChar);
-                return s;
+                System.Uri fileUri = new System.Uri(this.Uri, System.UriKind.Absolute);
+                return fileUri.LocalPath;
             }
             set
             {
-                if (!value.StartsWith("file://"))
-                {
-                    value = value.Replace(System.IO.Path.DirectorySeparatorChar, '/');
-
-                    if (!value.StartsWith("/"))
-                        value = "/" + value;
-
-                    value = "file://" + value;
-                }
-
-                this.Uri = value;
+                value = System.IO.Path.GetFullPath(value);
+                System.Uri fileUri = new System.Uri(value, System.UriKind.Absolute);
+                this.Uri = fileUri.AbsoluteUri;
             }
         }
 

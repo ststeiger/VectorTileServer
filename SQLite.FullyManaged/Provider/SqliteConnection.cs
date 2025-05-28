@@ -30,44 +30,34 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Data;
-using System.IO;
-using System.Data.Common;
-using System.Text;
-using SQLite.FullyManaged.Engine;
-
-
 namespace SQLite.FullyManaged
 {
-    public class SqliteConnection : DbConnection, ICloneable
-    {
 
-        #region Fields
+    using SQLite.FullyManaged.Engine;
+    public class SqliteConnection
+        : System.Data.Common.DbConnection, System.ICloneable
+    {
 
         private string conn_str;
         private string db_file;
         private int db_mode;
         private int db_version;
         private string db_password;
-        private IntPtr sqlite_handle;
+        private System.IntPtr sqlite_handle;
         private Sqlite3.sqlite3 sqlite_handle2;
-        private ConnectionState state;
-        private Encoding encoding;
+        private System.Data.ConnectionState state;
+        private System.Text.Encoding encoding;
         private int busy_timeout;
         bool disposed;
 
-        #endregion
-
-        #region Constructors and destructors
 
         public SqliteConnection()
         {
             db_file = null;
             db_mode = 0644;
             db_version = 3;
-            state = ConnectionState.Closed;
-            sqlite_handle = IntPtr.Zero;
+            state = System.Data.ConnectionState.Closed;
+            sqlite_handle = System.IntPtr.Zero;
             encoding = null;
             busy_timeout = 0;
         }
@@ -94,9 +84,7 @@ namespace SQLite.FullyManaged
             }
         }
 
-        #endregion
 
-        #region Properties
 
         public override string ConnectionString
         {
@@ -114,12 +102,12 @@ namespace SQLite.FullyManaged
             get { return db_file; }
         }
 
-        public override ConnectionState State
+        public override System.Data.ConnectionState State
         {
             get { return state; }
         }
 
-        public Encoding Encoding
+        public System.Text.Encoding Encoding
         {
             get { return encoding; }
         }
@@ -139,7 +127,7 @@ namespace SQLite.FullyManaged
             get { return sqlite_handle2; }
         }
 
-        internal IntPtr Handle
+        internal System.IntPtr Handle
         {
             get { return sqlite_handle; }
         }
@@ -173,9 +161,14 @@ namespace SQLite.FullyManaged
             }
         }
 
-        #endregion
+        bool IsDriveLetterPath(string path)
+        {
+            return path.Length >= 3
+                && char.IsLetter(path[0])
+                && path[1] == ':'
+                && (path[2] == '\\' || path[2] == '/');
+        }
 
-        #region Private Methods
 
         private void SetConnectionString(string connstring)
         {
@@ -194,17 +187,191 @@ namespace SQLite.FullyManaged
                 db_file = null;
                 db_mode = 0644;
 
-                string[] conn_pieces = connstring.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>> keyValuePairs = new System.Collections.Generic.List<
+                    System.Collections.Generic.KeyValuePair<string, string>
+                    >();
+
+                System.Text.StringBuilder current = new System.Text.StringBuilder();
+                bool inQuotes = false;
+                string key = null;
+
+                for (int i = 0; i < connstring.Length; i++)
+                {
+                    char c = connstring[i];
+
+                    if (c == '"')
+                    {
+                        inQuotes = !inQuotes;
+                        continue;
+                    }
+
+                    if (!inQuotes && (c == ';'))
+                    {
+                        string part = current.ToString().Trim();
+                        current.Clear();
+
+                        int idx = part.IndexOf('=');
+                        if (idx == -1)
+                            throw new System.InvalidOperationException("Invalid connection string: missing '='");
+
+                        string k = part.Substring(0, idx).Trim();
+                        string v = part.Substring(idx + 1).Trim();
+
+                        keyValuePairs.Add(new System.Collections.Generic.KeyValuePair<string, string>(k, v));
+                        continue;
+                    }
+
+                    current.Append(c);
+                }
+
+                if (current.Length > 0)
+                {
+                    string part = current.ToString().Trim();
+                    int idx = part.IndexOf('=');
+                    if (idx == -1)
+                        throw new System.InvalidOperationException("Invalid connection string: missing '='");
+
+                    string k = part.Substring(0, idx).Trim();
+                    string v = part.Substring(idx + 1).Trim();
+                    keyValuePairs.Add(new System.Collections.Generic.KeyValuePair<string, string>(k, v));
+                }
+
+                foreach (System.Collections.Generic.KeyValuePair<string, string> pair in keyValuePairs)
+                {
+                    string token = pair.Key.Trim();
+                    string tvalue = pair.Value.Trim();
+
+                    if (!string.IsNullOrEmpty(tvalue) && tvalue.Length >= 2 && tvalue.StartsWith("\"") && tvalue.EndsWith("\""))
+                    {
+                        tvalue = tvalue.Substring(1, tvalue.Length - 2);
+                    }
+
+                    string tvalue_lc = tvalue.ToLower(
+#if !SQLITE_WINRT
+                        System.Globalization.CultureInfo.InvariantCulture
+#endif
+                    ).Trim();
+
+                    switch (token.ToLower(
+#if !SQLITE_WINRT
+                        System.Globalization.CultureInfo.InvariantCulture
+#endif
+                    ).Trim())
+                    {
+                        case "data source":
+                        case "uri":
+                            if (tvalue_lc.StartsWith("file://"))
+                            {
+                                System.Uri uri = new System.Uri(tvalue, System.UriKind.RelativeOrAbsolute);
+                                db_file = uri.LocalPath;
+                            }
+                            else if (tvalue_lc.StartsWith("file:"))
+                            {
+                                db_file = tvalue.Substring(5);
+                            }
+                            else if (tvalue_lc.StartsWith("/"))
+                            {
+                                db_file = tvalue;
+#if !(SQLITE_SILVERLIGHT || WINDOWS_MOBILE || SQLITE_WINRT)
+                            }
+                            else if (tvalue_lc.StartsWith("|datadirectory|", System.StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                string applicationBase = System.AppDomain.CurrentDomain.BaseDirectory;
+                                string filePath = string.Format("App_Data{0}{1}",
+                                    System.IO.Path.DirectorySeparatorChar,
+                                    tvalue_lc.Substring(15));
+                                db_file = System.IO.Path.Combine(applicationBase, filePath);
+#endif
+                            }
+                            else if (IsDriveLetterPath(tvalue))
+                            {
+                                if (!System.IO.File.Exists(tvalue))
+                                    throw new System.IO.FileNotFoundException(tvalue);
+
+                                db_file = tvalue;
+                            }
+                            else
+                            {
+#if !WINDOWS_PHONE
+                                throw new System.InvalidOperationException("Invalid connection string: invalid URI");
+#else
+                                db_file = tvalue;
+#endif
+                            }
+                            break;
+
+                        case "mode":
+                            db_mode = System.Convert.ToInt32(tvalue);
+                            break;
+
+                        case "version":
+                            db_version = System.Convert.ToInt32(tvalue);
+                            if (db_version < 3)
+                                throw new System.InvalidOperationException("Minimum database version is 3");
+                            break;
+
+                        case "encoding":
+                            encoding = System.Text.Encoding.GetEncoding(tvalue);
+                            break;
+
+                        case "busy_timeout":
+                            busy_timeout = System.Convert.ToInt32(tvalue);
+                            break;
+
+                        case "password":
+                            if (!string.IsNullOrEmpty(db_password) && (db_password.Length != 34 || !db_password.StartsWith("0x")))
+                                throw new System.InvalidOperationException("Invalid password string: must be 34 hex digits starting with 0x");
+                            db_password = tvalue;
+                            break;
+                    }
+                }
+
+                if (db_file == null)
+                {
+                    throw new System.InvalidOperationException("Invalid connection string: no URI");
+                }
+            }
+        }
+
+        [System.Obsolete("No more used - remove once new method is battle-proven")]
+        private void OldSetConnectionString(string connstring)
+        {
+            if (connstring == null)
+            {
+                Close();
+                conn_str = null;
+                return;
+            }
+
+            if (connstring != conn_str)
+            {
+                Close();
+                conn_str = connstring;
+
+                db_file = null;
+                db_mode = 0644;
+
+                string[] conn_pieces = connstring.Split(new char[] { ',', ';' }, System.StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < conn_pieces.Length; i++)
                 {
                     string piece = conn_pieces[i].Trim();
                     int firstEqual = piece.IndexOf('=');
                     if (firstEqual == -1)
                     {
-                        throw new InvalidOperationException("Invalid connection string");
+                        throw new System.InvalidOperationException("Invalid connection string");
                     }
-                    string token = piece.Substring(0, firstEqual);
+                    string token = piece.Substring(0, firstEqual).Trim();
                     string tvalue = piece.Remove(0, firstEqual + 1).Trim();
+
+                    if (!string.IsNullOrEmpty(tvalue)
+                        && tvalue.Length >= 2
+                        && tvalue.StartsWith("\"")
+                        && tvalue.EndsWith("\""))
+                    {
+                        tvalue = tvalue.Substring(1, tvalue.Length - 2);
+                    }
+
+
                     string tvalue_lc = tvalue.ToLower(
 #if !SQLITE_WINRT
                         System.Globalization.CultureInfo.InvariantCulture
@@ -218,9 +385,11 @@ namespace SQLite.FullyManaged
                     {
                         case "data source":
                         case "uri":
+
                             if (tvalue_lc.StartsWith("file://"))
                             {
-                                db_file = tvalue.Substring(7);
+                                System.Uri uri = new System.Uri(tvalue, System.UriKind.RelativeOrAbsolute);
+                                db_file = uri.LocalPath;
                             }
                             else if (tvalue_lc.StartsWith("file:"))
                             {
@@ -232,21 +401,28 @@ namespace SQLite.FullyManaged
 #if !(SQLITE_SILVERLIGHT || WINDOWS_MOBILE || SQLITE_WINRT)
                             }
                             else if (tvalue_lc.StartsWith("|DataDirectory|",
-                                             StringComparison.InvariantCultureIgnoreCase))
+                                             System.StringComparison.InvariantCultureIgnoreCase))
                             {
                                 // AppDomainSetup ads = AppDomain.CurrentDomain.SetupInformation;
                                 string applicationBase = System.AppDomain.CurrentDomain.BaseDirectory;
-                                string filePath = String.Format("App_Data{0}{1}",
-                                                 Path.DirectorySeparatorChar,
+                                string filePath = string.Format("App_Data{0}{1}",
+                                                 System.IO.Path.DirectorySeparatorChar,
                                                  tvalue_lc.Substring(15));
 
-                                db_file = Path.Combine(applicationBase, filePath);
+                                db_file = System.IO.Path.Combine(applicationBase, filePath);
 #endif
+                            }
+                            else if (IsDriveLetterPath(tvalue))
+                            {
+                                if (!System.IO.File.Exists(tvalue))
+                                    throw new System.IO.FileNotFoundException(tvalue);
+
+                                db_file = tvalue;
                             }
                             else
                             {
 #if !WINDOWS_PHONE
-                                throw new InvalidOperationException("Invalid connection string: invalid URI");
+                                throw new System.InvalidOperationException("Invalid connection string: invalid URI");
 #else
                                 db_file = tvalue;		
 #endif
@@ -254,25 +430,26 @@ namespace SQLite.FullyManaged
                             break;
 
                         case "mode":
-                            db_mode = Convert.ToInt32(tvalue);
+                            db_mode = System.Convert.ToInt32(tvalue);
                             break;
 
                         case "version":
-                            db_version = Convert.ToInt32(tvalue);
-                            if (db_version < 3) throw new InvalidOperationException("Minimum database version is 3");
+                            db_version = System.Convert.ToInt32(tvalue);
+                            if (db_version < 3)
+                                throw new System.InvalidOperationException("Minimum database version is 3");
                             break;
 
                         case "encoding": // only for sqlite2
-                            encoding = Encoding.GetEncoding(tvalue);
+                            encoding = System.Text.Encoding.GetEncoding(tvalue);
                             break;
 
                         case "busy_timeout":
-                            busy_timeout = Convert.ToInt32(tvalue);
+                            busy_timeout = System.Convert.ToInt32(tvalue);
                             break;
 
                         case "password":
-                            if (!String.IsNullOrEmpty(db_password) && (db_password.Length != 34 || !db_password.StartsWith("0x")))
-                                throw new InvalidOperationException("Invalid password string: must be 34 hex digits starting with 0x");
+                            if (!string.IsNullOrEmpty(db_password) && (db_password.Length != 34 || !db_password.StartsWith("0x")))
+                                throw new System.InvalidOperationException("Invalid password string: must be 34 hex digits starting with 0x");
                             db_password = tvalue;
                             break;
                     }
@@ -280,38 +457,35 @@ namespace SQLite.FullyManaged
 
                 if (db_file == null)
                 {
-                    throw new InvalidOperationException("Invalid connection string: no URI");
+                    throw new System.InvalidOperationException("Invalid connection string: no URI");
                 }
             }
         }
-        #endregion
 
-        #region Internal Methods
+
 
         internal void StartExec()
         {
             // use a mutex here
-            state = ConnectionState.Executing;
+            state = System.Data.ConnectionState.Executing;
         }
 
         internal void EndExec()
         {
-            state = ConnectionState.Open;
+            state = System.Data.ConnectionState.Open;
         }
 
-        #endregion
 
-        #region Public Methods
-
-        object ICloneable.Clone()
+        object System.ICloneable.Clone()
         {
             return new SqliteConnection(ConnectionString);
         }
 
-        protected override DbTransaction BeginDbTransaction(IsolationLevel il)
+        protected override System.Data.Common.DbTransaction
+            BeginDbTransaction(System.Data.IsolationLevel il)
         {
-            if (state != ConnectionState.Open)
-                throw new InvalidOperationException("Invalid operation: The connection is closed");
+            if (state != System.Data.ConnectionState.Open)
+                throw new System.InvalidOperationException("Invalid operation: The connection is closed");
 
             SqliteTransaction t = new SqliteTransaction();
             t.SetConnection(this);
@@ -321,31 +495,31 @@ namespace SQLite.FullyManaged
             return t;
         }
 
-        public new DbTransaction BeginTransaction()
+        public new System.Data.Common.DbTransaction BeginTransaction()
         {
-            return BeginDbTransaction(IsolationLevel.Unspecified);
+            return BeginDbTransaction(System.Data.IsolationLevel.Unspecified);
         }
 
-        public new DbTransaction BeginTransaction(IsolationLevel il)
+        public new System.Data.Common.DbTransaction BeginTransaction(System.Data.IsolationLevel il)
         {
             return BeginDbTransaction(il);
         }
 
         public override void Close()
         {
-            if (state != ConnectionState.Open)
+            if (state != System.Data.ConnectionState.Open)
             {
                 return;
             }
 
-            state = ConnectionState.Closed;
+            state = System.Data.ConnectionState.Closed;
 
             if (Version == 3)
                 //Sqlite3.sqlite3_close()
                 Sqlite3.sqlite3_close(sqlite_handle2);
             //else 
             //Sqlite.sqlite_close (sqlite_handle);
-            sqlite_handle = IntPtr.Zero;
+            sqlite_handle = System.IntPtr.Zero;
         }
 
         public override void ChangeDatabase(string databaseName)
@@ -355,7 +529,7 @@ namespace SQLite.FullyManaged
             Open();
         }
 
-        protected override DbCommand CreateDbCommand()
+        protected override System.Data.Common.DbCommand CreateDbCommand()
         {
             return new SqliteCommand(null, this);
         }
@@ -364,23 +538,23 @@ namespace SQLite.FullyManaged
         {
             if (conn_str == null)
             {
-                throw new InvalidOperationException("No database specified");
+                throw new System.InvalidOperationException("No database specified");
             }
 
-            if (state != ConnectionState.Closed)
+            if (state != System.Data.ConnectionState.Closed)
             {
                 return;
             }
 
             /*
-      IntPtr errmsg = IntPtr.Zero;
+            System.IntPtr errmsg = System.IntPtr.Zero;
 			if (Version == 2){
 				try {
 					sqlite_handle = Sqlite.sqlite_open(db_file, db_mode, out errmsg);
-					if (errmsg != IntPtr.Zero) {
+					if (errmsg != System.IntPtr.Zero) {
 						string msg = Marshal.PtrToStringAnsi (errmsg);
 						Sqlite.sqliteFree (errmsg);
-						throw new ApplicationException (msg);
+						throw new System.ApplicationException (msg);
 					}
 				} catch (DllNotFoundException) {
 					db_version = 3;
@@ -394,49 +568,49 @@ namespace SQLite.FullyManaged
 			 */
             if (Version == 3)
             {
-                sqlite_handle = (IntPtr)1;
+                sqlite_handle = (System.IntPtr)1;
                 int flags = Sqlite3.SQLITE_OPEN_NOMUTEX | Sqlite3.SQLITE_OPEN_READWRITE | Sqlite3.SQLITE_OPEN_CREATE;
                 int err = Sqlite3.sqlite3_open_v2(db_file, out sqlite_handle2, flags, null);
                 //int err = Sqlite.sqlite3_open16(db_file, out sqlite_handle);
                 if (err == (int)SqliteError.ERROR)
-                    throw new ApplicationException(Sqlite3.sqlite3_errmsg(sqlite_handle2));
+                    throw new System.ApplicationException(Sqlite3.sqlite3_errmsg(sqlite_handle2));
                 //throw new ApplicationException (Marshal.PtrToStringUni( Sqlite.sqlite3_errmsg16 (sqlite_handle)));
                 if (busy_timeout != 0)
                     Sqlite3.sqlite3_busy_timeout(sqlite_handle2, busy_timeout);
                 //Sqlite.sqlite3_busy_timeout (sqlite_handle, busy_timeout);
-                if (!String.IsNullOrEmpty(db_password))
+                if (!string.IsNullOrEmpty(db_password))
                 {
                     SqliteCommand cmd = (SqliteCommand)this.CreateCommand();
                     cmd.CommandText = "pragma hexkey='" + db_password + "'";
                     cmd.ExecuteNonQuery();
                 }
             }
-            state = ConnectionState.Open;
+            state = System.Data.ConnectionState.Open;
         }
 
 #if !(SQLITE_SILVERLIGHT || SQLITE_WINRT)
-        public override DataTable GetSchema(String collectionName)
+        public override System.Data.DataTable GetSchema(string collectionName)
         {
             return GetSchema(collectionName, null);
         }
 
-        public override DataTable GetSchema(String collectionName, string[] restrictionValues)
+        public override System.Data.DataTable GetSchema(string collectionName, string[] restrictionValues)
         {
-            if (State != ConnectionState.Open)
-                throw new InvalidOperationException("Invalid operation.  The connection is closed.");
+            if (State != System.Data.ConnectionState.Open)
+                throw new System.InvalidOperationException("Invalid operation.  The connection is closed.");
 
             int restrictionsCount = 0;
             if (restrictionValues != null)
                 restrictionsCount = restrictionValues.Length;
 
-            DataTable metaTable = GetSchemaMetaDataCollections();
-            foreach (DataRow row in metaTable.Rows)
+            System.Data.DataTable metaTable = GetSchemaMetaDataCollections();
+            foreach (System.Data.DataRow row in metaTable.Rows)
             {
-                if (String.Compare(row["CollectionName"].ToString(), collectionName, true) == 0)
+                if (string.Compare(row["CollectionName"].ToString(), collectionName, true) == 0)
                 {
                     int restrictions = (int)row["NumberOfRestrictions"];
                     if (restrictionsCount > restrictions)
-                        throw new ArgumentException("More restrictions were provided than needed.");
+                        throw new System.ArgumentException("More restrictions were provided than needed.");
                 }
             }
 
@@ -463,27 +637,27 @@ namespace SQLite.FullyManaged
                 case "INDEXES":
                     return GetSchemaIndexes(restrictionValues);
                 case "UNIQUEKEYS":
-                    throw new NotImplementedException(collectionName);
+                    throw new System.NotImplementedException(collectionName);
                 case "PRIMARYKEYS":
-                    throw new NotImplementedException(collectionName);
+                    throw new System.NotImplementedException(collectionName);
                 case "FOREIGNKEYS":
                     return GetSchemaForeignKeys(restrictionValues);
                 case "FOREIGNKEYCOLUMNS":
-                    throw new NotImplementedException(collectionName);
+                    throw new System.NotImplementedException(collectionName);
                 case "TRIGGERS":
                     return GetSchemaTriggers(restrictionValues);
             }
 
-            throw new ArgumentException("The requested collection is not defined.");
+            throw new System.ArgumentException("The requested collection is not defined.");
         }
 
-        static DataTable metaDataCollections = null;
-        DataTable GetSchemaMetaDataCollections()
+        static System.Data.DataTable metaDataCollections = null;
+        System.Data.DataTable GetSchemaMetaDataCollections()
         {
             if (metaDataCollections != null)
                 return metaDataCollections;
 
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt = new System.Data.DataTable();
 
             dt.Columns.Add("CollectionName", typeof(System.String));
             dt.Columns.Add("NumberOfRestrictions", typeof(System.Int32));
@@ -508,9 +682,9 @@ namespace SQLite.FullyManaged
             return dt;
         }
 
-        DataTable GetSchemaRestrictions()
+        System.Data.DataTable GetSchemaRestrictions()
         {
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt = new System.Data.DataTable();
 
             dt.Columns.Add("CollectionName", typeof(System.String));
             dt.Columns.Add("RestrictionName", typeof(System.String));
@@ -529,7 +703,7 @@ namespace SQLite.FullyManaged
             return dt;
         }
 
-        DataTable GetSchemaTables(string[] restrictionValues)
+        System.Data.DataTable GetSchemaTables(string[] restrictionValues)
         {
             SqliteCommand cmd = new SqliteCommand(
                         "SELECT type, name, tbl_name, rootpage, sql " +
@@ -537,15 +711,15 @@ namespace SQLite.FullyManaged
                         " WHERE (name = :pname or (:pname is null)) " +
                         " AND type = 'table' " +
                         " ORDER BY name", this);
-            cmd.Parameters.Add("pname", DbType.String).Value = DBNull.Value;
+            cmd.Parameters.Add("pname", System.Data.DbType.String).Value = System.DBNull.Value;
             return GetSchemaDataTable(cmd, restrictionValues);
         }
 
-        DataTable GetSchemaColumns(string[] restrictionValues)
+        System.Data.DataTable GetSchemaColumns(string[] restrictionValues)
         {
             if (restrictionValues == null || restrictionValues.Length == 0)
             {
-                throw new ArgumentException("Columns must contain at least one restriction value for the table name.");
+                throw new System.ArgumentException("Columns must contain at least one restriction value for the table name.");
             }
             ValidateIdentifier(restrictionValues[0]);
 
@@ -554,7 +728,7 @@ namespace SQLite.FullyManaged
             return GetSchemaDataTable(cmd, restrictionValues);
         }
 
-        DataTable GetSchemaTriggers(string[] restrictionValues)
+        System.Data.DataTable GetSchemaTriggers(string[] restrictionValues)
         {
             SqliteCommand cmd = new SqliteCommand(
                         "SELECT type, name, tbl_name, rootpage, sql " +
@@ -562,15 +736,15 @@ namespace SQLite.FullyManaged
                         " WHERE (tbl_name = :pname or :pname is null) " +
                         " AND type = 'trigger' " +
                         " ORDER BY name", this);
-            cmd.Parameters.Add("pname", DbType.String).Value = DBNull.Value;
+            cmd.Parameters.Add("pname", System.Data.DbType.String).Value = System.DBNull.Value;
             return GetSchemaDataTable(cmd, restrictionValues);
         }
 
-        DataTable GetSchemaIndexColumns(string[] restrictionValues)
+        System.Data.DataTable GetSchemaIndexColumns(string[] restrictionValues)
         {
             if (restrictionValues == null || restrictionValues.Length == 0)
             {
-                throw new ArgumentException("IndexColumns must contain at least one restriction value for the index name.");
+                throw new System.ArgumentException("IndexColumns must contain at least one restriction value for the index name.");
             }
             ValidateIdentifier(restrictionValues[0]);
 
@@ -579,11 +753,11 @@ namespace SQLite.FullyManaged
             return GetSchemaDataTable(cmd, restrictionValues);
         }
 
-        DataTable GetSchemaIndexes(string[] restrictionValues)
+        System.Data.DataTable GetSchemaIndexes(string[] restrictionValues)
         {
             if (restrictionValues == null || restrictionValues.Length == 0)
             {
-                throw new ArgumentException("Indexes must contain at least one restriction value for the table name.");
+                throw new System.ArgumentException("Indexes must contain at least one restriction value for the table name.");
             }
             ValidateIdentifier(restrictionValues[0]);
 
@@ -592,11 +766,11 @@ namespace SQLite.FullyManaged
             return GetSchemaDataTable(cmd, restrictionValues);
         }
 
-        DataTable GetSchemaForeignKeys(string[] restrictionValues)
+        System.Data.DataTable GetSchemaForeignKeys(string[] restrictionValues)
         {
             if (restrictionValues == null || restrictionValues.Length == 0)
             {
-                throw new ArgumentException("Foreign Keys must contain at least one restriction value for the table name.");
+                throw new System.ArgumentException("Foreign Keys must contain at least one restriction value for the table name.");
             }
             ValidateIdentifier(restrictionValues[0]);
 
@@ -609,11 +783,11 @@ namespace SQLite.FullyManaged
         void ValidateIdentifier(string value)
         {
             if (value.Contains("'"))
-                throw new ArgumentException("Identifiers can not contain a single quote.");
+                throw new System.ArgumentException("Identifiers can not contain a single quote.");
         }
 
 #if !(SQLITE_SILVERLIGHT || SQLITE_WINRT)
-        DataTable GetSchemaViews(string[] restrictionValues)
+        System.Data.DataTable GetSchemaViews(string[] restrictionValues)
         {
             SqliteCommand cmd = new SqliteCommand(
                         "SELECT type, name, tbl_name, rootpage, sql " +
@@ -621,13 +795,13 @@ namespace SQLite.FullyManaged
                         " WHERE (name = :pname or :pname is null) " +
                         " AND type = 'view' " +
                         " ORDER BY name", this);
-            cmd.Parameters.Add("pname", DbType.String).Value = DBNull.Value;
+            cmd.Parameters.Add("pname", System.Data.DbType.String).Value = System.DBNull.Value;
             return GetSchemaDataTable(cmd, restrictionValues);
         }
 
-        DataTable GetSchemaDataSourceInformation()
+        System.Data.DataTable GetSchemaDataSourceInformation()
         {
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt = new System.Data.DataTable();
 
             dt.Columns.Add("CompositeIdentifierSeparatorPattern", typeof(System.String));
             dt.Columns.Add("DataSourceProductName", typeof(System.String));
@@ -677,16 +851,16 @@ namespace SQLite.FullyManaged
                                 30,
                                 "",
                                 2,
-                                DBNull.Value,
+                                System.DBNull.Value,
                                 "" },
                 true);
 
             return dt;
         }
 
-        DataTable GetSchemaDataTypes()
+        System.Data.DataTable GetSchemaDataTypes()
         {
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt = new System.Data.DataTable();
 
             dt.Columns.Add("TypeName", typeof(System.String));
             dt.Columns.Add("ProviderDbType", typeof(System.String));
@@ -750,9 +924,9 @@ namespace SQLite.FullyManaged
             return dt;
         }
 
-        DataTable GetSchemaReservedWords()
+        System.Data.DataTable GetSchemaReservedWords()
         {
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt = new System.Data.DataTable();
 
             dt.Columns.Add("ReservedWord", typeof(System.String));
 
@@ -878,7 +1052,7 @@ namespace SQLite.FullyManaged
             return dt;
         }
 
-        DataTable GetSchemaDataTable(SqliteCommand cmd, string[] restrictionValues)
+        System.Data.DataTable GetSchemaDataTable(SqliteCommand cmd, string[] restrictionValues)
         {
             if (restrictionValues != null && cmd.Parameters.Count > 0)
             {
@@ -887,13 +1061,12 @@ namespace SQLite.FullyManaged
             }
 
             SqliteDataAdapter adapter = new SqliteDataAdapter(cmd);
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt = new System.Data.DataTable();
             adapter.Fill(dt);
 
             return dt;
         }
 #endif
-        #endregion
 
     }
 }
