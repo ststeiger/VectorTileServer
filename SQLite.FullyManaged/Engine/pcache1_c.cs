@@ -590,8 +590,21 @@ static int pcache1MemSize(object p){
 
             Debug.Assert(sqlite3_mutex_held(pCache.pGroup.mutex));
             h = (int)(pPage.iKey % pCache.nHash);
-            for (pp = pCache.apHash[h]; pp != pPage; pPrev = pp, pp = pp.pNext)
-                ;
+
+            // for (pp = pCache.apHash[h]; pp != pPage; pPrev = pp, pp = pp.pNext);
+            pp = pCache.apHash[h];
+            while (pp != null && pp != pPage)
+            {
+                pPrev = pp;
+                pp = pp.pNext;
+            }
+            
+            if (pp == null)
+            {
+                return;
+                //throw new InvalidOperationException("Page not found in hash table.");
+            }
+
             if (pPrev == null)
                 pCache.apHash[h] = pp.pNext;
             else

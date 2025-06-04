@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorTileSelector", "Vecto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLite.FullyManaged", "SQLite.FullyManaged\SQLite.FullyManaged.csproj", "{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer4", "VectorTileServer4\VectorTileServer4.csproj", "{04806B4A-2806-450A-BA03-04E4922DA9CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A87DBCD2-75F9-4A35-A97A-915C41C18E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04806B4A-2806-450A-BA03-04E4922DA9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04806B4A-2806-450A-BA03-04E4922DA9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04806B4A-2806-450A-BA03-04E4922DA9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04806B4A-2806-450A-BA03-04E4922DA9CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

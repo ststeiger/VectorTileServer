@@ -392,6 +392,11 @@ expensive_assert( pcacheCheckSynced(pCache) );
         static void sqlite3PcacheRelease(PgHdr p)
         {
             Debug.Assert(p.nRef > 0);
+
+            if (p.nRef == 0)
+                return;
+
+
             p.nRef--;
             if (p.nRef == 0)
             {
