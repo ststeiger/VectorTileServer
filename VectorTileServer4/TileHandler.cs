@@ -139,11 +139,9 @@ namespace VectorTileServer4
                         conn.Open();
 
                     using System.Data.Common.DbCommand cmd = conn.CreateCommand();
-                    // PRAGMA mmap_size = 0;
-                    cmd.CommandText = @$"
-PRAGMA cache_size = -1;
-SELECT tile_data FROM tiles WHERE tile_column = {x} AND tile_row = {y} AND zoom_level = {z}
-";
+                    // PRAGMA mmap_size = 0; 
+                    // PRAGMA cache_size = -1; 
+                    cmd.CommandText = @$"SELECT tile_data FROM tiles WHERE tile_column = {x} AND tile_row = {y} AND zoom_level = {z};";
 
                     using System.Data.Common.DbDataReader reader = cmd.ExecuteReader();
                     if (!reader.Read())
