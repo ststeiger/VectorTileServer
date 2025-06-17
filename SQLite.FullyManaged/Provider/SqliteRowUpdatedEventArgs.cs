@@ -27,23 +27,25 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System.Data;
-using System.Data.Common;
-
 namespace SQLite.FullyManaged
 {
     /// <summary>
     /// Provides data for the <see cref="SqliteDataAdapter.RowUpdated"/> event.
     /// </summary>
     public sealed class SqliteRowUpdatedEventArgs 
-        : RowUpdatedEventArgs
+        : System.Data.Common.RowUpdatedEventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SqliteRowUpdatedEventArgs"/> class.
         /// </summary>
-        public SqliteRowUpdatedEventArgs(DataRow row, IDbCommand command, StatementType statementType, DataTableMapping tableMapping) : base(row, command, statementType, tableMapping)
-        {
-        }
+        public SqliteRowUpdatedEventArgs(
+            System.Data.DataRow row,
+            System.Data.IDbCommand command,
+            System.Data.StatementType statementType,
+            System.Data.Common.DataTableMapping tableMapping
+        ) 
+            : base(row, command, statementType, tableMapping)
+        { }
     }
 
 }

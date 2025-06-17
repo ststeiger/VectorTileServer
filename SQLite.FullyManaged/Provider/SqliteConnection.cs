@@ -34,6 +34,8 @@ namespace SQLite.FullyManaged
 {
 
     using SQLite.FullyManaged.Engine;
+
+
     public class SqliteConnection
         : System.Data.Common.DbConnection, System.ICloneable
     {

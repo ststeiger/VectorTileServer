@@ -28,38 +28,28 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Globalization;
-using System.Text;
-
 namespace SQLite.FullyManaged
 {
-    public sealed class SqliteConnectionStringBuilder : DbConnectionStringBuilder
+
+
+    public sealed class SqliteConnectionStringBuilder 
+        : System.Data.Common.DbConnectionStringBuilder
     {
         private const string DEF_URI = null;
-        private const Int32 DEF_MODE = 0644;
-        private const Int32 DEF_VERSION = 2;
-        private const Encoding DEF_ENCODING = null;
-        private const Int32 DEF_BUSYTIMEOUT = 0;
+        private const System.Int32 DEF_MODE = 0644;
+        private const System.Int32 DEF_VERSION = 2;
+        private const System.Text.Encoding DEF_ENCODING = null;
+        private const System.Int32 DEF_BUSYTIMEOUT = 0;
 
-        #region // Fields
         private string _uri;
-        private Int32 _mode;
-        private Int32 _version;
-        private Encoding _encoding;
-        private Int32 _busy_timeout;
+        private System.Int32 _mode;
+        private System.Int32 _version;
+        private System.Text.Encoding _encoding;
+        private System.Int32 _busy_timeout;
         private bool _readonly;
 
-        private static Dictionary<string, string> _keywords; // for mapping duplicate keywords
-        #endregion // Fields
+        private static System.Collections.Generic.Dictionary<string, string> _keywords; // for mapping duplicate keywords
 
-        #region Constructors
-        public SqliteConnectionStringBuilder() : this(String.Empty)
-        {
-        }
 
         public SqliteConnectionStringBuilder(string connectionString)
         {
@@ -67,9 +57,14 @@ namespace SQLite.FullyManaged
             base.ConnectionString = connectionString;
         }
 
+
+        public SqliteConnectionStringBuilder() 
+            : this(string.Empty)
+        { }
+
         static SqliteConnectionStringBuilder()
         {
-            _keywords = new Dictionary<string, string>();
+            _keywords = new System.Collections.Generic.Dictionary<string, string>();
             _keywords["URI"] = "Uri";
             _keywords["DATA SOURCE"] = "Data Source";
             _keywords["DATASOURCE"] = "Data Source";
@@ -81,9 +76,7 @@ namespace SQLite.FullyManaged
             _keywords["ENCODING"] = "Encoding";
             _keywords["READONLY"] = "Read only";
         }
-        #endregion // Constructors
 
-        #region Properties
         public string DataSource
         {
             get { return _uri; }
@@ -119,7 +112,7 @@ namespace SQLite.FullyManaged
             }
         }
 
-        public Int32 Mode
+        public System.Int32 Mode
         {
             get { return _mode; }
             set
@@ -129,7 +122,7 @@ namespace SQLite.FullyManaged
             }
         }
 
-        public Int32 Version
+        public System.Int32 Version
         {
             get { return _version; }
             set
@@ -139,7 +132,7 @@ namespace SQLite.FullyManaged
             }
         }
 
-        public Int32 BusyTimeout
+        public System.Int32 BusyTimeout
         {
             get { return _busy_timeout; }
             set
@@ -149,7 +142,7 @@ namespace SQLite.FullyManaged
             }
         }
 
-        public Encoding Encoding
+        public System.Text.Encoding Encoding
         {
             get { return _encoding; }
             set
@@ -208,18 +201,16 @@ namespace SQLite.FullyManaged
             set { SetValue(keyword, value); }
         }
 
-        public override ICollection Keys
+        public override System.Collections.ICollection Keys
         {
             get { return base.Keys; }
         }
 
-        public override ICollection Values
+        public override System.Collections.ICollection Values
         {
             get { return base.Values; }
         }
-        #endregion // Properties
 
-        #region Methods
         private void Init()
         {
             _uri = DEF_URI;
@@ -255,31 +246,28 @@ namespace SQLite.FullyManaged
         {
             if (!ContainsKey(keyword))
             {
-                value = String.Empty;
+                value = string.Empty;
                 return false;
             }
             return base.TryGetValue(_keywords[keyword.ToUpper().Trim()], out value);
         }
 
-        #endregion // Methods
-
-        #region Private Methods
         private string MapKeyword(string keyword)
         {
             keyword = keyword.ToUpper().Trim();
             if (!_keywords.ContainsKey(keyword))
-                throw new ArgumentException("Keyword not supported :" + keyword);
+                throw new System.ArgumentException("Keyword not supported :" + keyword);
             return _keywords[keyword];
         }
 
         private void SetValue(string key, object value)
         {
             if (key == null)
-                throw new ArgumentNullException("key cannot be null!");
+                throw new System.ArgumentNullException("key cannot be null!");
 
             string mappedKey = MapKeyword(key);
 
-            switch (mappedKey.ToUpper(CultureInfo.InvariantCulture).Trim())
+            switch (mappedKey.ToUpper(System.Globalization.CultureInfo.InvariantCulture).Trim())
             {
                 case "DATA SOURCE":
                     if (value == null)
@@ -329,35 +317,37 @@ namespace SQLite.FullyManaged
                     }
                     else if (value is string)
                     {
-                        this.Encoding = Encoding.GetEncoding((string)value);
+                        this.Encoding = System.Text.Encoding.GetEncoding((string)value);
                     }
                     else
-                        throw new ArgumentException("Cannot set encoding from a non-string argument");
+                        throw new System.ArgumentException("Cannot set encoding from a non-string argument");
 
                     break;
 
                 default:
-                    throw new ArgumentException("Keyword not supported :" + key);
+                    throw new System.ArgumentException("Keyword not supported :" + key);
             }
         }
 
         static int ConvertToInt32(object value)
         {
-            return Int32.Parse(value.ToString(), CultureInfo.InvariantCulture);
+            return System.Int32.Parse(value.ToString(), System.Globalization.CultureInfo.InvariantCulture);
         }
 
         static bool ConvertToBoolean(object value)
         {
             if (value == null)
-                throw new ArgumentNullException("null value cannot be converted to boolean");
+                throw new System.ArgumentNullException("null value cannot be converted to boolean");
+
             string upper = value.ToString().ToUpper().Trim();
             if (upper == "YES" || upper == "TRUE")
                 return true;
+
             if (upper == "NO" || upper == "FALSE")
                 return false;
-            throw new ArgumentException(String.Format("Invalid boolean value: {0}", value.ToString()));
+
+            throw new System.ArgumentException(string.Format("Invalid boolean value: {0}", value.ToString()));
         }
-        #endregion // Private Methods
     }
 
 }

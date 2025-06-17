@@ -31,11 +31,8 @@ namespace SQLite.FullyManaged
 {
 
 
-    using System.Data.Common;
-
-
     public class SqliteClientFactory
-        : DbProviderFactory
+        : System.Data.Common.DbProviderFactory
     {
         public static SqliteClientFactory Instance = null;
         public static object lockStatic = new object();
@@ -61,37 +58,37 @@ namespace SQLite.FullyManaged
             }
         }
 
-        public override DbCommand CreateCommand()
+        public override System.Data.Common.DbCommand CreateCommand()
         {
             return new SqliteCommand();
         }
 
-        public override DbCommandBuilder CreateCommandBuilder()
+        public override System.Data.Common.DbCommandBuilder CreateCommandBuilder()
         {
             return new SqliteCommandBuilder();
         }
 
-        public override DbConnection CreateConnection()
+        public override System.Data.Common.DbConnection CreateConnection()
         {
             return new SqliteConnection();
         }
 
-        public override DbDataAdapter CreateDataAdapter()
+        public override System.Data.Common.DbDataAdapter CreateDataAdapter()
         {
             return new SqliteDataAdapter();
         }
 
-        public override DbDataSourceEnumerator CreateDataSourceEnumerator()
+        public override System.Data.Common.DbDataSourceEnumerator CreateDataSourceEnumerator()
         {
             return new SqliteDataSourceEnumerator();
         }
 
-        public override DbParameter CreateParameter()
+        public override System.Data.Common.DbParameter CreateParameter()
         {
             return new SqliteParameter();
         }
 
-        public override DbConnectionStringBuilder CreateConnectionStringBuilder()
+        public override System.Data.Common.DbConnectionStringBuilder CreateConnectionStringBuilder()
         {
             return new SqliteConnectionStringBuilder();
         }

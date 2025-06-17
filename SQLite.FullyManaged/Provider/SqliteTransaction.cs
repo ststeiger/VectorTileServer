@@ -28,64 +28,50 @@
 namespace SQLite.FullyManaged
 {
 
-    using System;
-    using System.Data;
-    using System.Data.Common;
-
 
     public sealed class SqliteTransaction 
-		: DbTransaction
+		: System.Data.Common.DbTransaction
 	{
 	
-		#region Fields
-		
-		private IsolationLevel _isolationLevel;
+	
+		private System.Data.IsolationLevel _isolationLevel;
 		private SqliteConnection _connection;
 		private bool _open;
 		
-		#endregion
 
-		#region Contructors and destructors
-		
 		internal SqliteTransaction() 
 		{
 			_open = true;
 		}
 
-		#endregion
 
-		#region Public Properties
-
-		protected override DbConnection DbConnection
+		protected override System.Data.Common.DbConnection DbConnection
 		{
 			get { return _connection; } 
 		}
 
-		public override IsolationLevel IsolationLevel
+		public override System.Data.IsolationLevel IsolationLevel
 		{
 			get { return _isolationLevel; }
 		}
 
-		internal void SetConnection (DbConnection conn)
+		internal void SetConnection (System.Data.Common.DbConnection conn)
 		{
 			_connection = (SqliteConnection)conn;
 		}
 
-		internal void SetIsolationLevel (IsolationLevel level)
+		internal void SetIsolationLevel (System.Data.IsolationLevel level)
 		{
 			_isolationLevel = level;
 		}
 
-		#endregion
-		
-		#region Public Methods
 
 		public override void Commit()
 		{
-			if (_connection == null || _connection.State != ConnectionState.Open)
-				throw new InvalidOperationException("Connection must be valid and open to commit transaction");
+			if (_connection == null || _connection.State != System.Data.ConnectionState.Open)
+				throw new System.InvalidOperationException("Connection must be valid and open to commit transaction");
 			if (!_open)
-				throw new InvalidOperationException("Transaction has already been committed or is not pending");
+				throw new System.InvalidOperationException("Transaction has already been committed or is not pending");
 			try 
 			{
 				SqliteCommand cmd = (SqliteCommand)_connection.CreateCommand();
@@ -93,7 +79,7 @@ namespace SQLite.FullyManaged
 				cmd.ExecuteNonQuery();
 				_open = false;
 			}
-			catch (Exception ex) 
+			catch (System.Exception ex) 
 			{
 				throw ex;
 			}
@@ -101,10 +87,10 @@ namespace SQLite.FullyManaged
 
 		public override void Rollback()
 		{
-			if (_connection == null || _connection.State != ConnectionState.Open)
-				throw new InvalidOperationException("Connection must be valid and open to commit transaction");
+			if (_connection == null || _connection.State != System.Data.ConnectionState.Open)
+				throw new System.InvalidOperationException("Connection must be valid and open to commit transaction");
 			if (!_open)
-				throw new InvalidOperationException("Transaction has already been rolled back or is not pending");
+				throw new System.InvalidOperationException("Transaction has already been rolled back or is not pending");
 			try 
 			{
 				SqliteCommand cmd = (SqliteCommand)_connection.CreateCommand();
@@ -112,12 +98,12 @@ namespace SQLite.FullyManaged
 				cmd.ExecuteNonQuery();
 				_open = false;
 			}
-			catch (Exception ex) 
+			catch (System.Exception ex) 
 			{
 				throw ex;
 			}
 		}
 		
-		#endregion
+
 	}
 }

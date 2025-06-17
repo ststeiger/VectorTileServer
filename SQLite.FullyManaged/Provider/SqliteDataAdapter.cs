@@ -28,19 +28,17 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System.Data;
-using System.Data.Common;
-
-
 namespace SQLite.FullyManaged
 {
+
+
     /// <summary>
     /// Represents a set of data commands and a database connection that are used 
     /// to fill the <see cref="DataSet">DataSet</see> and update the data source.
     /// </summary>
-    public class SqliteDataAdapter : DbDataAdapter
+    public class SqliteDataAdapter : System.Data.Common.DbDataAdapter
     {
-        #region Public Events
+
 
         /// <summary>
         /// Occurs during <see cref="DbDataAdapter.Update">Update</see> after a 
@@ -56,9 +54,6 @@ namespace SQLite.FullyManaged
         /// </summary>
         public event SqliteRowUpdatingEventHandler RowUpdating;
 
-        #endregion
-
-        #region Contructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SqliteDataAdapter">SqliteDataAdapter</see> class.
@@ -72,7 +67,7 @@ namespace SQLite.FullyManaged
         /// with the specified SqliteCommand as the SelectCommand property.
         /// </summary>
         /// <param name="selectCommand"></param>
-        public SqliteDataAdapter(DbCommand selectCommand)
+        public SqliteDataAdapter(System.Data.Common.DbCommand selectCommand)
         {
             SelectCommand = selectCommand;
         }
@@ -85,7 +80,7 @@ namespace SQLite.FullyManaged
         /// <param name="connection"></param>
         public SqliteDataAdapter(string selectCommandText, SqliteConnection connection)
         {
-            DbCommand cmd = connection.CreateCommand();
+            System.Data.Common.DbCommand cmd = connection.CreateCommand();
             cmd.CommandText = selectCommandText;
             SelectCommand = cmd;
         }
@@ -97,12 +92,8 @@ namespace SQLite.FullyManaged
         /// <param name="selectCommandText"></param>
         /// <param name="connectionString"></param>
         public SqliteDataAdapter(string selectCommandText, string connectionString) : this(selectCommandText, new SqliteConnection(connectionString))
-        {
-        }
+        { }
 
-        #endregion
-
-        #region Protected Methods
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RowUpdatedEventArgs">RowUpdatedEventArgs</see> class.
@@ -112,7 +103,12 @@ namespace SQLite.FullyManaged
         /// <param name="statementType">Whether the command is an UPDATE, INSERT, DELETE, or SELECT statement.</param>
         /// <param name="tableMapping">A DataTableMapping object.</param>
         /// <returns></returns>
-        protected override RowUpdatedEventArgs CreateRowUpdatedEvent(DataRow dataRow, IDbCommand command, StatementType statementType, DataTableMapping tableMapping)
+        protected override System.Data.Common.RowUpdatedEventArgs CreateRowUpdatedEvent(
+            System.Data.DataRow dataRow, 
+            System.Data.IDbCommand command,
+            System.Data.StatementType statementType,
+            System.Data.Common.DataTableMapping tableMapping
+        )
         {
             return new SqliteRowUpdatedEventArgs(dataRow, command, statementType, tableMapping);
         }
@@ -125,7 +121,12 @@ namespace SQLite.FullyManaged
         /// <param name="statementType">Whether the command is an UPDATE, INSERT, DELETE, or SELECT statement.</param>
         /// <param name="tableMapping">A DataTableMapping object.</param>
         /// <returns></returns>
-        protected override RowUpdatingEventArgs CreateRowUpdatingEvent(DataRow dataRow, IDbCommand command, StatementType statementType, DataTableMapping tableMapping)
+        protected override System.Data.Common.RowUpdatingEventArgs CreateRowUpdatingEvent(
+            System.Data.DataRow dataRow,
+            System.Data.IDbCommand command,
+            System.Data.StatementType statementType,
+            System.Data.Common.DataTableMapping tableMapping
+        )
         {
             return new SqliteRowUpdatingEventArgs(dataRow, command, statementType, tableMapping);
         }
@@ -134,7 +135,7 @@ namespace SQLite.FullyManaged
         /// Raises the RowUpdated event of a Sqlite data provider.
         /// </summary>
         /// <param name="args">A RowUpdatedEventArgs that contains the event data.</param>
-        protected override void OnRowUpdating(RowUpdatingEventArgs args)
+        protected override void OnRowUpdating(System.Data.Common.RowUpdatingEventArgs args)
         {
             if (RowUpdating != null)
                 RowUpdating(this, args);
@@ -144,12 +145,11 @@ namespace SQLite.FullyManaged
         /// Raises the RowUpdating event of Sqlite data provider.
         /// </summary>
         /// <param name="args">An RowUpdatingEventArgs that contains the event data.</param>
-        protected override void OnRowUpdated(RowUpdatedEventArgs args)
+        protected override void OnRowUpdated(System.Data.Common.RowUpdatedEventArgs args)
         {
             if (RowUpdated != null)
                 RowUpdated(this, args);
         }
 
-        #endregion
     }
 }

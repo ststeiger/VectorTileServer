@@ -34,30 +34,26 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Data;
-using System.Data.Common;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace SQLite.FullyManaged
 {
-    public class SqliteParameterCollection : DbParameterCollection
+
+
+    public class SqliteParameterCollection 
+        : System.Data.Common.DbParameterCollection
     {
 
-        #region Fields
+        System.Collections.Generic.List<SqliteParameter> numeric_param_list = 
+            new System.Collections.Generic.List<SqliteParameter>();
 
-        List<SqliteParameter> numeric_param_list = new List<SqliteParameter>();
-        Dictionary<string, int> named_param_hash = new Dictionary<string, int>();
+        System.Collections.Generic.Dictionary<string, int> named_param_hash = 
+            new System.Collections.Generic.Dictionary<string, int>();
 
-        #endregion
-
-        #region Private Methods
 
         private void CheckSqliteParam(object value)
         {
             if (!(value is SqliteParameter))
-                throw new InvalidCastException("Can only use SqliteParameter objects");
+                throw new System.InvalidCastException("Can only use SqliteParameter objects");
+
             SqliteParameter sqlp = value as SqliteParameter;
             if (sqlp.ParameterName == null || sqlp.ParameterName.Length == 0)
                 sqlp.ParameterName = this.GenerateParameterName();
@@ -75,7 +71,7 @@ namespace SQLite.FullyManaged
         private string GenerateParameterName()
         {
             int index = this.Count + 1;
-            string name = String.Empty;
+            string name = string.Empty;
 
             while (index > 0)
             {
@@ -88,49 +84,52 @@ namespace SQLite.FullyManaged
             return name;
         }
 
-        #endregion
-
-        #region Properties
 
         private bool isPrefixed(string parameterName)
         {
             return parameterName.Length > 1 && (parameterName[0] == ':' || parameterName[0] == '$' || parameterName[0] == '@');
         }
 
-        protected override DbParameter GetParameter(int parameterIndex)
+        protected override System.Data.Common.DbParameter GetParameter(int parameterIndex)
         {
             if (this.Count >= parameterIndex + 1)
                 return (SqliteParameter)numeric_param_list[parameterIndex];
             else
-                throw new IndexOutOfRangeException("The specified parameter index does not exist: " + parameterIndex.ToString());
+                throw new System.IndexOutOfRangeException("The specified parameter index does not exist: " + parameterIndex.ToString());
         }
 
-        protected override DbParameter GetParameter(string parameterName)
+        protected override System.Data.Common.DbParameter GetParameter(string parameterName)
         {
             if (this.Contains(parameterName))
                 return this[(int)named_param_hash[parameterName]];
             else if (isPrefixed(parameterName) && this.Contains(parameterName.Substring(1)))
                 return this[(int)named_param_hash[parameterName.Substring(1)]];
             else
-                throw new IndexOutOfRangeException("The specified name does not exist: " + parameterName);
+                throw new System.IndexOutOfRangeException("The specified name does not exist: " + parameterName);
         }
 
-        protected override void SetParameter(int parameterIndex, DbParameter parameter)
+        protected override void SetParameter(
+            int parameterIndex,
+            System.Data.Common.DbParameter parameter
+        )
         {
             if (this.Count >= parameterIndex + 1)
                 numeric_param_list[parameterIndex] = (SqliteParameter)parameter;
             else
-                throw new IndexOutOfRangeException("The specified parameter index does not exist: " + parameterIndex.ToString());
+                throw new System.IndexOutOfRangeException("The specified parameter index does not exist: " + parameterIndex.ToString());
         }
 
-        protected override void SetParameter(string parameterName, DbParameter parameter)
+        protected override void SetParameter(
+            string parameterName,
+            System.Data.Common.DbParameter parameter
+        )
         {
             if (this.Contains(parameterName))
                 numeric_param_list[(int)named_param_hash[parameterName]] = (SqliteParameter)parameter;
             else if (parameterName.Length > 1 && this.Contains(parameterName.Substring(1)))
                 numeric_param_list[(int)named_param_hash[parameterName.Substring(1)]] = (SqliteParameter)parameter;
             else
-                throw new IndexOutOfRangeException("The specified name does not exist: " + parameterName);
+                throw new System.IndexOutOfRangeException("The specified name does not exist: " + parameterName);
         }
 
         public override int Count
@@ -143,29 +142,26 @@ namespace SQLite.FullyManaged
 
         public override bool IsSynchronized
         {
-            get { return ((IList)this.numeric_param_list).IsSynchronized; }
+            get { return ((System.Collections.IList)this.numeric_param_list).IsSynchronized; }
         }
 
         public override bool IsFixedSize
         {
-            get { return ((IList)this.numeric_param_list).IsFixedSize; }
+            get { return ((System.Collections.IList)this.numeric_param_list).IsFixedSize; }
         }
 
         public override bool IsReadOnly
         {
-            get { return ((IList)this.numeric_param_list).IsReadOnly; }
+            get { return ((System.Collections.IList)this.numeric_param_list).IsReadOnly; }
         }
 
         public override object SyncRoot
         {
-            get { return ((IList)this.numeric_param_list).SyncRoot; }
+            get { return ((System.Collections.IList)this.numeric_param_list).SyncRoot; }
         }
 
-        #endregion
 
-        #region Public Methods
-
-        public override void AddRange(Array values)
+        public override void AddRange(System.Array values)
         {
             if (values == null || values.Length == 0)
                 return;
@@ -179,7 +175,7 @@ namespace SQLite.FullyManaged
             CheckSqliteParam(value);
             SqliteParameter sqlp = value as SqliteParameter;
             if (named_param_hash.ContainsKey(sqlp.ParameterName))
-                throw new DuplicateNameException("Parameter collection already contains the a SqliteParameter with the given ParameterName.");
+                throw new System.Data.DuplicateNameException("Parameter collection already contains the a SqliteParameter with the given ParameterName.");
             numeric_param_list.Add(sqlp);
             named_param_hash.Add(sqlp.ParameterName, numeric_param_list.IndexOf(sqlp));
             return (int)named_param_hash[sqlp.ParameterName];
@@ -196,7 +192,7 @@ namespace SQLite.FullyManaged
             return Add(new SqliteParameter(name, value));
         }
 
-        public SqliteParameter Add(string name, DbType type)
+        public SqliteParameter Add(string name, System.Data.DbType type)
         {
             return Add(new SqliteParameter(name, type));
         }
@@ -207,7 +203,7 @@ namespace SQLite.FullyManaged
             named_param_hash.Clear();
         }
 
-        public override void CopyTo(Array array, int index)
+        public override void CopyTo(System.Array array, int index)
         {
             this.numeric_param_list.CopyTo((SqliteParameter[])array, index);
         }
@@ -227,7 +223,7 @@ namespace SQLite.FullyManaged
             return Contains(param.ParameterName);
         }
 
-        public override IEnumerator GetEnumerator()
+        public override System.Collections.IEnumerator GetEnumerator()
         {
             return this.numeric_param_list.GetEnumerator();
         }
@@ -283,7 +279,7 @@ namespace SQLite.FullyManaged
         public override void RemoveAt(string parameterName)
         {
             if (!named_param_hash.ContainsKey(parameterName))
-                throw new ApplicationException("Parameter " + parameterName + " not found");
+                throw new System.ApplicationException("Parameter " + parameterName + " not found");
 
             numeric_param_list.RemoveAt((int)named_param_hash[parameterName]);
             named_param_hash.Remove(parameterName);
@@ -296,6 +292,5 @@ namespace SQLite.FullyManaged
             RemoveAt(param.ParameterName);
         }
 
-        #endregion
     }
 }

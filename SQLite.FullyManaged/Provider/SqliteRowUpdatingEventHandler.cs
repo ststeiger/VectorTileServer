@@ -31,12 +31,13 @@
 namespace SQLite.FullyManaged
 {
 
-    using System;
-    using System.Data.Common;
 
     /// <summary>
     /// Represents the method that will handle the <see cref="SqliteDataAdapter.RowUpdating"/> event 
     /// of a <see cref="SqliteDataAdapter"/>.
     /// </summary>
-    public delegate void SqliteRowUpdatingEventHandler(Object sender, RowUpdatingEventArgs e);
+    public delegate void SqliteRowUpdatingEventHandler(
+        object sender, 
+        System.Data.Common.RowUpdatingEventArgs e
+    );
 }

@@ -28,19 +28,15 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Data;
-using System.Data.Common;
-using System.Text;
-
 namespace SQLite.FullyManaged
 {
-    public sealed class SqliteCommandBuilder : DbCommandBuilder
+    public sealed class SqliteCommandBuilder 
+        : System.Data.Common.DbCommandBuilder
     {
         static readonly string clause1 = "({0} = 1 AND {1} IS NULL)";
         static readonly string clause2 = "({0} = {1})";
 
-        DataTable _schemaTable;
+        System.Data.DataTable _schemaTable;
         SqliteDataAdapter _dataAdapter;
         SqliteCommand _insertCommand;
         SqliteCommand _updateCommand;
@@ -51,7 +47,7 @@ namespace SQLite.FullyManaged
         string _tableName;
         SqliteRowUpdatingEventHandler rowUpdatingHandler;
 
-        public new DbDataAdapter DataAdapter
+        public new System.Data.Common.DbDataAdapter DataAdapter
         {
             get { return _dataAdapter; }
             set
@@ -71,7 +67,7 @@ namespace SQLite.FullyManaged
             set
             {
                 if (_schemaTable != null)
-                    throw new InvalidOperationException("The QuotePrefix and QuoteSuffix properties cannot be changed once an Insert, Update or Delete commands have been generated.");
+                    throw new System.InvalidOperationException("The QuotePrefix and QuoteSuffix properties cannot be changed once an Insert, Update or Delete commands have been generated.");
                 _quotePrefix = value;
             }
         }
@@ -83,7 +79,7 @@ namespace SQLite.FullyManaged
             set
             {
                 if (_schemaTable != null)
-                    throw new InvalidOperationException("The QuotePrefix and QuoteSuffix properties cannot be changed once an Insert, Update or Delete commands have been generated.");
+                    throw new System.InvalidOperationException("The QuotePrefix and QuoteSuffix properties cannot be changed once an Insert, Update or Delete commands have been generated.");
                 _quoteSuffix = value;
             }
         }
@@ -130,49 +126,53 @@ namespace SQLite.FullyManaged
         public override void RefreshSchema()
         {
             // FIXME: "Figure out what else needs to be cleaned up when we refresh."
-            _tableName = String.Empty;
+            _tableName = string.Empty;
             _schemaTable = null;
             CreateNewCommand(ref _deleteCommand);
             CreateNewCommand(ref _updateCommand);
             CreateNewCommand(ref _insertCommand);
         }
 
-        protected override void SetRowUpdatingHandler(DbDataAdapter adapter)
+        protected override void SetRowUpdatingHandler(
+            System.Data.Common.DbDataAdapter adapter
+        )
         {
             if (!(adapter is SqliteDataAdapter))
             {
-                throw new InvalidOperationException("Adapter needs to be a SqliteDataAdapter");
+                throw new System.InvalidOperationException("Adapter needs to be a SqliteDataAdapter");
             }
             rowUpdatingHandler = new SqliteRowUpdatingEventHandler(RowUpdatingHandler);
             ((SqliteDataAdapter)adapter).RowUpdating += rowUpdatingHandler;
         }
 
-        protected override void ApplyParameterInfo(DbParameter dbParameter,
-                                DataRow row,
-                                StatementType statementType,
-                                bool whereClause)
+        protected override void ApplyParameterInfo(
+            System.Data.Common.DbParameter dbParameter,
+            System.Data.DataRow row,
+            System.Data.StatementType statementType,
+            bool whereClause
+        )
         {
             // Nothing to do here
         }
 
         protected override string GetParameterName(int position)
         {
-            return String.Format("?p{0}", position);
+            return string.Format("?p{0}", position);
         }
 
         protected override string GetParameterName(string parameterName)
         {
-            if (String.IsNullOrEmpty(parameterName))
-                throw new ArgumentException("parameterName cannot be null or empty");
+            if (string.IsNullOrEmpty(parameterName))
+                throw new System.ArgumentException("parameterName cannot be null or empty");
             if (parameterName[0] == '?')
                 return parameterName;
-            return String.Format("?{0}", parameterName);
+            return string.Format("?{0}", parameterName);
         }
 
 
         protected override string GetParameterPlaceholder(int position)
         {
-            return String.Format("?p{0}", position);
+            return string.Format("?p{0}", position);
         }
 
         protected override void Dispose(bool disposing)
@@ -198,20 +198,23 @@ namespace SQLite.FullyManaged
         {
             SqliteCommand sourceCommand = SourceCommand;
             if (sourceCommand == null)
-                throw new InvalidOperationException("The DataAdapter.SelectCommand property needs to be initialized.");
+                throw new System.InvalidOperationException("The DataAdapter.SelectCommand property needs to be initialized.");
             SqliteConnection connection = sourceCommand.Connection as SqliteConnection;
             if (connection == null)
-                throw new InvalidOperationException("The DataAdapter.SelectCommand.Connection property needs to be initialized.");
+                throw new System.InvalidOperationException("The DataAdapter.SelectCommand.Connection property needs to be initialized.");
 
             if (_schemaTable == null)
             {
-                if (connection.State == ConnectionState.Open)
+                if (connection.State == System.Data.ConnectionState.Open)
                     closeConnection = false;
                 else
                     connection.Open();
 
-                SqliteDataReader reader = sourceCommand.ExecuteReader(CommandBehavior.SchemaOnly |
-                                               CommandBehavior.KeyInfo);
+                SqliteDataReader reader = sourceCommand.ExecuteReader(
+                    System.Data.CommandBehavior.SchemaOnly |
+                    System.Data.CommandBehavior.KeyInfo
+                );
+
                 _schemaTable = reader.GetSchemaTable();
                 reader.Close();
                 if (closeConnection)
@@ -220,39 +223,39 @@ namespace SQLite.FullyManaged
             }
         }
 
-        private void BuildInformation(DataTable schemaTable)
+        private void BuildInformation(System.Data.DataTable schemaTable)
         {
-            _tableName = String.Empty;
-            foreach (DataRow schemaRow in schemaTable.Rows)
+            _tableName = string.Empty;
+            foreach (System.Data.DataRow schemaRow in schemaTable.Rows)
             {
                 if (schemaRow.IsNull("BaseTableName") ||
-                    (string)schemaRow["BaseTableName"] == String.Empty)
+                    (string)schemaRow["BaseTableName"] == string.Empty)
                     continue;
 
-                if (_tableName == String.Empty)
+                if (_tableName == string.Empty)
                     _tableName = (string)schemaRow["BaseTableName"];
                 else if (_tableName != (string)schemaRow["BaseTableName"])
-                    throw new InvalidOperationException("Dynamic SQL generation is not supported against multiple base tables.");
+                    throw new System.InvalidOperationException("Dynamic SQL generation is not supported against multiple base tables.");
             }
-            if (_tableName == String.Empty)
-                throw new InvalidOperationException("Dynamic SQL generation is not supported with no base table.");
+            if (_tableName == string.Empty)
+                throw new System.InvalidOperationException("Dynamic SQL generation is not supported with no base table.");
             _schemaTable = schemaTable;
         }
 
         private SqliteCommand CreateInsertCommand(bool option)
         {
-            if (QuotedTableName == String.Empty)
+            if (QuotedTableName == string.Empty)
                 return null;
 
             CreateNewCommand(ref _insertCommand);
 
-            string command = String.Format("INSERT INTO {0}", QuotedTableName);
+            string command = string.Format("INSERT INTO {0}", QuotedTableName);
             string sql;
-            StringBuilder columns = new StringBuilder();
-            StringBuilder values = new StringBuilder();
+            System.Text.StringBuilder columns = new System.Text.StringBuilder();
+            System.Text.StringBuilder values = new System.Text.StringBuilder();
 
             int parmIndex = 1;
-            foreach (DataRow schemaRow in _schemaTable.Rows)
+            foreach (System.Data.DataRow schemaRow in _schemaTable.Rows)
             {
                 if (!IncludedInInsert(schemaRow))
                     continue;
@@ -272,12 +275,12 @@ namespace SQLite.FullyManaged
                 {
                     parameter = _insertCommand.Parameters.Add(CreateParameter(parmIndex++, schemaRow));
                 }
-                parameter.SourceVersion = DataRowVersion.Current;
+                parameter.SourceVersion = System.Data.DataRowVersion.Current;
                 columns.Append(GetQuotedString(parameter.SourceColumn));
                 values.Append(parameter.ParameterName);
             }
 
-            sql = String.Format("{0} ({1}) VALUES ({2})", command, columns.ToString(), values.ToString());
+            sql = string.Format("{0} ({1}) VALUES ({2})", command, columns.ToString(), values.ToString());
             _insertCommand.CommandText = sql;
             return _insertCommand;
         }
@@ -285,17 +288,17 @@ namespace SQLite.FullyManaged
         private SqliteCommand CreateDeleteCommand(bool option)
         {
             // If no table was found, then we can't do an delete
-            if (QuotedTableName == String.Empty)
+            if (QuotedTableName == string.Empty)
                 return null;
 
             CreateNewCommand(ref _deleteCommand);
 
-            string command = String.Format("DELETE FROM {0}", QuotedTableName);
-            StringBuilder whereClause = new StringBuilder();
+            string command = string.Format("DELETE FROM {0}", QuotedTableName);
+            System.Text.StringBuilder whereClause = new System.Text.StringBuilder();
             bool keyFound = false;
             int parmIndex = 1;
 
-            foreach (DataRow schemaRow in _schemaTable.Rows)
+            foreach (System.Data.DataRow schemaRow in _schemaTable.Rows)
             {
                 if ((bool)schemaRow["IsExpression"] == true)
                     continue;
@@ -317,18 +320,18 @@ namespace SQLite.FullyManaged
                     if (option)
                     {
                         parameter = _deleteCommand.Parameters.Add(
-                            String.Format("@{0}", schemaRow["BaseColumnName"]), DbType.Int32);
+                            string.Format("@{0}", schemaRow["BaseColumnName"]), System.Data.DbType.Int32);
                     }
                     else
                     {
                         parameter = _deleteCommand.Parameters.Add(
-                            String.Format("@p{0}", parmIndex++), DbType.Int32);
+                            string.Format("@p{0}", parmIndex++), System.Data.DbType.Int32);
                     }
-                    String sourceColumnName = (string)schemaRow["BaseColumnName"];
+                    string sourceColumnName = (string)schemaRow["BaseColumnName"];
                     parameter.Value = 1;
 
                     whereClause.Append("(");
-                    whereClause.Append(String.Format(clause1, parameter.ParameterName,
+                    whereClause.Append(string.Format(clause1, parameter.ParameterName,
                                        GetQuotedString(sourceColumnName)));
                     whereClause.Append(" OR ");
                 }
@@ -341,36 +344,36 @@ namespace SQLite.FullyManaged
                 {
                     parameter = _deleteCommand.Parameters.Add(CreateParameter(parmIndex++, schemaRow));
                 }
-                parameter.SourceVersion = DataRowVersion.Original;
+                parameter.SourceVersion = System.Data.DataRowVersion.Original;
 
-                whereClause.Append(String.Format(clause2, GetQuotedString(parameter.SourceColumn),
+                whereClause.Append(string.Format(clause2, GetQuotedString(parameter.SourceColumn),
                                    parameter.ParameterName));
 
                 if (!isKey && allowNull)
                     whereClause.Append(")");
             }
             if (!keyFound)
-                throw new InvalidOperationException("Dynamic SQL generation for the DeleteCommand is not supported against a SelectCommand that does not return any key column information.");
+                throw new System.InvalidOperationException("Dynamic SQL generation for the DeleteCommand is not supported against a SelectCommand that does not return any key column information.");
 
-            string sql = String.Format("{0} WHERE ({1})", command, whereClause.ToString());
+            string sql = string.Format("{0} WHERE ({1})", command, whereClause.ToString());
             _deleteCommand.CommandText = sql;
             return _deleteCommand;
         }
 
         private SqliteCommand CreateUpdateCommand(bool option)
         {
-            if (QuotedTableName == String.Empty)
+            if (QuotedTableName == string.Empty)
                 return null;
 
             CreateNewCommand(ref _updateCommand);
 
-            string command = String.Format("UPDATE {0} SET ", QuotedTableName);
-            StringBuilder columns = new StringBuilder();
-            StringBuilder whereClause = new StringBuilder();
+            string command = string.Format("UPDATE {0} SET ", QuotedTableName);
+            System.Text.StringBuilder columns = new System.Text.StringBuilder();
+            System.Text.StringBuilder whereClause = new System.Text.StringBuilder();
             int parmIndex = 1;
             bool keyFound = false;
 
-            foreach (DataRow schemaRow in _schemaTable.Rows)
+            foreach (System.Data.DataRow schemaRow in _schemaTable.Rows)
             {
                 if (!IncludedInUpdate(schemaRow))
                     continue;
@@ -386,13 +389,13 @@ namespace SQLite.FullyManaged
                 {
                     parameter = _updateCommand.Parameters.Add(CreateParameter(parmIndex++, schemaRow));
                 }
-                parameter.SourceVersion = DataRowVersion.Current;
+                parameter.SourceVersion = System.Data.DataRowVersion.Current;
 
-                columns.Append(String.Format("{0} = {1}", GetQuotedString(parameter.SourceColumn),
+                columns.Append(string.Format("{0} = {1}", GetQuotedString(parameter.SourceColumn),
                                    parameter.ParameterName));
             }
 
-            foreach (DataRow schemaRow in _schemaTable.Rows)
+            foreach (System.Data.DataRow schemaRow in _schemaTable.Rows)
             {
                 if ((bool)schemaRow["IsExpression"] == true)
                     continue;
@@ -415,16 +418,16 @@ namespace SQLite.FullyManaged
                     if (option)
                     {
                         parameter = _updateCommand.Parameters.Add(
-                            String.Format("@{0}", schemaRow["BaseColumnName"]), SqlDbType.Int);
+                            string.Format("@{0}", schemaRow["BaseColumnName"]), System.Data.SqlDbType.Int);
                     }
                     else
                     {
                         parameter = _updateCommand.Parameters.Add(
-                            String.Format("@p{0}", parmIndex++), SqlDbType.Int);
+                            string.Format("@p{0}", parmIndex++), System.Data.SqlDbType.Int);
                     }
                     parameter.Value = 1;
                     whereClause.Append("(");
-                    whereClause.Append(String.Format(clause1, parameter.ParameterName,
+                    whereClause.Append(string.Format(clause1, parameter.ParameterName,
                                        GetQuotedString((string)schemaRow["BaseColumnName"])));
                     whereClause.Append(" OR ");
                 }
@@ -437,17 +440,17 @@ namespace SQLite.FullyManaged
                 {
                     parameter = _updateCommand.Parameters.Add(CreateParameter(parmIndex++, schemaRow));
                 }
-                parameter.SourceVersion = DataRowVersion.Original;
-                whereClause.Append(String.Format(clause2, GetQuotedString(parameter.SourceColumn),
+                parameter.SourceVersion = System.Data.DataRowVersion.Original;
+                whereClause.Append(string.Format(clause2, GetQuotedString(parameter.SourceColumn),
                                    parameter.ParameterName));
 
                 if (!isKey && allowNull)
                     whereClause.Append(")");
             }
             if (!keyFound)
-                throw new InvalidOperationException("Dynamic SQL generation for the UpdateCommand is not supported against a SelectCommand that does not return any key column information.");
+                throw new System.InvalidOperationException("Dynamic SQL generation for the UpdateCommand is not supported against a SelectCommand that does not return any key column information.");
 
-            string sql = String.Format("{0}{1} WHERE ({2})", command, columns.ToString(), whereClause.ToString());
+            string sql = string.Format("{0}{1} WHERE ({2})", command, columns.ToString(), whereClause.ToString());
             _updateCommand.CommandText = sql;
             return _updateCommand;
         }
@@ -461,19 +464,19 @@ namespace SQLite.FullyManaged
                 command.CommandTimeout = sourceCommand.CommandTimeout;
                 command.Transaction = sourceCommand.Transaction;
             }
-            command.CommandType = CommandType.Text;
-            command.UpdatedRowSource = UpdateRowSource.None;
+            command.CommandType = System.Data.CommandType.Text;
+            command.UpdatedRowSource = System.Data.UpdateRowSource.None;
             command.Parameters.Clear();
         }
 
-        private bool IncludedInWhereClause(DataRow schemaRow)
+        private bool IncludedInWhereClause(System.Data.DataRow schemaRow)
         {
             if ((bool)schemaRow["IsLong"])
                 return false;
             return true;
         }
 
-        private bool IncludedInInsert(DataRow schemaRow)
+        private bool IncludedInInsert(System.Data.DataRow schemaRow)
         {
             // not all of the below are supported by Sqlite, but we leave them here anyway, since some day Sqlite may
             // support some of them.
@@ -490,7 +493,7 @@ namespace SQLite.FullyManaged
             return true;
         }
 
-        private bool IncludedInUpdate(DataRow schemaRow)
+        private bool IncludedInUpdate(System.Data.DataRow schemaRow)
         {
             // not all of the below are supported by Sqlite, but we leave them here anyway, since some day Sqlite may
             // support some of them.
@@ -508,21 +511,21 @@ namespace SQLite.FullyManaged
             return true;
         }
 
-        private SqliteParameter CreateParameter(DataRow schemaRow)
+        private SqliteParameter CreateParameter(System.Data.DataRow schemaRow)
         {
             string sourceColumn = (string)schemaRow["BaseColumnName"];
-            string name = String.Format("@{0}", sourceColumn);
-            DbType dbType = (DbType)schemaRow["ProviderType"];
+            string name = string.Format("@{0}", sourceColumn);
+            System.Data.DbType dbType = (System.Data.DbType)schemaRow["ProviderType"];
             int size = (int)schemaRow["ColumnSize"];
 
             return new SqliteParameter(name, dbType, size, sourceColumn);
         }
 
-        private SqliteParameter CreateParameter(int parmIndex, DataRow schemaRow)
+        private SqliteParameter CreateParameter(int parmIndex, System.Data.DataRow schemaRow)
         {
-            string name = String.Format("@p{0}", parmIndex);
+            string name = string.Format("@p{0}", parmIndex);
             string sourceColumn = (string)schemaRow["BaseColumnName"];
-            DbType dbType = (DbType)schemaRow["ProviderType"];
+            System.Data.DbType dbType = (System.Data.DbType)schemaRow["ProviderType"];
             int size = (int)schemaRow["ColumnSize"];
 
             return new SqliteParameter(name, dbType, size, sourceColumn);
@@ -530,14 +533,17 @@ namespace SQLite.FullyManaged
 
         private string GetQuotedString(string value)
         {
-            if (value == String.Empty || value == null)
+            if (value == string.Empty || value == null)
                 return value;
-            if (String.IsNullOrEmpty(_quotePrefix) && String.IsNullOrEmpty(_quoteSuffix))
+            if (string.IsNullOrEmpty(_quotePrefix) && string.IsNullOrEmpty(_quoteSuffix))
                 return value;
-            return String.Format("{0}{1}{2}", _quotePrefix, value, _quoteSuffix);
+            return string.Format("{0}{1}{2}", _quotePrefix, value, _quoteSuffix);
         }
 
-        private void RowUpdatingHandler(object sender, RowUpdatingEventArgs args)
+        private void RowUpdatingHandler(
+            object sender, 
+            System.Data.Common.RowUpdatingEventArgs args
+        )
         {
             if (args.Command != null)
                 return;
@@ -545,21 +551,21 @@ namespace SQLite.FullyManaged
             {
                 switch (args.StatementType)
                 {
-                    case StatementType.Insert:
+                    case System.Data.StatementType.Insert:
                         args.Command = GetInsertCommand();
                         break;
-                    case StatementType.Update:
+                    case System.Data.StatementType.Update:
                         args.Command = GetUpdateCommand();
                         break;
-                    case StatementType.Delete:
+                    case System.Data.StatementType.Delete:
                         args.Command = GetDeleteCommand();
                         break;
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 args.Errors = e;
-                args.Status = UpdateStatus.ErrorsOccurred;
+                args.Status = System.Data.UpdateStatus.ErrorsOccurred;
             }
         }
     }

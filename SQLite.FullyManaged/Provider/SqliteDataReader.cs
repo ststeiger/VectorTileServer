@@ -30,40 +30,35 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using SQLite.FullyManaged.Engine;
-
 namespace SQLite.FullyManaged
 {
-    public class SqliteDataReader : DbDataReader, IDataReader, IDisposable, IDataRecord
+
+    using SQLite.FullyManaged.Engine;
+
+    public class SqliteDataReader 
+        : System.Data.Common.DbDataReader, 
+        System.Data.IDataReader, 
+        System.IDisposable, 
+        System.Data.IDataRecord
     {
 
-        #region Fields
-
         private SqliteCommand command;
-        private List<object[]> rows;
+        private System.Collections.Generic.List<object[]> rows;
         private string[] columns;
-        private Dictionary<String, Object> column_names_sens, column_names_insens;
+        private System.Collections.Generic.Dictionary<string, object> column_names_sens, column_names_insens;
         private int current_row;
         private bool closed;
         private bool reading;
         private int records_affected;
         private string[] decltypes;
 
-        #endregion
-
-        #region Constructors and destructors
 
         internal SqliteDataReader(SqliteCommand cmd, Sqlite3.Vdbe pVm, int version)
         {
             command = cmd;
-            rows = new List<object[]>();
-            column_names_sens = new Dictionary<String, Object>();
-            column_names_insens = new Dictionary<String, Object>(StringComparer.OrdinalIgnoreCase);
+            rows = new System.Collections.Generic.List<object[]>();
+            column_names_sens = new System.Collections.Generic.Dictionary<string, object>();
+            column_names_insens = new System.Collections.Generic.Dictionary<string, object>(System.StringComparer.OrdinalIgnoreCase);
             closed = false;
             current_row = -1;
             reading = true;
@@ -71,9 +66,6 @@ namespace SQLite.FullyManaged
             ReadingDone();
         }
 
-        #endregion
-
-        #region Properties
 
         public override int Depth
         {
@@ -108,15 +100,12 @@ namespace SQLite.FullyManaged
             get { return records_affected; }
         }
 
-        #endregion
-
-        #region Internal Methods
 
         internal void ReadpVm(Sqlite3.Vdbe pVm, int version, SqliteCommand cmd)
         {
             int pN;
-            IntPtr pazValue;
-            IntPtr pazColName;
+            System.IntPtr pazValue;
+            System.IntPtr pazColName;
             bool first = true;
 
             int[] declmode = null;
@@ -194,7 +183,7 @@ namespace SQLite.FullyManaged
                             // Or if it was declared a date or datetime, do the reverse of what we
                             // do for DateTime parameters.
                             else if (declmode[i] == 2)
-                                data_row[i] = DateTime.FromFileTime(val);
+                                data_row[i] = System.DateTime.FromFileTime(val);
 #endif
                             else
                                 data_row[i] = val;
@@ -210,7 +199,7 @@ namespace SQLite.FullyManaged
                             // nice and return a DateTime (version 3 only).
                             if (declmode[i] == 2)
                                 if (data_row[i] == null) data_row[i] = null;
-                                else data_row[i] = DateTime.Parse((string)data_row[i], System.Globalization.CultureInfo.InvariantCulture);
+                                else data_row[i] = System.DateTime.Parse((string)data_row[i], System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case 4:
                             //int blobbytes = Sqlite3.sqlite3_column_bytes16 (pVm, i);
@@ -223,7 +212,7 @@ namespace SQLite.FullyManaged
                             data_row[i] = null;
                             break;
                         default:
-                            throw new Exception("FATAL: Unknown sqlite3_column_type");
+                            throw new System.Exception("FATAL: Unknown sqlite3_column_type");
                             //}
                     }
                 }
@@ -237,9 +226,6 @@ namespace SQLite.FullyManaged
             reading = false;
         }
 
-        #endregion
-
-        #region  Public Methods
 
         public override void Close()
         {
@@ -252,43 +238,45 @@ namespace SQLite.FullyManaged
                 Close();
         }
 
-        public override IEnumerator GetEnumerator()
+        public override System.Collections.IEnumerator GetEnumerator()
         {
-            return new DbEnumerator(this);
+            return new System.Data.Common.DbEnumerator(this);
         }
-#if !(SQLITE_SILVERLIGHT || SQLITE_WINRT)
-        public override DataTable GetSchemaTable()
-        {
-            DataTable dataTableSchema = new DataTable();
 
-            dataTableSchema.Columns.Add("ColumnName", typeof(String));
-            dataTableSchema.Columns.Add("ColumnOrdinal", typeof(Int32));
-            dataTableSchema.Columns.Add("ColumnSize", typeof(Int32));
-            dataTableSchema.Columns.Add("NumericPrecision", typeof(Int32));
-            dataTableSchema.Columns.Add("NumericScale", typeof(Int32));
-            dataTableSchema.Columns.Add("IsUnique", typeof(Boolean));
-            dataTableSchema.Columns.Add("IsKey", typeof(Boolean));
-            dataTableSchema.Columns.Add("BaseCatalogName", typeof(String));
-            dataTableSchema.Columns.Add("BaseColumnName", typeof(String));
-            dataTableSchema.Columns.Add("BaseSchemaName", typeof(String));
-            dataTableSchema.Columns.Add("BaseTableName", typeof(String));
-            dataTableSchema.Columns.Add("DataType", typeof(Type));
-            dataTableSchema.Columns.Add("AllowDBNull", typeof(Boolean));
-            dataTableSchema.Columns.Add("ProviderType", typeof(Int32));
-            dataTableSchema.Columns.Add("IsAliased", typeof(Boolean));
-            dataTableSchema.Columns.Add("IsExpression", typeof(Boolean));
-            dataTableSchema.Columns.Add("IsIdentity", typeof(Boolean));
-            dataTableSchema.Columns.Add("IsAutoIncrement", typeof(Boolean));
-            dataTableSchema.Columns.Add("IsRowVersion", typeof(Boolean));
-            dataTableSchema.Columns.Add("IsHidden", typeof(Boolean));
-            dataTableSchema.Columns.Add("IsLong", typeof(Boolean));
-            dataTableSchema.Columns.Add("IsReadOnly", typeof(Boolean));
+
+#if !(SQLITE_SILVERLIGHT || SQLITE_WINRT)
+        public override System.Data.DataTable GetSchemaTable()
+        {
+            System.Data.DataTable dataTableSchema = new System.Data.DataTable();
+
+            dataTableSchema.Columns.Add("ColumnName", typeof(string));
+            dataTableSchema.Columns.Add("ColumnOrdinal", typeof(System.Int32));
+            dataTableSchema.Columns.Add("ColumnSize", typeof(System.Int32));
+            dataTableSchema.Columns.Add("NumericPrecision", typeof(System.Int32));
+            dataTableSchema.Columns.Add("NumericScale", typeof(System.Int32));
+            dataTableSchema.Columns.Add("IsUnique", typeof(bool));
+            dataTableSchema.Columns.Add("IsKey", typeof(bool));
+            dataTableSchema.Columns.Add("BaseCatalogName", typeof(string));
+            dataTableSchema.Columns.Add("BaseColumnName", typeof(string));
+            dataTableSchema.Columns.Add("BaseSchemaName", typeof(string));
+            dataTableSchema.Columns.Add("BaseTableName", typeof(string));
+            dataTableSchema.Columns.Add("DataType", typeof(System.Type));
+            dataTableSchema.Columns.Add("AllowDBNull", typeof(bool));
+            dataTableSchema.Columns.Add("ProviderType", typeof(System.Int32));
+            dataTableSchema.Columns.Add("IsAliased", typeof(bool));
+            dataTableSchema.Columns.Add("IsExpression", typeof(bool));
+            dataTableSchema.Columns.Add("IsIdentity", typeof(bool));
+            dataTableSchema.Columns.Add("IsAutoIncrement", typeof(bool));
+            dataTableSchema.Columns.Add("IsRowVersion", typeof(bool));
+            dataTableSchema.Columns.Add("IsHidden", typeof(bool));
+            dataTableSchema.Columns.Add("IsLong", typeof(bool));
+            dataTableSchema.Columns.Add("IsReadOnly", typeof(bool));
 
             dataTableSchema.BeginLoadData();
             for (int i = 0; i < this.FieldCount; i += 1)
             {
 
-                DataRow schemaRow = dataTableSchema.NewRow();
+                System.Data.DataRow schemaRow = dataTableSchema.NewRow();
 
                 schemaRow["ColumnName"] = columns[i];
                 schemaRow["ColumnOrdinal"] = i;
@@ -333,19 +321,16 @@ namespace SQLite.FullyManaged
             return NextResult();
         }
 
-        #endregion
-
-        #region IDataRecord getters
 
         public override bool GetBoolean(int i)
         {
-            int result = Convert.ToInt32(((object[])rows[current_row])[i]);
-            return Convert.ToBoolean(result);
+            int result = System.Convert.ToInt32(((object[])rows[current_row])[i]);
+            return System.Convert.ToBoolean(result);
         }
 
         public override byte GetByte(int i)
         {
-            return Convert.ToByte(((object[])rows[current_row])[i]);
+            return System.Convert.ToByte(((object[])rows[current_row])[i]);
         }
 
 
@@ -353,7 +338,7 @@ namespace SQLite.FullyManaged
         {
             byte[] data = (byte[])(((object[])rows[current_row])[i]);
             if (buffer != null)
-                Array.Copy(data, (int)fieldOffset, buffer, bufferOffset, length);
+                System.Array.Copy(data, (int)fieldOffset, buffer, bufferOffset, length);
 #if (SQLITE_SILVERLIGHT || WINDOWS_MOBILE || SQLITE_WINRT)
             return data.Length - fieldOffset;
 #else
@@ -375,14 +360,14 @@ namespace SQLite.FullyManaged
 
         public override char GetChar(int i)
         {
-            return Convert.ToChar(((object[])rows[current_row])[i]);
+            return System.Convert.ToChar(((object[])rows[current_row])[i]);
         }
 
         public override long GetChars(int i, long fieldOffset, char[] buffer, int bufferOffset, int length)
         {
             char[] data = (char[])(((object[])rows[current_row])[i]);
             if (buffer != null)
-                Array.Copy(data, (int)fieldOffset, buffer, bufferOffset, length);
+                System.Array.Copy(data, (int)fieldOffset, buffer, bufferOffset, length);
 #if (SQLITE_SILVERLIGHT || WINDOWS_MOBILE || SQLITE_WINRT)
             return data.Length - fieldOffset;
 #else
@@ -397,22 +382,22 @@ namespace SQLite.FullyManaged
             return "text"; // SQL Lite data type
         }
 
-        public override DateTime GetDateTime(int i)
+        public override System.DateTime GetDateTime(int i)
         {
-            return Convert.ToDateTime(((object[])rows[current_row])[i]);
+            return System.Convert.ToDateTime(((object[])rows[current_row])[i]);
         }
 
         public override decimal GetDecimal(int i)
         {
-            return Convert.ToDecimal(((object[])rows[current_row])[i]);
+            return System.Convert.ToDecimal(((object[])rows[current_row])[i]);
         }
 
         public override double GetDouble(int i)
         {
-            return Convert.ToDouble(((object[])rows[current_row])[i]);
+            return System.Convert.ToDouble(((object[])rows[current_row])[i]);
         }
 
-        public override Type GetFieldType(int i)
+        public override System.Type GetFieldType(int i)
         {
             int row = current_row;
             if (row == -1 && rows.Count == 0) return typeof(string);
@@ -430,34 +415,34 @@ namespace SQLite.FullyManaged
 
         public override float GetFloat(int i)
         {
-            return Convert.ToSingle(((object[])rows[current_row])[i]);
+            return System.Convert.ToSingle(((object[])rows[current_row])[i]);
         }
 
-        public override Guid GetGuid(int i)
+        public override System.Guid GetGuid(int i)
         {
             object value = GetValue(i);
-            if (!(value is Guid))
+            if (!(value is System.Guid))
             {
-                if (value is DBNull)
+                if (value is System.DBNull)
                     throw new SqliteExecutionException("Column value must not be null");
-                throw new InvalidCastException("Type is " + value.GetType().ToString());
+                throw new System.InvalidCastException("Type is " + value.GetType().ToString());
             }
-            return ((Guid)value);
+            return ((System.Guid)value);
         }
 
         public override short GetInt16(int i)
         {
-            return Convert.ToInt16(((object[])rows[current_row])[i]);
+            return System.Convert.ToInt16(((object[])rows[current_row])[i]);
         }
 
         public override int GetInt32(int i)
         {
-            return Convert.ToInt32(((object[])rows[current_row])[i]);
+            return System.Convert.ToInt32(((object[])rows[current_row])[i]);
         }
 
         public override long GetInt64(int i)
         {
-            return Convert.ToInt64(((object[])rows[current_row])[i]);
+            return System.Convert.ToInt64(((object[])rows[current_row])[i]);
         }
 
         public override string GetName(int i)
@@ -471,7 +456,7 @@ namespace SQLite.FullyManaged
             if (v == null)
                 v = column_names_insens.ContainsKey(name) ? column_names_insens[name] : null;
             if (v == null)
-                throw new ArgumentException("Column does not exist.");
+                throw new System.ArgumentException("Column does not exist.");
             return (int)v;
         }
 
@@ -498,7 +483,7 @@ namespace SQLite.FullyManaged
                 }
                 else
                 {
-                    values[i] = DBNull.Value;
+                    values[i] = System.DBNull.Value;
                 }
             }
             return num_to_fill;
@@ -519,6 +504,5 @@ namespace SQLite.FullyManaged
             get { return FieldCount; }
         }
 
-        #endregion
     }
 }

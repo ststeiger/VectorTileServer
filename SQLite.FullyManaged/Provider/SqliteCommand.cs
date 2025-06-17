@@ -34,53 +34,34 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Data;
-using System.Data.Common;
-using System.Globalization;
-using SQLite.FullyManaged.Engine;
-
+namespace SQLite.FullyManaged
+{
 
 #if SQLITE_WINRT
 	using System.Reflection;
 #endif
-namespace SQLite.FullyManaged
-{
-    public class SqliteCommand : DbCommand, ICloneable
-    {
-        #region Fields
 
+
+    using SQLite.FullyManaged.Engine;
+
+
+    public class SqliteCommand 
+        : System.Data.Common.DbCommand, System.ICloneable
+    {
+       
         private SqliteConnection parent_conn;
         private SqliteTransaction transaction;
         private string sql;
         private int timeout;
-        private CommandType type;
+        private System.Data.CommandType type;
 #if !(SQLITE_SILVERLIGHT || SQLITE_WINRT)
-        private UpdateRowSource upd_row_source;
+        private System.Data.UpdateRowSource upd_row_source;
 #endif
         private SqliteParameterCollection sql_params;
         private bool prepared = false;
         private bool _designTimeVisible = true;
 
-        #endregion
 
-        #region Constructors and destructors
-
-        public SqliteCommand()
-        {
-            sql = "";
-        }
-
-        public SqliteCommand(string sqlText)
-        {
-            sql = sqlText;
-        }
-
-        public SqliteCommand(string sqlText, SqliteConnection dbConn)
-        {
-            sql = sqlText;
-            parent_conn = dbConn;
-        }
 
         public SqliteCommand(string sqlText, SqliteConnection dbConn, SqliteTransaction trans)
         {
@@ -89,9 +70,21 @@ namespace SQLite.FullyManaged
             transaction = trans;
         }
 
-        #endregion
+        public SqliteCommand(string sqlText, SqliteConnection dbConn)
+        {
+            sql = sqlText;
+            parent_conn = dbConn;
+        }
 
-        #region Properties
+        public SqliteCommand(string sqlText)
+        {
+            sql = sqlText;
+        }
+
+        public SqliteCommand()
+        {
+            sql = "";
+        }
 
         public override string CommandText
         {
@@ -118,7 +111,7 @@ namespace SQLite.FullyManaged
             }
         }
 
-        public override CommandType CommandType
+        public override System.Data.CommandType CommandType
         {
             get
             {
@@ -130,7 +123,7 @@ namespace SQLite.FullyManaged
             }
         }
 
-        protected override DbConnection DbConnection
+        protected override System.Data.Common.DbConnection DbConnection
         {
             get { return parent_conn; }
             set { parent_conn = (SqliteConnection)value; }
@@ -158,12 +151,12 @@ namespace SQLite.FullyManaged
             }
         }
 
-        protected override DbParameterCollection DbParameterCollection
+        protected override System.Data.Common.DbParameterCollection DbParameterCollection
         {
             get { return Parameters; }
         }
 
-        protected override DbTransaction DbTransaction
+        protected override System.Data.Common.DbTransaction DbTransaction
         {
             get
             {
@@ -181,7 +174,7 @@ namespace SQLite.FullyManaged
             set { _designTimeVisible = value; }
         }
 #if !(SQLITE_SILVERLIGHT || SQLITE_WINRT)
-        public override UpdateRowSource UpdatedRowSource
+        public override System.Data.UpdateRowSource UpdatedRowSource
         {
             get
             {
@@ -194,9 +187,6 @@ namespace SQLite.FullyManaged
         }
 #endif
 
-        #endregion
-
-        #region Internal Methods
 
         internal int NumChanges()
         {
@@ -217,10 +207,10 @@ namespace SQLite.FullyManaged
 
             for (int i = 1; i <= pcount; i++)
             {
-                String name = Sqlite3.sqlite3_bind_parameter_name(pStmt, i);
+                string name = Sqlite3.sqlite3_bind_parameter_name(pStmt, i);
 
                 SqliteParameter param = null;
-                if (!String.IsNullOrEmpty(name))
+                if (!string.IsNullOrEmpty(name))
                     param = sql_params[name] as SqliteParameter;
                 else
                     param = sql_params[i - 1] as SqliteParameter;
@@ -231,37 +221,37 @@ namespace SQLite.FullyManaged
                     continue;
                 }
 
-                Type ptype = param.Value.GetType();
+                System.Type ptype = param.Value.GetType();
 #if (SQLITE_WINRT)
 				if ( ptype.GetTypeInfo().IsEnum )
 #else
                 if (ptype.IsEnum)
 #endif
-                    ptype = Enum.GetUnderlyingType(ptype);
+                    ptype = System.Enum.GetUnderlyingType(ptype);
 
                 SqliteError err;
 
-                if (ptype.Equals(typeof(String)))
+                if (ptype.Equals(typeof(string)))
                 {
-                    String s = (String)param.Value;
+                    string s = (string)param.Value;
                     err = (SqliteError)Sqlite3.sqlite3_bind_text(pStmt, i, s, -1, null);
                 }
-                else if (ptype.Equals(typeof(DBNull)))
+                else if (ptype.Equals(typeof(System.DBNull)))
                 {
                     err = (SqliteError)Sqlite3.sqlite3_bind_null(pStmt, i);
                 }
-                else if (ptype.Equals(typeof(Boolean)))
+                else if (ptype.Equals(typeof(bool)))
                 {
                     bool b = (bool)param.Value;
                     err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, b ? 1 : 0);
                 }
-                else if (ptype.Equals(typeof(Byte)))
+                else if (ptype.Equals(typeof(byte)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (Byte)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (byte)param.Value);
                 }
-                else if (ptype.Equals(typeof(Char)))
+                else if (ptype.Equals(typeof(char)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (Char)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (char)param.Value);
 #if (SQLITE_WINRT)
                 } else if (ptype.GetTypeInfo().IsEnum)
 #else
@@ -269,65 +259,65 @@ namespace SQLite.FullyManaged
                 else if (ptype.IsEnum)
 #endif
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (Int32)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (System.Int32)param.Value);
                 }
-                else if (ptype.Equals(typeof(Int16)))
+                else if (ptype.Equals(typeof(System.Int16)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (Int16)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (System.Int16)param.Value);
                 }
-                else if (ptype.Equals(typeof(Int32)))
+                else if (ptype.Equals(typeof(System.Int32)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (Int32)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (System.Int32)param.Value);
                 }
-                else if (ptype.Equals(typeof(SByte)))
+                else if (ptype.Equals(typeof(System.SByte)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (SByte)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (System.SByte)param.Value);
                 }
-                else if (ptype.Equals(typeof(UInt16)))
+                else if (ptype.Equals(typeof(System.UInt16)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (UInt16)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int(pStmt, i, (System.UInt16)param.Value);
                 }
-                else if (ptype.Equals(typeof(DateTime)))
+                else if (ptype.Equals(typeof(System.DateTime)))
                 {
-                    DateTime dt = (DateTime)param.Value;
+                    System.DateTime dt = (System.DateTime)param.Value;
                     err = (SqliteError)Sqlite3.sqlite3_bind_text(pStmt, i, dt.ToString("yyyy-MM-dd HH:mm:ss.fff"), -1, null);
                 }
-                else if (ptype.Equals(typeof(Decimal)))
+                else if (ptype.Equals(typeof(decimal)))
                 {
-                    string val = ((Decimal)param.Value).ToString(CultureInfo.InvariantCulture);
+                    string val = ((decimal)param.Value).ToString(System.Globalization.CultureInfo.InvariantCulture);
                     err = (SqliteError)Sqlite3.sqlite3_bind_text(pStmt, i, val, val.Length, null);
                 }
-                else if (ptype.Equals(typeof(Double)))
+                else if (ptype.Equals(typeof(double)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_double(pStmt, i, (Double)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_double(pStmt, i, (double)param.Value);
                 }
-                else if (ptype.Equals(typeof(Single)))
+                else if (ptype.Equals(typeof(System.Single)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_double(pStmt, i, (Single)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_double(pStmt, i, (System.Single)param.Value);
                 }
-                else if (ptype.Equals(typeof(UInt32)))
+                else if (ptype.Equals(typeof(System.UInt32)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int64(pStmt, i, (UInt32)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int64(pStmt, i, (System.UInt32)param.Value);
                 }
-                else if (ptype.Equals(typeof(Int64)))
+                else if (ptype.Equals(typeof(System.Int64)))
                 {
-                    err = (SqliteError)Sqlite3.sqlite3_bind_int64(pStmt, i, (Int64)param.Value);
+                    err = (SqliteError)Sqlite3.sqlite3_bind_int64(pStmt, i, (System.Int64)param.Value);
                 }
-                else if (ptype.Equals(typeof(Byte[])))
+                else if (ptype.Equals(typeof(byte[])))
                 {
                     err = (SqliteError)Sqlite3.sqlite3_bind_blob(pStmt, i, (byte[])param.Value, ((byte[])param.Value).Length, null);
                 }
-                else if (ptype.Equals(typeof(Guid)))
+                else if (ptype.Equals(typeof(System.Guid)))
                 {
                     err = (SqliteError)Sqlite3.sqlite3_bind_text(pStmt, i, param.Value.ToString(), param.Value.ToString().Length, null);
                 }
                 else
                 {
-                    throw new ApplicationException("Unkown Parameter Type");
+                    throw new System.ApplicationException("Unkown Parameter Type");
                 }
                 if (err != SqliteError.OK)
                 {
-                    throw new ApplicationException("Sqlite error in bind " + err);
+                    throw new System.ApplicationException("Sqlite error in bind " + err);
                 }
             }
         }
@@ -344,12 +334,17 @@ namespace SQLite.FullyManaged
         private void ExecuteStatement(Sqlite3.Vdbe pStmt)
         {
             int cols;
-            IntPtr pazValue, pazColName;
+            System.IntPtr pazValue, pazColName;
             ExecuteStatement(pStmt, out cols, out pazValue, out pazColName);
         }
 
         // Executes a statement and returns whether there is more data available.
-        internal bool ExecuteStatement(Sqlite3.Vdbe pStmt, out int cols, out IntPtr pazValue, out IntPtr pazColName)
+        internal bool ExecuteStatement(
+            Sqlite3.Vdbe pStmt, 
+            out int cols, 
+            out System.IntPtr pazValue, 
+            out System.IntPtr pazColName
+        )
         {
             SqliteError err;
 
@@ -360,8 +355,8 @@ namespace SQLite.FullyManaged
             if (err == SqliteError.ERROR)
                 throw new SqliteExecutionException(parent_conn.Handle2.errCode, GetError3() + "\n" + pStmt.zErrMsg);
 
-            pazValue = IntPtr.Zero;
-            pazColName = IntPtr.Zero; // not used for v=3
+            pazValue = System.IntPtr.Zero;
+            pazColName = System.IntPtr.Zero; // not used for v=3
             cols = Sqlite3.sqlite3_column_count(pStmt);
 
             /*
@@ -383,18 +378,15 @@ namespace SQLite.FullyManaged
             return err == SqliteError.ROW;
         }
 
-        #endregion
 
-        #region Public Methods
-
-        object ICloneable.Clone()
+        object System.ICloneable.Clone()
         {
             return new SqliteCommand(sql, parent_conn, transaction);
         }
 
+
         public override void Cancel()
-        {
-        }
+        { }
 
         public override void Prepare()
         {
@@ -408,7 +400,7 @@ namespace SQLite.FullyManaged
             prepared = true;
         }
 
-        protected override DbParameter CreateDbParameter()
+        protected override System.Data.Common.DbParameter CreateDbParameter()
         {
             return new SqliteParameter();
         }
@@ -416,7 +408,7 @@ namespace SQLite.FullyManaged
         public override int ExecuteNonQuery()
         {
             int rows_affected;
-            ExecuteReader(CommandBehavior.Default, false, out rows_affected);
+            ExecuteReader(System.Data.CommandBehavior.Default, false, out rows_affected);
             return rows_affected;
         }
 
@@ -432,7 +424,7 @@ namespace SQLite.FullyManaged
             return o;
         }
 
-        public new SqliteDataReader ExecuteReader(CommandBehavior behavior)
+        public new SqliteDataReader ExecuteReader(System.Data.CommandBehavior behavior)
         {
             int r;
             return ExecuteReader(behavior, true, out r);
@@ -440,15 +432,21 @@ namespace SQLite.FullyManaged
 
         public new SqliteDataReader ExecuteReader()
         {
-            return ExecuteReader(CommandBehavior.Default);
+            return ExecuteReader(System.Data.CommandBehavior.Default);
         }
 
-        protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
+        protected override System.Data.Common.DbDataReader ExecuteDbDataReader(
+            System.Data.CommandBehavior behavior
+        )
         {
             return ExecuteReader(behavior);
         }
 
-        public SqliteDataReader ExecuteReader(CommandBehavior behavior, bool want_results, out int rows_affected)
+        public SqliteDataReader ExecuteReader(
+            System.Data.CommandBehavior behavior, 
+            bool want_results, 
+            out int rows_affected
+        )
         {
             Prepare();
 
@@ -481,7 +479,7 @@ namespace SQLite.FullyManaged
 			*/
             string queryval = sql.Trim();
             string pzTail = sql.Trim();
-            IntPtr errMsgPtr;
+            System.IntPtr errMsgPtr;
 
             parent_conn.StartExec();
 
@@ -497,7 +495,7 @@ namespace SQLite.FullyManaged
                     GetNextStatement(queryval, ref pzTail, ref pStmt);
 
                     if (pStmt == null)
-                        throw new Exception();
+                        throw new System.Exception();
 
                     // pzTail is positioned after the last byte in the
                     // statement, which will be the NULL character if
@@ -558,6 +556,5 @@ namespace SQLite.FullyManaged
             return Sqlite3.sqlite3_errmsg(parent_conn.Handle2);
             //return Marshal.PtrToStringUni (Sqlite.sqlite3_errmsg16 (parent_conn.Handle));
         }
-        #endregion
     }
 }

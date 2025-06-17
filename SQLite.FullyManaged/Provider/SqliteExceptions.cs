@@ -2,13 +2,11 @@
 namespace SQLite.FullyManaged
 {
 
-    using System.Data.Common;
-
-
     /// <summary>
     /// Base exception for all Sqlite exceptions.
     /// </summary>
-    public class SqliteException : DbException
+    public class SqliteException 
+        : System.Data.Common.DbException
     {
         public int SqliteErrorCode { get; protected set; }
 
@@ -49,10 +47,12 @@ namespace SQLite.FullyManaged
         }
     }
 
+
     /// <summary>
     /// The exception that is raised whenever the execution of a statement fails.
     /// </summary>
-    public class SqliteExecutionException : SqliteException
+    public class SqliteExecutionException 
+        : SqliteException
     {
         public SqliteExecutionException()
             : base(0)
@@ -72,10 +72,13 @@ namespace SQLite.FullyManaged
         }
     }
 
+
+
     /// <summary>
     /// The exception that is raised whenever Sqlite reports it cannot run a command due to being busy.
     /// </summary>
-    public class SqliteBusyException : SqliteException
+    public class SqliteBusyException 
+        : SqliteException
     {
         public SqliteBusyException()
             : base(0)

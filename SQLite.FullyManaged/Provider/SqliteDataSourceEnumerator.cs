@@ -29,38 +29,36 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System.Data;
-using System.Data.Common;
-
 namespace SQLite.FullyManaged
 {
-    public sealed class SqliteDataSourceEnumerator : DbDataSourceEnumerator
+    public sealed class SqliteDataSourceEnumerator 
+        : System.Data.Common.DbDataSourceEnumerator
     {
         public SqliteDataSourceEnumerator()
         {
         }
 
-        public override DataTable GetDataSources()
+        public override System.Data.DataTable GetDataSources()
         {
-            DataTable dt = new DataTable();
-            DataColumn col;
+            System.Data.DataTable dt = new System.Data.DataTable();
+            System.Data.DataColumn col;
 
-            col = new DataColumn("ServerName", typeof(string));
+            col = new System.Data.DataColumn("ServerName", typeof(string));
             dt.Columns.Add(col);
 
-            col = new DataColumn("InstanceName", typeof(string));
+            col = new System.Data.DataColumn("InstanceName", typeof(string));
             dt.Columns.Add(col);
 
-            col = new DataColumn("IsClustered", typeof(bool));
+            col = new System.Data.DataColumn("IsClustered", typeof(bool));
             dt.Columns.Add(col);
 
-            col = new DataColumn("Version", typeof(string));
+            col = new System.Data.DataColumn("Version", typeof(string));
             dt.Columns.Add(col);
 
-            col = new DataColumn("FactoryName", typeof(string));
+            col = new System.Data.DataColumn("FactoryName", typeof(string));
             dt.Columns.Add(col);
 
-            DataRow dr = dt.NewRow();
+            System.Data.DataRow dr = dt.NewRow();
             dr[0] = "Sqlite Embedded Database";
             dr[1] = "Sqlite Default Instance";
             dr[2] = false;
