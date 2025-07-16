@@ -2,6 +2,7 @@
 namespace VectorTileSelector
 {
 
+    // https://wiki.openstreetmap.org/wiki/PBF_Format#File_format_structure
 
     public class SimplePolygonParser
     {
