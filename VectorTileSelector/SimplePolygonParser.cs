@@ -119,7 +119,9 @@ END
 
         public static void Test()
         {
-            string basePath = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileSelector\Results\poly";
+            string basePath = System.AppContext.BaseDirectory;
+            basePath = System.IO.Path.Combine(basePath, "..", "..", "..", "Results", "poly");
+            basePath = System.IO.Path.GetFullPath(basePath);
 
             System.Collections.Generic.List<string> pbfFiles = FilterFiles(
                 basePath,

@@ -1,17 +1,25 @@
 ﻿
 namespace TestSwissBoundaries
 {
+
+
     internal class Program
     {
-        static void Main(string[] args)
-        {
 
-            string input = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\TestSwissBoundaries\swissboundaries\swissBOUNDARIES3D_1_5_TLM_BEZIRKSGEBIET.shp";
-            input = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\TestSwissBoundaries\swissboundaries\swissBOUNDARIES3D_1_5_TLM_KANTONSGEBIET.shp";
-            input = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\TestSwissBoundaries\swissboundaries\swissBOUNDARIES3D_1_5_TLM_HOHEITSGRENZE.shp";
-            input = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\TestSwissBoundaries\swissboundaries\swissBOUNDARIES3D_1_5_TLM_LANDESGEBIET.shp";
-            input = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\TestSwissBoundaries\swissboundaries\swissBOUNDARIES3D_1_5_TLM_HOHEITSGEBIET.shp";
+
+        public static async System.Threading.Tasks.Task<int> Main(string[] args)
+        {
+            string basePath = System.AppContext.BaseDirectory;
+            basePath = System.IO.Path.Combine(basePath, "..", "..", "..", "swissboundaries");
+            basePath = System.IO.Path.GetFullPath(basePath);
             
+
+            string input = System.IO.Path.Combine(basePath, @"swissBOUNDARIES3D_1_5_TLM_BEZIRKSGEBIET.shp");
+            input = System.IO.Path.Combine(basePath, @"swissBOUNDARIES3D_1_5_TLM_KANTONSGEBIET.shp");
+            input = System.IO.Path.Combine(basePath, @"swissBOUNDARIES3D_1_5_TLM_HOHEITSGRENZE.shp");
+            input = System.IO.Path.Combine(basePath, @"swissBOUNDARIES3D_1_5_TLM_LANDESGEBIET.shp");
+            input = System.IO.Path.Combine(basePath, @"swissBOUNDARIES3D_1_5_TLM_HOHEITSGEBIET.shp");
+
 
             // Load from shapefile
             NetTopologySuite.IO.ShapefileDataReader reader = new NetTopologySuite.IO
@@ -47,14 +55,17 @@ namespace TestSwissBoundaries
             // Save as GeoJSON
             string output = System.IO.Path.GetFileNameWithoutExtension(input) + ".geojson";
             string geoJson = geoJsonWriter.Write(featureCollection);
-            System.IO.File.WriteAllText(output, geoJson);
+            await System.IO.File.WriteAllTextAsync(output, geoJson, System.Text.Encoding.UTF8);
 
             // https://www.swisstopo.admin.ch/en/landscape-model-swissboundaries3d
             // https://mapshaper.org/
-            System.Console.WriteLine("Check the output on mapshaper.org");
-        }
-    }
+            await System.Console.Out.WriteLineAsync("Check the output on mapshaper.org");
+
+            return 0;
+        } // End Sub Main 
 
 
+    } // End Class Program 
 
-}
+
+} // End Namespace TestSwissBoundaries 
