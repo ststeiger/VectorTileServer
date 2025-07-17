@@ -22,40 +22,42 @@ namespace TestSwissBoundaries
 
 
             // Load from shapefile
-            NetTopologySuite.IO.ShapefileDataReader reader = new NetTopologySuite.IO
+            using (NetTopologySuite.IO.ShapefileDataReader reader = new NetTopologySuite.IO
                 .ShapefileDataReader(
                 input,
                 NetTopologySuite.Geometries.GeometryFactory.Default
-            );
-
-            // Prepare GeoJSON writer
-            NetTopologySuite.IO.GeoJsonWriter geoJsonWriter = 
+            ))
+            {
+                // Prepare GeoJSON writer
+                NetTopologySuite.IO.GeoJsonWriter geoJsonWriter =
                 new NetTopologySuite.IO.GeoJsonWriter();
 
-            NetTopologySuite.Features.FeatureCollection featureCollection = 
-                new NetTopologySuite.Features.FeatureCollection();
 
-            while (reader.Read())
-            {
-                NetTopologySuite.Geometries.Geometry geometry = reader.Geometry;
+                NetTopologySuite.Features.FeatureCollection featureCollection =
+                    new NetTopologySuite.Features.FeatureCollection();
 
-                NetTopologySuite.Features.AttributesTable attributes = 
-                    new NetTopologySuite.Features.AttributesTable();
-
-                for (int i = 0; i < reader.DbaseHeader.NumFields; i++)
+                while (reader.Read())
                 {
-                    string fieldName = reader.GetName(i);
-                    object value = reader.GetValue(i);
-                    attributes.Add(fieldName, value);
-                } // Next i 
+                    NetTopologySuite.Geometries.Geometry geometry = reader.Geometry;
 
-                featureCollection.Add(new NetTopologySuite.Features.Feature(geometry, attributes));
-            } // Whend 
+                    NetTopologySuite.Features.AttributesTable attributes =
+                        new NetTopologySuite.Features.AttributesTable();
 
-            // Save as GeoJSON
-            string output = System.IO.Path.GetFileNameWithoutExtension(input) + ".geojson";
-            string geoJson = geoJsonWriter.Write(featureCollection);
-            await System.IO.File.WriteAllTextAsync(output, geoJson, System.Text.Encoding.UTF8);
+                    for (int i = 0; i < reader.DbaseHeader.NumFields; i++)
+                    {
+                        string fieldName = reader.GetName(i);
+                        object value = reader.GetValue(i);
+                        attributes.Add(fieldName, value);
+                    } // Next i 
+
+                    featureCollection.Add(new NetTopologySuite.Features.Feature(geometry, attributes));
+                } // Whend 
+
+                // Save as GeoJSON
+                string output = System.IO.Path.GetFileNameWithoutExtension(input) + ".geojson";
+                string geoJson = geoJsonWriter.Write(featureCollection);
+                await System.IO.File.WriteAllTextAsync(output, geoJson, System.Text.Encoding.UTF8);
+            }// End Using reader 
 
             // https://www.swisstopo.admin.ch/en/landscape-model-swissboundaries3d
             // https://mapshaper.org/
