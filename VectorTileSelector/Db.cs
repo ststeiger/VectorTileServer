@@ -97,7 +97,7 @@ namespace VectorTileSelector
             builder.Database = "openmaptiles";
 
             // Set integrated security to true
-            builder.IntegratedSecurity = false;
+            // builder.IntegratedSecurity = false;
             builder.Username = "postgres";
             builder.Password = "TOP_SECRET";
 

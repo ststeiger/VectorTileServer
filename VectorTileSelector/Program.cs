@@ -12,8 +12,10 @@ namespace VectorTileSelector
             // await GeofabrikDownloader.FetchAndDownloadAsync(Db.KmlDirectory, Db.Connection);
             // await SizeUpdater.UpdateSizeAsync();
 
-            SimplePolygonParser.Test();
-
+            // SimplePolygonParser.Test();
+            // CityGMLExample.Test();
+            // GmlSchemaGenerator.Test();
+            await GmlDownloader.Test();
 
 
 

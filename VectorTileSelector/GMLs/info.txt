@@ -1,0 +1,59 @@
+
+https://github.com/liip/open-swiss-buildings-api/tree/main/src/Application
+https://www.swisstopo.admin.ch/en/landscape-model-swissbuildings3d-3-0-beta#swissBUILDINGS3D-3.0-Beta---Download
+
+https://epsg.io/transform#s_srs=2056&t_srs=4326&ops=1676&x=2567543.7832000&y=1145947.6289000
+
+
+
+
+https://simstadt.hft-stuttgart.de/related-softwares/city-gml-viewer/
+https://transfer.hft-stuttgart.de/pages/citydoctor/citygml-viewer/
+
+https://transfer.hft-stuttgart.de/gitlab/citydoctor/citygml-viewer
+
+
+git clone https://transfer.hft-stuttgart.de/gitlab/citygml/citygmlviewer.git
+
+
+
+
+Simply load a CityGML for the viewer to show the geometry.
+CityGML with a coordinate system not in meters will not work.
+
+
+
+https://madd.bfs.admin.ch/search_datatable?ignore_empty=void&context=building&lang=de&geb_egid=502223492&gde_gdenr=&gde_gdename=&geb_gparz=&geb_ggbkr=&geb_gegrid=&geb_gebnr=&stn_strname=&ein_deinr=&ein_plz_plz4=&ein_plz_plzname=
+
+
+https://madd.bfs.admin.ch/searchform
+https://www.housing-stat.ch/de/query/egid.html
+https://www.housing-stat.ch/de/query/adrtoegid.html
+
+EGID 502223492: Les Mosses 98, 1669 Montbovon
+
+
+
+https://xmltocsharp.azurewebsites.net/
+
+
+https://forums.codeguru.com/showthread.php?509062-CityGML-C-Deserialization
+
+
+https://stackoverflow.com/questions/5078016/citygml-deserialization-issue
+http://xsd2code.codeplex.com/
+https://github.com/kmpm/xsd2code
+
+https://www.ogc.org/standards/citygml/
+https://en.wikipedia.org/wiki/CityGML
+https://de.wikipedia.org/wiki/City_Geography_Markup_Language
+Open Geospatial Consortium (OGC) und der ISO-Norm-Serie 191xx auf.
+
+
+
+
+
+
+
+
+
