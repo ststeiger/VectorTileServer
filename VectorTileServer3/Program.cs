@@ -122,7 +122,11 @@ namespace VectorTileServer3
                 path = "/root/docker/openmaptiles/data/switzerland.mbtiles";
                 // path = "/root/docker/openmaptiles/data/liechtenstein.mbtiles";
             }
-            
+
+            path = @"D:\\stefan.steiger\\Downloads\\noobita\\dach.mbtiles";
+
+
+
             libWebAppBasics.Database.IConnectionFactory factory =
                 new libWebAppBasics.Database.ConnectionFactory(
                   string.Format("Data Source={0};Version=3;", path)

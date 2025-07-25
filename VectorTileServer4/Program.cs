@@ -19,6 +19,7 @@ namespace VectorTileServer4
             // string path = System.IO.Path.Combine(builder.Environment.WebRootPath, "switzerland.mbtiles");
             string path = System.IO.Path.Combine(builder.Environment.WebRootPath, "liechtenstein.mbtiles");
             path = @"D:\stefan.steiger\Documents\Visual Studio 2022\gitlab\VectorTileServer\VectorTileServer\App_Data\COR_switzerland.mbtiles";
+            path = @"D:\stefan.steiger\Downloads\noobita\dach.mbtiles";
 
             libWebAppBasics.Database.IConnectionFactory factory =
                 new libWebAppBasics.Database.ConnectionFactory(

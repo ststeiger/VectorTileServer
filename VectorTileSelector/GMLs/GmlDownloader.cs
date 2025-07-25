@@ -1,11 +1,13 @@
 ﻿
+
+
 namespace VectorTileSelector
 {
-    
+
 
     public static class GmlDownloader
     {
-        private static readonly System.Net.Http.HttpClient _httpClient = 
+        private static readonly System.Net.Http.HttpClient _httpClient =
             new System.Net.Http.HttpClient();
 
 
@@ -15,13 +17,19 @@ namespace VectorTileSelector
             outputDir = System.IO.Path.Combine(outputDir, "..", "..", "..", "GMLs");
             outputDir = System.IO.Path.GetFullPath(outputDir);
 
-            // string zipFileListCsvFile = System.IO.Path.Combine(outputDir, "ZIP", "ch.swisstopo.swissbuildings3d_3_0-853tbcxI.csv");
-            string zipFileListCsvFile = System.IO.Path.Combine(outputDir, "ZIP", "swisstopo_sulgen.csv");
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
+                System.Runtime.InteropServices.OSPlatform.Linux)
+            )
+                outputDir = "/root/Downloads/GML/";
+
+
+            string zipFileListCsvFile = System.IO.Path.Combine(outputDir, "ZIP", "ch.swisstopo.swissbuildings3d_3_0-853tbcxI.csv");
+            //string zipFileListCsvFile = System.IO.Path.Combine(outputDir, "ZIP", "swisstopo_sulgen.csv");
 
             System.Collections.Generic.List<string> zipUrls = new System.Collections.Generic.List<string>();
             // zipUrls.Add(@"https://data.geo.admin.ch/ch.swisstopo.swissbuildings3d_3_0/swissbuildings3d_3_0_2023_1244-32/swissbuildings3d_3_0_2023_1244-32_2056_5728.citygml.zip");
 
-            System.Collections.Generic.List<System.Collections.Generic.List<string>> csvContent = 
+            System.Collections.Generic.List<System.Collections.Generic.List<string>> csvContent =
                 CsvParser.ParseFileSimple(zipFileListCsvFile, ';', '"');
 
             foreach (System.Collections.Generic.List<string> row in csvContent)
@@ -40,11 +48,11 @@ namespace VectorTileSelector
 
 
         public static async System.Threading.Tasks.Task DownloadAndExtractGmlFilesAsync(
-            System.Collections.Generic.List<string> zipUrls, 
+            System.Collections.Generic.List<string> zipUrls,
             string outputDir
         )
         {
-            if(!System.IO.Directory.Exists(outputDir))
+            if (!System.IO.Directory.Exists(outputDir))
                 System.IO.Directory.CreateDirectory(outputDir);
 
             string tempDir = System.IO.Path.Combine(outputDir, "ZIP");
@@ -68,8 +76,8 @@ namespace VectorTileSelector
                     System.Console.WriteLine($"📦 Extracting .gml files from: {zipFileName}");
 
                     using (System.IO.FileStream fs = System.IO.File.OpenRead(tempZipPath))
-                    using (System.IO.Compression.ZipArchive archive = 
-                        new System.IO.Compression.ZipArchive(fs, 
+                    using (System.IO.Compression.ZipArchive archive =
+                        new System.IO.Compression.ZipArchive(fs,
                         System.IO.Compression.ZipArchiveMode.Read))
                     {
                         foreach (System.IO.Compression.ZipArchiveEntry entry in archive.Entries)
