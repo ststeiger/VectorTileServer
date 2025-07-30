@@ -15,8 +15,11 @@ namespace VectorTileSelector
             // SimplePolygonParser.Test();
             // CityGMLExample.Test();
             // GmlSchemaGenerator.Test();
-            await GmlDownloader.Test();
-
+            // await GmlDownloader.Test();
+            // await GmlHandling.TestAsync();
+            // GmlParser.Test();
+            // SriGenerator.Test();
+            NaturalEarthBorders.Test();
 
 
             // MollweideArea.Test();

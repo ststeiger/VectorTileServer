@@ -43,6 +43,7 @@ namespace VectorTileSelector
 
             // System.Console.WriteLine(zipUrls);
 
+            // 134.7 GiB (144,667,212,212)
             await DownloadAndExtractGmlFilesAsync(zipUrls, outputDir);
         } // End Task Test 
 

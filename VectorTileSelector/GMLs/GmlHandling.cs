@@ -42,14 +42,15 @@ namespace VectorTileSelector
             //,rootAttribute // ,knownTypes
             );
 
+
             using (System.IO.FileStream stream = System.IO.File.OpenRead(filePath))
             {
                 if (serializer.Deserialize(stream) is CityModel model)
                 {
-                    System.Console.WriteLine($"Found {model.CityObjectMember?.Count ?? 0} city objects.");
+                    await System.Console.Out.WriteLineAsync($"Found {model.CityObjectMember?.Count ?? 0} city objects.");
 
-                    System.Console.WriteLine(model.BoundedBy.Envelope.UpperCorner);
-                    System.Console.WriteLine(model.BoundedBy.Envelope.LowerCorner);
+                    await System.Console.Out.WriteLineAsync(model.BoundedBy.Envelope.UpperCorner);
+                    await System.Console.Out.WriteLineAsync(model.BoundedBy.Envelope.LowerCorner);
 
 
                     foreach (CityObjectMember cityObject in model.CityObjectMember)
@@ -59,7 +60,7 @@ namespace VectorTileSelector
 
 
                         if (cityObject.Building.BoundedBy2 == null)
-                            System.Console.WriteLine(cityObject);
+                            await System.Console.Out.WriteLineAsync(cityObject.ToString());
 
                         bool hasFoundGroundSurface = false;
 
@@ -69,11 +70,11 @@ namespace VectorTileSelector
                             if (bound.GroundSurface == null)
                                 continue;
 
-                            System.Console.WriteLine(bound.GroundSurface.Lod2MultiSurface.MultiSurface);
+                            await System.Console.Out.WriteLineAsync(bound.GroundSurface.Lod2MultiSurface.MultiSurface.ToString());
 
                             foreach (SurfaceMember surface in bound.GroundSurface.Lod2MultiSurface.MultiSurface.SurfaceMember)
                             {
-                                System.Console.WriteLine(surface.Polygon.Exterior.LinearRing.PosList);
+                                await System.Console.Out.WriteLineAsync(surface.Polygon.Exterior.LinearRing.PosList);
                                 hasFoundGroundSurface = true;
                             } // Next surface 
 
@@ -88,11 +89,11 @@ namespace VectorTileSelector
                             if (bound.RoofSurface == null)
                                 continue;
 
-                            System.Console.WriteLine(bound.RoofSurface.Lod2MultiSurface.MultiSurface);
+                            await System.Console.Out.WriteLineAsync(bound.RoofSurface.Lod2MultiSurface.MultiSurface.ToString());
 
                             foreach (SurfaceMember surface in bound.RoofSurface.Lod2MultiSurface.MultiSurface.SurfaceMember)
                             {
-                                System.Console.WriteLine(surface.Polygon.Exterior.LinearRing.PosList);
+                                await System.Console.Out.WriteLineAsync(surface.Polygon.Exterior.LinearRing.PosList);
                                 hasFoundRoofSurface = true;
                             } // Next surface 
 
@@ -101,7 +102,7 @@ namespace VectorTileSelector
 
                         if (!hasFoundGroundSurface && !hasFoundRoofSurface)
                         {
-                            System.Console.WriteLine(cityObject.Building);
+                            await System.Console.Out.WriteLineAsync(cityObject.Building.ToString());
                         }
 
                     } // Next cityObject 
@@ -111,7 +112,7 @@ namespace VectorTileSelector
                 }
                 else
                 {
-                    System.Console.WriteLine("Failed to parse CityGML.");
+                    await System.Console.Out.WriteLineAsync("Failed to parse CityGML.");
                 }
             } // End Using stream 
 

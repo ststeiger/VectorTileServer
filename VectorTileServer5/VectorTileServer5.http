@@ -1,0 +1,11 @@
+@VectorTileServer5_HostAddress = http://localhost:5059
+
+GET {{VectorTileServer5_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{VectorTileServer5_HostAddress}}/todos/1
+Accept: application/json
+
+###
