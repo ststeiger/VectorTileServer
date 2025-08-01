@@ -19,7 +19,10 @@ namespace VectorTileSelector
             // await GmlHandling.TestAsync();
             // GmlParser.Test();
             // SriGenerator.Test();
-            NaturalEarthBorders.Test();
+            // NaturalEarthBorders.Test();
+
+            // await SpriteDecompositor.Test();
+            SpriteIconExtractor.Test();
 
 
             // MollweideArea.Test();

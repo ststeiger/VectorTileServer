@@ -1,0 +1,50 @@
+﻿
+
+Font-source:
+https://github.com/klokantech/klokantech-gl-fonts
+
+https://www.google.com/get/noto/
+
+How to create the pbf-fonts:
+https://github.com/openmaptiles/fonts
+
+
+
+Tile-Source:
+http://geoodk.com/mbtiles_howto.html
+
+
+Original style source: 
+https://maps.tilehosting.com/styles/bright/style.json?key=egrA25FNSYcFuvl6Lb8Y
+
+
+Example: 
+https://openmaptiles.org/docs/website/leaflet/
+https://openmaptiles.org/maps/leaflet-mapbox-gl.html
+https://gis.stackexchange.com/questions/190390/loading-vector-tile-layer-in-leaflet-map
+https://leafletjs.com/plugins.html#vector-tiles
+
+
+
+Boundaries:
+43.71, 7.349 bottomLeft
+43.77, 7.491 topRight
+
+43.77, 7.349
+43.71, 7.491
+
+
+
+43.77, 7.349 topLeft
+43.71, 7.491 bottom right
+
+
+
+Correct ? Where's lat/long, topleft/bottomright or bottomleft/topright
+   "bounds":[  
+      43.77,
+      7.349,
+      43.71,
+      7.491
+   ],
+

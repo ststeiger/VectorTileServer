@@ -17,7 +17,7 @@ namespace VectorTileServer5
 
         public static async System.Threading.Tasks.Task<int> Main(string[] args)
         {
-            await TestSQLite.Test();
+            // await TestSQLite.Test();
 
             Microsoft.AspNetCore.Builder.WebApplicationBuilder builder = 
                 Microsoft.AspNetCore.Builder.WebApplication.CreateSlimBuilder(args);
@@ -32,7 +32,7 @@ namespace VectorTileServer5
             path = @"D:\stefan.steiger\Documents\Visual Studio 2022\gitlab\VectorTileServer\VectorTileServer\App_Data\COR_switzerland.mbtiles";
             path = @"D:\Programme\LessPortableApps\osm\planetiler\downloaded\dach.mbtiles";
 
-
+            
 
             Microsoft.Data.Sqlite.SqliteConnectionStringBuilder csb = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder();
             csb.DataSource = path;
@@ -52,11 +52,11 @@ namespace VectorTileServer5
 
             builder.Services.AddSingleton(factory);
 
-
+            
 
             Microsoft.AspNetCore.Builder.WebApplication app = builder.Build();
 
-
+            
             // Configure the HTTP request pipeline.
             if (!Microsoft.Extensions.Hosting.HostEnvironmentEnvExtensions.IsDevelopment(app.Environment))
             {
@@ -66,7 +66,7 @@ namespace VectorTileServer5
             }
 
             app.UseHttpsRedirection();
-
+            
 
             DefaultFilesOptions dfo = new DefaultFilesOptions();
             dfo.DefaultFileNames.Clear();
@@ -77,6 +77,7 @@ namespace VectorTileServer5
 
             app.UseStaticFiles();
 
+            
             // Serve files from "wwwroot/files", under "/downloads", with 200 KB/s
             app.UseMiddleware<ThrottledStaticFileMiddleware>(
                 System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot", "files"),
@@ -98,7 +99,7 @@ namespace VectorTileServer5
             app.MapGet("/styles/bright/v3.json", TileHandler.DynamicPathAdjustedJsonHandlerAsync);
             app.MapGet("/styles/bright/style.json", TileHandler.DynamicPathAdjustedJsonHandlerAsync);
 
-
+            
 
 
             Todo[] sampleTodos = new Todo[] {

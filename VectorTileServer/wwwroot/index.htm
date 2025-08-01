@@ -197,12 +197,33 @@
                 .zoomControl .mp:hover {
                     background-color: #F0F0F0;
                 }
+
+
+
+        .zoomLevelDisplay
+        {
+            position: absolute;
+            top: 5px; 
+            right: 5px; 
+            background-color: white;
+            padding: 5px 10px;
+            border: 1px solid gray;
+            border-radius: 3mm;
+            z-index: 9999;
+            font-family: "Lucida Console", Monaco, monospace;
+            font-size: 4mm;
+            color: #333;
+
+            display: block;
+        }
+
     </style>
 
 </head>
 
 <body>
     <div id="map"></div>
+    <div id="zoomLevel" class="zoomLevelDisplay"></div>
 
     <div class="zoomControl">
         <div class="mp" style="border-top-left-radius: 5mm; border-top-right-radius: 5mm;" onclick="map.zoomHome()">&#x2606;</div><div style="clear: both;"></div>
@@ -212,20 +233,22 @@
 
     <script>
 
-        // var latitude = 43.725359;
-        // var longitude = 7.418737;
+        // var latitude = 47.5429730849784;
+        // var longitude = 9.185996371033918;
 
-        var latitude = 47.39091206104782;
-        var longitude = 8.539123535156252;
-
+        var latitude = 47.10071305273902;
+        var longitude = 9.610508637577594;
 
 
         var style = document.location.origin + document.location.pathname.replace(/[^\/]*$/, '') + "styles/bright/style.json";
         // style = "https://localhost:44378/styles/bright/style.json";
 
+
+        mapboxgl.config.API_URL = null; // Disable telemetry
+
         var map = L.map('map', { zoomControl: false, minZoom: 2, maxZoom: 22 }).setView([latitude, longitude], 15);
 
-        var gl = L.mapboxGL( // 'https://localhost:44378/{x}/{y}/{z}',
+        var gl = L.mapboxGL( // 'http://localhost:5182/{x}/{y}/{z}',
             {
                 accessToken: 'no-token',
                 // updateInterval: https://github.com/mapbox/mapbox-gl-leaflet/issues/55
@@ -248,13 +271,101 @@
                 {
                     if (gl._glMap.style._layers[keys[i]].layout._values["text-field"].value.value.indexOf("name:") != -1)
                     {
-                        // var languageField = "name:" + getUserLanguage();
+                        // console.log("loL", gl._glMap.style._layers[keys[i]]); 
+                        // console.log("lal", gl._glMap); 
+
+                        var languageField = "name:" + getUserLanguage();
                         // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", languageField], ["get", "name:latin"], ["get", "name:nonlatin"]]);
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:de"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
-                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:ar"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:uk"], ["get", "name:ru"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
                         // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:fr"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
-                        gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:rm"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["coalesce", ["get", "name:de"], ["get", "name:latin"], ["get", "name:nonlatin"]]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["concat", ["get", "name:de"], " ", ["get", "name:latin"]]);
+
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["get", "name:nonlatin"]);
+                        // gl._glMap.setLayoutProperty(keys[i], 'text-field', ["get", "name:latin"]);
+
+                        /*
+                        gl._glMap.setLayoutProperty(keys[i], 'text-field', [
+                            "case",
+                            ["any",
+                                ["==", ["get", "name:latin"], ["get", "name:nonlatin"]],
+                                ["all", ["!=", ["typeof", ["get", "name:latin"]], "string"], ["!=", ["typeof", ["get", "name:nonlatin"]], "string"]]
+                            ],
+                            ["get", "name:de"],
+                            ["concat",
+                                ["get", "name:de"],
+                                " (",
+                                ["coalesce", ["get", "name:latin"], ["get", "name:nonlatin"]],
+                                ")"
+                            ]
+                        ]);
+                        */
+
+                       /*
+                       
+                        let preferredName = "name:de";
+
+                        gl._glMap.setLayoutProperty(keys[i], 'text-field', [
+                            "let",
+                            "preferred",
+                            ["coalesce", ["get", preferredName], ["get", "name:latin"], ["get", "name:nonlatin"]],
+                            [
+                                "let",
+                                "fallback",
+                                ["coalesce", ["get", "name:latin"], ["get", "name:nonlatin"]],
+                                [
+                                    "case",
+                                    ["==", ["typeof", ["var", "preferred"]], "string"],
+                                    [
+                                        "case",
+                                        ["all",
+                                            ["!=", ["var", "preferred"], ""],
+                                            ["!=", ["var", "fallback"], ""],
+                                            ["!=", ["var", "preferred"], ["var", "fallback"]]
+                                        ],
+                                        ["concat", ["var", "preferred"], " (", ["var", "fallback"], ")"],
+                                        ["var", "preferred"]
+                                    ],
+                                    ""
+                                ]
+                            ]
+                        ]);
+                        */
+
+                        let preferredName = "name:de";
+
+                        gl._glMap.setLayoutProperty(keys[i], 'text-field', [
+                            "let",
+                            "preferred",
+                            ["coalesce", ["get", preferredName], ["get", "name:latin"], ["get", "name:nonlatin"]],
+                            [
+                                "let",
+                                "fallback",
+                                ["coalesce", ["get", "name:latin"], ["get", "name:nonlatin"]],
+                                [
+                                    "case",
+                                    // Check if 'preferred' is a string
+                                    ["==", ["typeof", ["var", "preferred"]], "string"],
+                                    [
+                                        "case",
+                                        ["all",
+                                            ["!=", ["var", "preferred"], ""],
+                                            ["!=", ["var", "fallback"], ""],
+                                            ["!=", ["var", "preferred"], ["var", "fallback"]],
+                                            // ✅ Only include fallback if it does NOT contain '/' or '-'
+                                            ["==", ["index-of", "/", ["var", "fallback"]], -1],
+                                            ["==", ["index-of", "-", ["var", "fallback"]], -1]
+                                        ],
+                                        ["concat", ["var", "preferred"], " (", ["var", "fallback"], ")"],
+                                        ["var", "preferred"]
+                                    ],
+                                    ""
+                                ]
+                            ]
+                        ]);
+
+
+
                     }
 
                 }
@@ -269,7 +380,25 @@
         ]);
 
         L.marker([latitude, longitude])
-            .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
+            // .bindPopup("<b>Bergbahnen Malbun AG</b><br />Malbunstrasse 58<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+            // .bindPopup("<b>Cable Car Malbun Inc.</b><br />Malbun Street 58<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+
+
+            // Universal Postal Union (UPU) country code.
+            // https://www.upu.int/en/Universal-Postal-Union/About-UPU/Member-Countries
+            // FL: Fürstentum Liechtenstein
+            // PL: Principality of Liechtenstein
+            // КЛ: Княжество Лихтенштейн
+            // КЛ: Князівство Ліхтенштейн
+            // LI: Liechtenstein
+            // ЛИ: Лихтенштейн
+            // ЛІ: Ліхтенштейн
+            // .bindPopup("<b>Горные железные дороги Мальбун ЗАО</b><br />Мальбунская улица 58<br />ЛИ-9497 Тризенберг<br />Тел. +423 265 40 00")
+            // .bindPopup("<b>Горные железные дороги Мальбун ЗАО</b><br />Улица Мальбун 58<br />ЛИ-9497 Тризенберг<br />Тел. +423 265 40 00")
+            .bindPopup("<b>Гірські залізниці Мальбун ТОВ</b><br />Вулиця Мальбун 58<br />ЛІ-9497 Трізенберг<br />Тел. +423 265 40 00")
+
+
+
             .addTo(map)
             .openPopup();
 
@@ -280,6 +409,24 @@
             var lng = coord.lng;
             console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
         });
+
+        // Get the HTML element to display the zoom level
+        var zoomLevelDisplay = document.getElementById('zoomLevel');
+
+        // Function to update the zoom level display
+        function updateZoomLevel()
+        {
+            zoomLevelDisplay.innerHTML = 'Zoom: ' + map.getZoom();
+        }
+
+        // Initial update
+        updateZoomLevel();
+
+        // Listen for 'zoomend' event and update the display
+        map.on('zoomend', updateZoomLevel);
+
+        // Optional: Also update on map load in case initial zoom isn't 'setView'
+        map.on('load', updateZoomLevel);
 
 
         var assumeSwiss = [[45.77694774030000246512, 6.02260949058999983663], [47.83082754170000328031, 10.44270145019999951330]];
