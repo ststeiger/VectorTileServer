@@ -5,7 +5,59 @@ https://github.com/leonardehrenfried/cyclo-bright-gl-style/tree/master
 
 https://github.com/search?q=path%3A*%2F**%2Famusement_park_15.svg&type=code
 
+https://github.com/openmaptiles/openmaptiles/tree/master/style/icons
+https://github.com/openmaptiles/osm-bright-gl-style/tree/master/icons
 
+https://openmaptiles.org/docs/style/mapbox-gl-style-spec/
+https://docs.mapbox.com/style-spec/guides/
+https://www.npmjs.com/package/@mapbox/mapbox-gl-style-spec
+https://openmaptiles.org/styles/#osm-bright
+https://openmaptiles.org/styles/
+https://github.com/mapbox/mapbox-gl-styles/tree/master/styles
+
+
+https://github.com/mapbox/mapbox-gl-styles/tree/master
+https://github.com/mapbox/mapbox-gl-styles/tree/master/sprites/satellite-v8/_svg
+https://github.com/headwaymaps/headway/tree/26b20b31c2ee2cb35aa2418a863a2364cf4a2e0d/services/tileserver/assets/sprites
+https://github.com/maputnik/osm-liberty/tree/56e98ae1c7b24ed32851a8fb6871449203c72c07/svgs/svgs_iconset
+https://github.com/wuliang142857/openstreetmap-icons/tree/7de5421def11b93c89a5fdc560a7394b4f431c28/icons
+https://github.com/wuliang142857/openstreetmap-icons/blob/7de5421def11b93c89a5fdc560a7394b4f431c28/icons/leisure/sports_centre.svg?plain=1#L4
+https://github.com/JOSM/josm/blob/b0c65eaf826510b0d71dda05b12dfc92aacaf2ea/resources/images/presets/sport/sports_centre.svg?plain=1#L4
+
+
+https://github.com/pietervdvn/MapComplete/tree/cf368606d31fdc7542de44f1231ec2f25212f87d/assets/layers/climbing
+https://github.com/3Y215/MapComplete/blob/aea08f8f041c72a4c2ffb816a1a0e481e9917aa5/assets/layers/sports_centre/sports_centre.svg?plain=1
+https://github.com/OpenPlaceGuide/osmapp/blob/3b354c0c2d4dc8d17c42b6b0843665010763ada9/public/icons/climbing_11.svg?plain=1
+https://github.com/vooteleaer/OsmAnd-resources/blob/18f4ab6f3431fe02df2c18f3b44ada6d2bf81776/icons/svg/sport/climbing_adventure.svg?plain=1
+https://github.com/LongLeeeee/NT118.P12/blob/462a26c342b349d44c62931641a8dfc1bec65bd4/PoLoT/app/src/main/assets/vol_res/svg/climbing_adventure.svg?plain=1
+https://github.com/GustavoFacincani/sierra-pywr/blob/c9f50ecda8e9f0f766179837a640e03f4b62399a/dashapp/assets/icons/Reservoir.svg?plain=1
+
+https://github.com/sosm/OsmAnd-resources/blob/de694f91189c042397940c6e47bd705f353460e6/icons/svg/water/reservoir.svg?plain=1
+https://github.com/ilyaguy/OsmAnd-resources/blob/1c167ca8e59f1a9961eb62acc407aa427771b8bf/icons/svg/water/reservoir.svg?plain=1#L4
+https://github.com/supunj/sl-np-mapping/blob/97a9853686d0467190b135f108166c299ff7031f/qgis/symbol/hp/reservoir.svg?plain=1
+
+https://github.com/Humza-Aa/Ontario_Crime_Mapper/blob/3d5187fcf52357b92a123919e5664ee46ae93756/Ontario-Crime-Mapper-Frontend/ocmf/public/Icon_Images/Shooting.svg?plain=1
+https://github.com/Abdul-Rehman-Cyber/olympic.github.io/blob/28793b737a73b9b71bcd4707143db3ffe1add79c/asset/img/Games/Shooting.svg?plain=1
+https://github.com/isabella232/svn-archive/blob/dfa2acd1f6f48cdc4c12f366c0833e35a7e27bdc/applications/rendering/osmarender/stylesheets/symbols/shooting.svg?plain=1#L4
+https://github.com/wuliang142857/osm-styles/blob/6110dec808f9e3ebb42cc4aa3211a08778ab6ccf/workspaces/osm/styles/new-symbols/leisure/water_park.svg?plain=1#L4
+https://github.com/husnimubarok/pmi-svg/blob/e35183de530dddf265e19f2b6d8c6ec8220a9199/svg/josm/leisure/water_park.svg?plain=1#L4
+https://github.com/wuliang142857/osm-styles/tree/6110dec808f9e3ebb42cc4aa3211a08778ab6ccf/workspaces/osm/styles/new-symbols/leisure
+https://github.com/drklrd/map-sprites/blob/ebf92cf7fca7c376f671111639ab3ac0917c497a/raw_files_osm_liberty/svgs/atm_11.svg?plain=1
+https://github.com/drklrd/map-sprites/blob/ebf92cf7fca7c376f671111639ab3ac0917c497a/raw_files_osm_liberty_monochrome/svgs/atm_11.svg?plain=1
+https://github.com/drklrd/map-sprites/blob/main/breeze_v2/svgs/post-office-11.svg
+https://github.com/drklrd/map-sprites/blob/ebf92cf7fca7c376f671111639ab3ac0917c497a/raw_files_osm_liberty/svgs/office_11.svg?plain=1
+https://github.com/drklrd/map-sprites/blob/ebf92cf7fca7c376f671111639ab3ac0917c497a/raw_files_osm_liberty_monochrome/svgs/office_11.svg?plain=1
+https://github.com/husnimubarok/pmi-svg/tree/e35183de530dddf265e19f2b6d8c6ec8220a9199/svg/osm/tourism
+https://github.com/Ollebo/osm-k8s/tree/54553f61bd0fcf837a7118e2dcd565e1f26c686d/serve/mapnik/osm-cargo/symbols/tourism
+https://github.com/yopaseopor/customosmapp/blob/95ece736100de36de813e81093688fad7c0c8d32/customosmapp3/src/img/icones/symbols/tourism/chalet.svg
+https://github.com/norn/bustime/blob/78a1a80e71d6c02eb437d34fe39da905dc49dbd2/bustime/static/maplibre/map_styles/osm-bright-gl-style/icons/wave.svg?plain=1
+https://github.com/schlomm/OSMPubGuide-Backend/blob/f93aa253b2c7f1b661a1b69ee1da883512faa04e/Tileservices/Dark/osm-dark.tm2/_src/wave.svg?plain=1#L17
+https://github.com/drklrd/map-sprites/blob/ebf92cf7fca7c376f671111639ab3ac0917c497a/raw_files_osm_liberty_monochrome/svgs/atm_11.svg?plain=1
+https://github.com/drklrd/map-sprites/blob/ebf92cf7fca7c376f671111639ab3ac0917c497a/raw_files_osm_liberty/svgs/atm_11.svg?plain=1
+
+
+
+https://maplibre.org/maputnik/?layer=1370666543%7E0#0.91/0/0
 
 
 https://github.com/search?q=path%3A**%2Fsprite.json+%22%5C%22water%5C%22%22&type=code
