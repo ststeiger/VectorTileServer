@@ -29,9 +29,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSwissBoundaries", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer5_aot", "VectorTileServer5\VectorTileServer5_aot.csproj", "{1707646B-8B2B-4DE4-93D8-7AF790E0CE96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dsfasdfasdfasdf", "dsfasdfasdfasdf\dsfasdfasdfasdf.csproj", "{1D80C9BD-F599-435E-A63B-AE0E3740C84E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer", "VectorTileServer\VectorTileServer.csproj", "{676FE8E1-1DA7-4F23-BDA3-5F271816F73F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteGenerator", "SpriteGenerator\SpriteGenerator.csproj", "{ABA26EF0-4373-412A-A744-B1ADCF3D214D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,14 +91,14 @@ Global
 		{1707646B-8B2B-4DE4-93D8-7AF790E0CE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1707646B-8B2B-4DE4-93D8-7AF790E0CE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1707646B-8B2B-4DE4-93D8-7AF790E0CE96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D80C9BD-F599-435E-A63B-AE0E3740C84E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D80C9BD-F599-435E-A63B-AE0E3740C84E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D80C9BD-F599-435E-A63B-AE0E3740C84E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D80C9BD-F599-435E-A63B-AE0E3740C84E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{676FE8E1-1DA7-4F23-BDA3-5F271816F73F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{676FE8E1-1DA7-4F23-BDA3-5F271816F73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{676FE8E1-1DA7-4F23-BDA3-5F271816F73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{676FE8E1-1DA7-4F23-BDA3-5F271816F73F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABA26EF0-4373-412A-A744-B1ADCF3D214D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABA26EF0-4373-412A-A744-B1ADCF3D214D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABA26EF0-4373-412A-A744-B1ADCF3D214D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABA26EF0-4373-412A-A744-B1ADCF3D214D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

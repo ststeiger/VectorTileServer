@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   id="svg3722"
+   version="1.1"
+   viewBox="0 0 1690.8965 1118">
+  <metadata
+     id="metadata3728">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3726" />
+  <g
+     transform="translate(135.44826,-2)"
+     id="y">
+    <g
+       id="x">
+      <path
+         style="fill:none;stroke:#0071bc;stroke-width:66"
+         d="m -115,50 q 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0 38,-30 75,0 37,30 75,0"
+         id="w" />
+      <use
+         height="100%"
+         width="100%"
+         y="0"
+         x="0"
+         id="use3714"
+         transform="translate(0,146)"
+         xlink:href="#w" />
+    </g>
+    <use
+       height="100%"
+       width="100%"
+       y="0"
+       x="0"
+       id="use3717"
+       transform="translate(0,292)"
+       xlink:href="#x" />
+  </g>
+  <use
+     height="100%"
+     width="100%"
+     y="0"
+     x="0"
+     id="use3720"
+     transform="translate(1.5231077e-6,584)"
+     xlink:href="#y" />
+</svg>

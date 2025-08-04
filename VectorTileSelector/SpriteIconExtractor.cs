@@ -37,13 +37,26 @@ namespace VectorTileSelector
         }
 
 
-
         public static void Test()
         {
-            string jsonPath = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\sprite.json";
-            string pngPath = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\sprite.png";
+            string jsonPath1 = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\sprite.json";
+            string pngPath1 = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\sprite.png";
+            string outputDir1 = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\extracted_icons";
 
-            string outputDir = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\extracted_icons";
+            string jsonPath2 = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\sprite@2x.json";
+            string pngPath2 = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\sprite@2x.png";
+            string outputDir2 = @"D:\stefan.steiger\Documents\Visual Studio 2022\github\VectorTileServer\VectorTileServer\wwwroot\styles\bright\extracted_icons2";
+
+
+            ExtractData(jsonPath1, pngPath1, outputDir1);
+
+            ExtractData(jsonPath2, pngPath2, outputDir2);
+        }
+
+
+        public static void ExtractData(string jsonPath, string pngPath, string outputDir)
+        {
+            
 
             if (!System.IO.Directory.Exists(outputDir))
                 System.IO.Directory.CreateDirectory(outputDir);

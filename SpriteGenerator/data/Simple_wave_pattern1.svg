@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1500 1120"
+xmlns:xlink="http://www.w3.org/1999/xlink" >
+	<g id="y">
+		<g id="x">
+			<path id="w" fill="none" stroke="#0071bc" stroke-width="66" d="m-115,50q38-30 75,0t75,0 75,0 75,0
+75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0 75,0"/>
+			<use xlink:href="#w" transform="translate(0,146)"/>
+		</g>
+		<use xlink:href="#x" transform="translate(0,292)"/>
+	</g>
+	<use xlink:href="#y" transform="translate(0,584)"/>
+</svg>
