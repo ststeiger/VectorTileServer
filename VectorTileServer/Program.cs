@@ -21,6 +21,8 @@ namespace VectorTileServer
             });
 #endif 
 
+            builder.Services.AddSingleton(builder.Environment);
+
             string path = System.IO.Path.Combine(builder.Environment.WebRootPath, "liechtenstein.mbtiles");
             path = @"D:\stefan.steiger\Documents\Visual Studio 2022\gitlab\VectorTileServer\VectorTileServer\App_Data\COR_switzerland.mbtiles";
             path = @"D:\Programme\LessPortableApps\osm\planetiler\downloaded\dach.mbtiles";
@@ -30,6 +32,11 @@ namespace VectorTileServer
             // path = @"D:\stefan.steiger\Downloads\vatican_city.mbtiles\vatican_city.mbtiles";
             // path = @"D:\stefan.steiger\Downloads\san_marino.mbtiles\san_marino.mbtiles";
             path = @"D:\stefan.steiger\Downloads\europe.mbtiles\europe.mbtiles";
+
+
+            path = System.IO.Path.Combine(builder.Environment.WebRootPath, "maps", "liechtenstein.mbtiles");
+
+
 
 
             Microsoft.Data.Sqlite.SqliteConnectionStringBuilder csb = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder();
