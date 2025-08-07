@@ -5,6 +5,12 @@ namespace VectorTileSelector
     // <PackageReference Include = "NetTopologySuite" Version="2.6.0" />
     // <PackageReference Include = "NetTopologySuite.IO.GeoJSON" Version="4.0.0" />
 
+
+    // upstream is at 
+    // https://naciscdn.org/naturalearth/packages/natural_earth_vector.sqlite.zip 
+    // following is same URL as used in the OpenMapTiles, a mirror maintained by MapTiler 
+    // https://dev.maptiler.download/geodata/omt/natural_earth_vector.sqlite.zip
+
     public struct BoundingBox
     {
         public double MinLongitude { get; }
@@ -12,13 +18,15 @@ namespace VectorTileSelector
         public double MaxLongitude { get; }
         public double MaxLatitude { get; }
 
+
         public BoundingBox(double minLon, double minLat, double maxLon, double maxLat)
         {
-            MinLongitude = minLon;
-            MinLatitude = minLat;
-            MaxLongitude = maxLon;
-            MaxLatitude = maxLat;
-        }
+            this.MinLongitude = minLon;
+            this.MinLatitude = minLat;
+            this.MaxLongitude = maxLon;
+            this.MaxLatitude = maxLat;
+        } // End Constructor 
+
 
         public override string ToString()
         {
@@ -26,7 +34,7 @@ namespace VectorTileSelector
 
             // (xMin,yMin,xMax,yMax) 
             return $"({MinLongitude:F6},{MinLatitude:F6},{MaxLongitude:F6},{MaxLatitude:F6})";
-        }
+        } // End Function ToString 
 
 
         /// <summary>
@@ -59,9 +67,7 @@ namespace VectorTileSelector
             // Avoid division by zero or extremely small numbers if very close to poles
             // For practical purposes, near poles, longitude expansion becomes less meaningful in terms of linear distance
             if (System.Math.Abs(metersPerDegreeLon) < 0.0001)
-            {
                 metersPerDegreeLon = 0.0001; // Use a small value to prevent error, or decide to not expand longitude at poles
-            }
 
             // 4. Convert the buffer distance from meters to degrees
             double deltaLat = bufferMeters / metersPerDegreeLat;
@@ -83,7 +89,7 @@ namespace VectorTileSelector
             // If the expansion causes it to exceed +/-180, GeoJSON tools will typically handle the rendering correctly.
 
             return new BoundingBox(newMinLon, newMinLat, newMaxLon, newMaxLat);
-        }
+        } // End Function ExpandBoundingBox 
 
 
         public static BoundingBox ProjectWGS84ToWebMercatorBounds(BoundingBox wgs84BoundingBox)
@@ -125,8 +131,7 @@ namespace VectorTileSelector
             // Note: Labels in BoundingBox would be incorrect now. 
             BoundingBox webMercatorBounds = new BoundingBox(polyPoints[0].Longitude, polyPoints[0].Latitude, polyPoints[1].Longitude, polyPoints[1].Latitude);
             return webMercatorBounds;
-        }
-
+        } // End Function ProjectWGS84ToWebMercatorBounds 
 
 
 
@@ -140,13 +145,10 @@ namespace VectorTileSelector
         public static BoundingBox FromPointArray(Wgs84Point1[] points)
         {
             if (points == null)
-            {
                 throw new System.ArgumentNullException(nameof(points), "The array of Wgs84Point cannot be null.");
-            }
+
             if (points.Length == 0)
-            {
                 throw new System.ArgumentException("The array of Wgs84Point cannot be empty.", nameof(points));
-            }
 
             // Initialize with the first point's values
             double minLat = points[0].Latitude;
@@ -168,9 +170,10 @@ namespace VectorTileSelector
             // BoundingBox webMercatorBounds = ProjectWGS84ToWebMercatorBounds(exactBounds);
             BoundingBox safeBounds = ExpandBoundingBox(exactBounds, 100 * 1000 * 5); // expand 10 km
             return safeBounds;
-        }
+        } // End Function FromPointArray 
 
-    }
+
+    } // End Struct BoundingBox 
 
 
     public struct Lv95Point
@@ -180,16 +183,18 @@ namespace VectorTileSelector
         public double Y { get; set; }
         public double Z { get; set; }
 
+
         public Lv95Point(double x, double y, double z)
         {
             this.X = x;
             this.Y = y;
             this.Z = z;
-        }
+        } // End Constructor 
+
 
         public Lv95Point(double x, double y)
             :this(x,y, 0)
-        { }
+        { } // End Constructor 
 
 
         public Wgs84Point1 ProjectLv95ToWgs84()
@@ -212,9 +217,10 @@ namespace VectorTileSelector
 
             Wgs84Point1 wgs84Point = new Wgs84Point1(latLonPoints[0], latLonPoints[1]);
             return wgs84Point;
-        }
+        } // End Function ProjectLv95ToWgs84 
 
-    }
+
+    } // End Struct Lv95Point 
 
 
     public struct Wgs84Point1
@@ -222,17 +228,22 @@ namespace VectorTileSelector
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
+
         public Wgs84Point1(double longitude, double latitude)
         {
             this.Longitude = longitude;
             this.Latitude = latitude;
-        }
+        } // End Constructor 
+
 
         public override string ToString()
         {
             return $"Lat: {this.Latitude}, Lon: {this.Longitude}";
-        }
-    }
+        } // End Function ToString 
+
+
+    } // End Struct Wgs84Point1 
+
 
     public class PolygonData
     {
@@ -242,16 +253,21 @@ namespace VectorTileSelector
         // A list of arrays of points, where each inner array represents a hole
         public System.Collections.Generic.List<Wgs84Point1[]> InteriorRingPoints { get; set; }
 
+
         public PolygonData()
         {
-            InteriorRingPoints = new System.Collections.Generic.List<Wgs84Point1[]>();
-        }
+            this.InteriorRingPoints = new System.Collections.Generic.List<Wgs84Point1[]>();
+        } // End Constructor 
+
 
         public override string ToString()
         {
             return $"Polygon (Exterior: {ExteriorRingPoints?.Length ?? 0} pts, Holes: {InteriorRingPoints?.Count ?? 0})";
-        }
-    }
+        } // End Function ToString 
+
+
+    } // End Class PolygonData 
+
 
     internal class NaturalEarthBorders
     {
@@ -289,25 +305,24 @@ namespace VectorTileSelector
                     for (int i = 0; i < zerosToAdd; i++)
                     {
                         sb.Append(",0");
-                    }
-                    string trailingZeros = sb.ToString();
+                    } // Next i 
 
+                    string trailingZeros = sb.ToString();
 
                     // Construct the new +towgs84 part
                     string newTowgs84Part = towgs84Part + trailingZeros;
 
-
-                    
                     // Replace the old +towgs84 part with the new one in the original string
                     return proj4String.Replace(towgs84Part, newTowgs84Part);
-                }
+                } // End if (values.Length < 7) 
+
                 // If already 7 or more parameters (shouldn't happen for valid +towgs84 but good to handle)
                 return proj4String;
-            }
+            } // End if (match.Success) 
 
             // No +towgs84 found, return original string
             return proj4String;
-        }
+        } // End Function EnsureFullTowgs84 
 
 
         public static void Test()
@@ -316,16 +331,11 @@ namespace VectorTileSelector
             byte[] geometryBytes = ByteArrayHelper.StringToByteArray(hexString);
 
 
-
-
             DotSpatial.Projections.ProjectionInfo lv03 = DotSpatial.Projections.ProjectionInfo.FromEpsgCode(21781);
             string proj4jStringLV03 = EnsureFullTowgs84(lv03.ToProj4String());
 
 
-
-
-            // 47.551795288113375
-            // 9.225877271521504
+            // 47.551795288113375, 9.225877271521504
 
             // https://epsg.io/transform#s_srs=2056&t_srs=4326&x=2734522.5720128&y=1268318.0951206
             // Wgs84Point1 wgs = new Lv95Point(2734522.5720128273, 1268318.0951206307).ProjectLv95ToWgs84();
@@ -341,8 +351,9 @@ namespace VectorTileSelector
                 using (System.IO.MemoryStream ms = new System.IO.MemoryStream(geometryBytes))
                 {
                     kaliningradGeometry = wkbReader.Read(ms);
-                }
-            }
+                } // End using ms 
+
+            } // End Try 
             catch (System.Exception ex)
             {
                 System.Console.WriteLine($"Error reading WKB: {ex.Message}");
@@ -376,14 +387,14 @@ namespace VectorTileSelector
                     for (int i = 0; i < coordinates.Length; ++i)
                     {
                         wgs84Points[i] = new Wgs84Point1(coordinates[i].X, coordinates[i].Y);
-                    }
+                    } // Next i 
 
 
                     // http://bboxfinder.com
                     BoundingBox bbox = BoundingBox.FromPointArray(wgs84Points);
                     System.Console.WriteLine(bbox); // (19.531597,54.297949,22.926303,55.334948)
 
-                }
+                } // End if Polygon 
 
                 if (kaliningradGeometry is NetTopologySuite.Geometries.MultiPolygon multiPoly)
                 {
@@ -399,8 +410,9 @@ namespace VectorTileSelector
                             // but it's good practice to check if a MultiPolygon contains non-Polygon geometries.
                             System.Console.WriteLine($"Warning: MultiPolygon contains a non-Polygon sub-geometry: {subGeometry.GeometryType}");
                         }
-                    }
-                }
+                    } // Next subGeometry 
+
+                } // End if MultiPolygon 
 
                 System.Console.WriteLine($"Number of Polygons: {(kaliningradGeometry is NetTopologySuite.Geometries.MultiPolygon ? ((NetTopologySuite.Geometries.MultiPolygon)kaliningradGeometry).NumGeometries : (kaliningradGeometry is NetTopologySuite.Geometries.Polygon ? 1 : 0))}");
 
@@ -408,13 +420,16 @@ namespace VectorTileSelector
 
                 System.Console.WriteLine($"Geometry Type: {kaliningradGeometry.GeometryType}");
                 System.Console.WriteLine($"Number of Polygons: {(kaliningradGeometry is NetTopologySuite.Geometries.MultiPolygon ? ((NetTopologySuite.Geometries.MultiPolygon)kaliningradGeometry).NumGeometries : (kaliningradGeometry is NetTopologySuite.Geometries.Polygon ? 1 : 0))}");
-            }
+            } // End if (kaliningradGeometry != null) 
             else
             {
                 System.Console.WriteLine("Failed to parse geometry from bytes.");
             }
-        }
+            
+        } // End Sub Test 
 
 
-    }
-}
+    } // End Class NaturalEarthBorders 
+
+
+} // End Namespace 

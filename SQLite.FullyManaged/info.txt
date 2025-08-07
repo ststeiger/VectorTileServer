@@ -1,0 +1,115 @@
+﻿
+The WITHOUT ROWID feature was introduced in SQLite version 3.8.2, 
+which was released on December 6, 2013. 
+
+Community.CsharpSqlite is a C# port of SQLite 3.6.1, which was released in August 2008. 
+* The project was a line-by-line translation of SQLite's C source code into C#. 
+* It was originally hosted on Google Code (before it shut down) 
+  and later mirrored or forked into other repositories (e.g., GitHub). 
+
+One archived description even says: 
+ “Community.CsharpSqlite is a complete C# port of the SQLite 3.6.1 C code.” 
+📌 SQLite 3.6.1 predates the introduction of WITHOUT ROWID by over 5 years. 
+
+
+
+🔧 What’s Missing Compared to Modern SQLite ? 
+Since this is SQLite 3.6.1, here are features it doesn’t support: 
+
+Feature	                            Introduced In
+* WITHOUT ROWID	                    3.8.2 (2013)
+* Recursive CTEs (WITH RECURSIVE)	3.8.3
+* JSON functions	                3.9+
+* UPSERT	                        3.24 (2018)
+* Window functions	                3.25
+* Generated columns	                3.31
+
+
+
+
+What is a rowid in SQLite ? 
+In SQLite, every table (by default) has a hidden rowid column that uniquely identifies each row. 
+This acts like a built-in unique primary key, even if the table already has a declared primary key. 
+
+* If id is defined as INTEGER PRIMARY KEY, then it aliases the hidden rowid, making them the same. 
+* If no primary key is defined, SQLite still adds a hidden rowid. 
+
+
+Adding WITHOUT ROWID to your table means: 
+* No hidden rowid is created. 
+* The table uses your declared composite primary key (zoom_level, tile_column, tile_row) 
+  as the actual storage key. 
+* It can improve performance and reduce storage if you're using a natural or composite primary key 
+  (like in spatial or tile-based data). 
+
+
+
+
+
+CREATE VIEW tiles AS 
+SELECT 
+     tiles_shallow.zoom_level as zoom_level 
+    ,tiles_shallow.tile_column as tile_column 
+    ,tiles_shallow.tile_row as tile_row 
+    ,tiles_data.tile_data as tile_data 
+FROM tiles_shallow 
+JOIN tiles_data on tiles_shallow.tile_data_id = tiles_data.tile_data_id 
+
+
+
+CREATE VIEW tiles AS 
+SELECT 
+     map.zoom_level AS zoom_level 
+    ,map.tile_column AS tile_column 
+    ,map.tile_row AS tile_row 
+    ,images.tile_data AS tile_data 
+FROM map 
+JOIN images ON images.tile_id = map.tile_id 
+
+
+CREATE TABLE tiles_shallow 
+( 
+   zoom_level integer 
+  ,tile_column integer 
+  ,tile_row integer 
+  ,tile_data_id integer 
+  ,primary key(zoom_level,tile_column,tile_row) 
+) without rowid     <===
+; 
+
+CREATE TABLE map 
+( 
+    zoom_level integer 
+   ,tile_column integer 
+   ,tile_row integer 
+   ,tile_id text 
+   ,grid_id text 
+); 
+
+
+
+http://localhost:64268/VectorTileServer/tiles/8613/5725/14
+D:\username\Documents\Visual Studio 2022\gitlab\vectortileserver\VectorTileServer\App_Data\COR_switzerland.mbtiles
+vs.
+D:/username/Downloads/swiss_extract.mbtiles/swiss_extract.mbtiles
+
+
+
+SELECT * FROM tiles WHERE tile_column = 8612 and tile_row = 10658 and zoom_level = 14
+
+
+
+malformed database schema (tiles_shallow) - near "without": syntax error
+
+
+bei Community.CsharpSqlite.SQLiteClient.SqliteCommand.GetNextStatement(String pzStart, String& pzTail, Vdbe& pStmt) 
+in VectorTileServer\Community.CsharpSqlite.SQLiteClient\SqliteCommand.cs: Zeile322
+bei Community.CsharpSqlite.SQLiteClient.SqliteCommand.ExecuteReader(CommandBehavior behavior, Boolean want_results, Int32& rows_affected) 
+in VectorTileServer\Community.CsharpSqlite.SQLiteClient\SqliteCommand.cs: Zeile478
+bei Community.CsharpSqlite.SQLiteClient.SqliteCommand.ExecuteReader(CommandBehavior behavior) 
+in VectorTileServer\Community.CsharpSqlite.SQLiteClient\SqliteCommand.cs: Zeile419
+bei Community.CsharpSqlite.SQLiteClient.SqliteCommand.ExecuteDbDataReader(CommandBehavior behavior) 
+in VectorTileServer\Community.CsharpSqlite.SQLiteClient\SqliteCommand.cs: Zeile429
+bei VectorTileServer.TileHandler.GetRawTile(Int32 x, Int32 y, Int32 zoom) 
+in VectorTileServer\VectorTileServer\ajax\TileHandler.ashx.cs: Zeile274
+

@@ -6,7 +6,7 @@ namespace SpriteGenerator
         public string Name { get; }
         public byte[] ImageBytes { get; }
         public IGraphicsImage Image { get; }
-        public ImagePosition SheetPosition { get; set; } 
+        public ImagePosition? SheetPosition { get; set; } 
         public int Width => Image.Width;
         public int Height => Image.Height;
 

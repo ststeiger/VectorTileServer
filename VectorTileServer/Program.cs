@@ -27,6 +27,9 @@ namespace VectorTileServer
             path = @"D:\stefan.steiger\Downloads\swiss_li.mbtiles\swiss_li.mbtiles";
             path = @"D:\stefan.steiger\Downloads\baltics.mbtiles\baltics.mbtiles";
             path = @"D:\stefan.steiger\Downloads\swiss_extract.mbtiles\swiss_extract.mbtiles";
+            // path = @"D:\stefan.steiger\Downloads\vatican_city.mbtiles\vatican_city.mbtiles";
+            // path = @"D:\stefan.steiger\Downloads\san_marino.mbtiles\san_marino.mbtiles";
+            path = @"D:\stefan.steiger\Downloads\europe.mbtiles\europe.mbtiles";
 
 
             Microsoft.Data.Sqlite.SqliteConnectionStringBuilder csb = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder();
@@ -68,7 +71,7 @@ namespace VectorTileServer
 
             if(!Microsoft.Extensions.Hosting.HostEnvironmentEnvExtensions.IsDevelopment(app.Environment))
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler(" / Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
 

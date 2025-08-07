@@ -9,6 +9,15 @@ namespace SpriteGenerator
 
         static async System.Threading.Tasks.Task<int> Main(string[] args)
         {
+            CreateSpriteSheet();
+
+            await System.Console.Out.WriteLineAsync(" --- Press any key to continue --- ");
+            return 0;
+        } // End Task Main 
+
+
+        public static void CreateSpriteSheet()
+        {
             try
             {
                 // SvgRasterizer.Test();
@@ -65,20 +74,17 @@ namespace SpriteGenerator
 
                 System.IO.File.Copy(moveFromJson2, moveToJson2, true);
                 System.IO.File.Copy(moveFromPng2, moveToPng2, true);
-            }
+            } // End Try 
             catch (System.Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
                 System.Console.WriteLine(ex.StackTrace);
-            }
+            } // End Catch 
 
-
-            await System.Console.Out.WriteLineAsync(" --- Press any key to continue --- ");
-            return 0;
-        }
+        } // End Sub CreateSpriteSheet 
 
 
     } // End Class Program 
 
 
-}
+} // End Namespace 
