@@ -93,6 +93,21 @@ namespace osmprocessor
                 // optional: "Western Sahara"
             };
 
+
+            // Arab Maghreb Union(AMU)   
+            System.Collections.Generic.List<string> lsArabMaghrebUnion = new System.Collections.Generic.List<string>()
+            {
+                 "Algeria"
+                ,"Morocco"
+                // optional: "Western Sahara"
+                ,"Tunisia"
+                ,"Libya"
+                ,"Mauritania" 
+            };
+
+
+
+
             System.Collections.Generic.List<string> lsNorthAfrica = new System.Collections.Generic.List<string>()
             {
                  "Sudan"
