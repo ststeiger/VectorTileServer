@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTileServer", "VectorT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteGenerator", "SpriteGenerator\SpriteGenerator.csproj", "{ABA26EF0-4373-412A-A744-B1ADCF3D214D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osmprocessor", "osmprocessor\osmprocessor.csproj", "{4C38BEFA-50C6-4363-B212-60F30F622373}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{ABA26EF0-4373-412A-A744-B1ADCF3D214D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABA26EF0-4373-412A-A744-B1ADCF3D214D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABA26EF0-4373-412A-A744-B1ADCF3D214D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C38BEFA-50C6-4363-B212-60F30F622373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C38BEFA-50C6-4363-B212-60F30F622373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C38BEFA-50C6-4363-B212-60F30F622373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C38BEFA-50C6-4363-B212-60F30F622373}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

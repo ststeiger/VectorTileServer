@@ -22,8 +22,7 @@ namespace VectorTileSelector
             // NaturalEarthBorders.Test();
 
             // await SpriteDecompositor.Test();
-            SpriteIconExtractor.Test();
-
+            // SpriteIconExtractor.Test();
 
             // MollweideArea.Test();
             // await MapTilerSizeCheck.UpdateTileSize(Db.TileSizeDirectory, Db.Connection);
