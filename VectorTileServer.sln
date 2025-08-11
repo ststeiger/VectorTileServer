@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteGenerator", "SpriteGe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osmprocessor", "osmprocessor\osmprocessor.csproj", "{4C38BEFA-50C6-4363-B212-60F30F622373}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiDataImporter", "WikiDataImporter\WikiDataImporter.csproj", "{E74089DB-EE2F-4EC2-BC30-E80630E345B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{4C38BEFA-50C6-4363-B212-60F30F622373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C38BEFA-50C6-4363-B212-60F30F622373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C38BEFA-50C6-4363-B212-60F30F622373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E74089DB-EE2F-4EC2-BC30-E80630E345B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E74089DB-EE2F-4EC2-BC30-E80630E345B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E74089DB-EE2F-4EC2-BC30-E80630E345B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E74089DB-EE2F-4EC2-BC30-E80630E345B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
