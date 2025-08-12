@@ -1,4 +1,7 @@
 ﻿
+
+
+
 namespace osmprocessor
 {
 
@@ -6,14 +9,21 @@ namespace osmprocessor
     public static class PlanetilerRunner
     {
 
+
+
+
+
+
         // https://download.openstreetmap.fr/
         // https://download.openstreetmap.fr/extracts/
         // https://download.geofabrik.de/
 
         public static async System.Threading.Tasks.Task Test()
         {
-            string osmPbfPath = @"D:\stefan.steiger\Programme\LessPortableApps\osm\planetiler\downloaded\montenegro-latest.osm.pbf";
-            string outputMbtilesPath = @"D:\stefan.steiger\Programme\LessPortableApps\osm\planetiler\downloaded\montenegro.mbtiles";
+            string basePath = DownloadsPath.GetDownloadsFolderPath();
+
+            string osmPbfPath = System.IO.Path.Combine(basePath, "schaffhausen-latest.osm.pbf");
+            string outputMbtilesPath = DownloadsPath.GetMbtilesPath(osmPbfPath);
 
             string bounds = OsmBoundingBoxExtractor.GetBoundingBox(osmPbfPath)!;
             System.Console.WriteLine(bounds);

@@ -51,6 +51,9 @@ namespace VectorTileServer
             path = System.IO.Path.Combine(downloadsPath, "swiss_extract.mbtiles");
             path = System.IO.Path.Combine(downloadsPath, "baltics.mbtiles");
 
+            
+            
+
 
             path = System.IO.Path.Combine(builder.Environment.WebRootPath, "maps", "zurich.mbtiles");
             path = System.IO.Path.Combine(builder.Environment.WebRootPath, "maps", "zug.mbtiles");
@@ -77,6 +80,7 @@ namespace VectorTileServer
             path = System.IO.Path.Combine(builder.Environment.WebRootPath, "maps", "vorarlberg.mbtiles");
             path = System.IO.Path.Combine(builder.Environment.WebRootPath, "maps", "sankt_gallen.mbtiles");
             path = System.IO.Path.Combine(builder.Environment.WebRootPath, "maps", "thurgau.mbtiles");
+            path = System.IO.Path.Combine(builder.Environment.WebRootPath, "maps", "schaffhausen.mbtiles");
 
 
             path = System.IO.Path.Combine(builder.Environment.WebRootPath, "maps", "andorra.mbtiles");
