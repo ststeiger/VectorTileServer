@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using Mapbox.VectorTile.Geometry;
-using System;
-
-
+﻿
 namespace Mapbox.VectorTile
 {
 
+    using Mapbox.VectorTile.Geometry;
 
-	public class VectorTileFeature
+
+    public class VectorTileFeature
 	{
 
 
@@ -20,7 +18,7 @@ namespace Mapbox.VectorTile
 			_layer = layer;
 			_clipBuffer = clipBuffer;
 			_scale = scale;
-			Tags = new List<int>();
+			Tags = new System.Collections.Generic.List<int>();
 		}
 
 
@@ -46,10 +44,10 @@ namespace Mapbox.VectorTile
 
 
 		/// <summary>Geometry in internal tile coordinates</summary>
-		public List<uint> GeometryCommands { get; set; }
+		public System.Collections.Generic.List<uint> GeometryCommands { get; set; }
 
 
-		public List<List<Point2d<T>>> Geometry<T>(
+		public System.Collections.Generic.List<System.Collections.Generic.List<Point2d<T>>> Geometry<T>(
 			uint? clipBuffer = null
 			, float? scale = null
 		)
@@ -59,16 +57,16 @@ namespace Mapbox.VectorTile
 			if (_clipBuffer.HasValue && !clipBuffer.HasValue) { clipBuffer = _clipBuffer; }
 			if (_scale.HasValue && !scale.HasValue) { scale = _scale; }
 
-			// TODO: how to cache 'finalGeom' without making whole class generic???
-			// and without using an object (boxing) ???
-			List<List<Point2d<T>>> finalGeom = _cachedGeometry as List<List<Point2d<T>>>;
+            // TODO: how to cache 'finalGeom' without making whole class generic???
+            // and without using an object (boxing) ???
+            System.Collections.Generic.List<System.Collections.Generic.List<Point2d<T>>> finalGeom = _cachedGeometry as System.Collections.Generic.List<System.Collections.Generic.List<Point2d<T>>>;
 			if (null != finalGeom && scale == _previousScale)
 			{
 				return finalGeom;
 			}
 
-			//decode commands and coordinates
-			List<List<Point2d<long>>> geom = DecodeGeometry.GetGeometry(
+            //decode commands and coordinates
+            System.Collections.Generic.List<System.Collections.Generic.List<Point2d<long>>> geom = DecodeGeometry.GetGeometry(
 				_layer.Extent
 				, GeometryType
 				, GeometryCommands
@@ -86,13 +84,13 @@ namespace Mapbox.VectorTile
 				}
 				else
 				{
-					// process every ring of a polygon in a separate loop
-					List<List<Point2d<long>>> newGeom = new List<List<Point2d<long>>>();
+                    // process every ring of a polygon in a separate loop
+                    System.Collections.Generic.List<System.Collections.Generic.List<Point2d<long>>> newGeom = new System.Collections.Generic.List<System.Collections.Generic.List<Point2d<long>>>();
 					int geomCount = geom.Count;
 					for (int i = 0; i < geomCount; i++)
 					{
-						List<Point2d<long>> part = geom[i];
-						List<List<Point2d<long>>> tmp = new List<List<Point2d<long>>>();
+                        System.Collections.Generic.List<Point2d<long>> part = geom[i];
+                        System.Collections.Generic.List<System.Collections.Generic.List<Point2d<long>>> tmp = new System.Collections.Generic.List<System.Collections.Generic.List<Point2d<long>>>();
 						// flip order of inner rings to look like outer rings
 						bool isInner = signedPolygonArea(part) >= 0;
 						if (isInner) { part.Reverse(); }
@@ -127,7 +125,7 @@ namespace Mapbox.VectorTile
 		}
 
 
-		private float signedPolygonArea(List<Point2d<long>> vertices)
+		private float signedPolygonArea(System.Collections.Generic.List<Point2d<long>> vertices)
 		{
 			int num_points = vertices.Count - 1;
 			float area = 0;
@@ -142,21 +140,23 @@ namespace Mapbox.VectorTile
 
 
 		/// <summary>Tags to resolve properties https://github.com/mapbox/vector-tile-spec/tree/master/2.1#44-feature-attributes</summary>
-		public List<int> Tags { get; set; }
+		public System.Collections.Generic.List<int> Tags { get; set; }
 
 
 		/// <summary>
 		/// Get properties of this feature. Throws exception if there is an uneven number of feature tag ids
 		/// </summary>
 		/// <returns>Dictionary of this feature's properties</returns>
-		public Dictionary<string, object> GetProperties()
+		public System.Collections.Generic.Dictionary<string, object> GetProperties()
 		{
 
 			if (0 != Tags.Count % 2)
 			{
-				throw new Exception(string.Format("Layer [{0}]: uneven number of feature tag ids", _layer.Name));
+				throw new System.Exception(string.Format("Layer [{0}]: uneven number of feature tag ids", _layer.Name));
 			}
-			Dictionary<string, object> properties = new Dictionary<string, object>();
+            System.Collections.Generic.Dictionary<string, object> properties = 
+				new System.Collections.Generic.Dictionary<string, object>();
+
 			int tagCount = Tags.Count;
 			for (int i = 0; i < tagCount; i += 2)
 			{
@@ -173,11 +173,10 @@ namespace Mapbox.VectorTile
 		/// <returns>Value of the requested property</returns>
 		public object GetValue(string key)
 		{
-
-			var idxKey = _layer.Keys.IndexOf(key);
+            int idxKey = _layer.Keys.IndexOf(key);
 			if (-1 == idxKey)
 			{
-				throw new Exception(string.Format("Key [{0}] does not exist", key));
+				throw new System.Exception(string.Format("Key [{0}] does not exist", key));
 			}
 
 			int tagCount = Tags.Count;

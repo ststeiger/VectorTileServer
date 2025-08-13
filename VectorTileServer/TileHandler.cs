@@ -3,15 +3,33 @@ namespace VectorTileServer
 {
 
 
+    public sealed class NotFoundWithCacheControl
+        : Microsoft.AspNetCore.Http.IResult
+    {
+
+        public static readonly NotFoundWithCacheControl Instance = new NotFoundWithCacheControl();
+
+
+        public System.Threading.Tasks.Task ExecuteAsync(Microsoft.AspNetCore.Http.HttpContext context)
+        {
+            context.Response.StatusCode = 404;
+            context.Response.Headers["cache-control"] = "public, max-age=86400, no-transform";
+            return System.Threading.Tasks.Task.CompletedTask;
+        } // End Task ExecuteAsync 
+
+
+    } // End Class NotFoundWithCacheControl 
+
+
     public sealed class ProtobufFileResult
         : Microsoft.AspNetCore.Http.IResult
     {
-        private readonly string _filePath;
+        private readonly string m_filePath;
 
         public ProtobufFileResult(string filePath)
         {
-            _filePath = filePath;
-        }
+            this.m_filePath = filePath;
+        } // End Constructor 
 
         public async System.Threading.Tasks.Task ExecuteAsync(Microsoft.AspNetCore.Http.HttpContext httpContext)
         {
@@ -24,12 +42,16 @@ namespace VectorTileServer
             httpContext.Response.Headers["Cache-Control"] = "no-transform, public, max-age=86400";
             httpContext.Response.Headers["Last-Modified"] = "Thu, 07 Feb 2019 09:43:32 GMT";
 
-            using (System.IO.Stream stream = System.IO.File.OpenRead(_filePath))
+            using (System.IO.Stream stream = System.IO.File.OpenRead(this.m_filePath))
             {
                 await stream.CopyToAsync(httpContext.Response.Body);
-            }
-        }
-    }
+            } // End Using stream 
+
+        } // End Task ExecuteAsync 
+
+
+    } // End Class ProtobufFileResult 
+
 
     public class TileHandler
     {
@@ -144,12 +166,17 @@ namespace VectorTileServer
 
                 await using System.Data.Common.DbDataReader reader = await cmd.ExecuteReaderAsync(System.Data.CommandBehavior.CloseConnection);
                 if (!await reader.ReadAsync())
-                    return Microsoft.AspNetCore.Http.Results.NotFound();
+                    // return Microsoft.AspNetCore.Http.Results.NotFound();
+                    return NotFoundWithCacheControl.Instance;
 
 
                 System.IO.Stream stream = reader.GetStream(reader.GetOrdinal("tile_data"));
                 if (stream == null)
-                    return Microsoft.AspNetCore.Http.Results.NotFound();
+                {
+                    // return Microsoft.AspNetCore.Http.Results.NotFound();
+                    return NotFoundWithCacheControl.Instance;
+                } // End if (stream == null) 
+
 
                 string? acceptencoding = httpContext.Request.Headers["Accept-Encoding"];
 
@@ -207,7 +234,7 @@ namespace VectorTileServer
         } // End Task GetTileAsync 
 
 
-    } // End Class 
+    } // End Class TileHandler 
 
 
 } // End Namespace 

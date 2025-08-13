@@ -6,8 +6,11 @@ namespace VectorTileSelector
     class Program
     {
 
+
         public static async System.Threading.Tasks.Task<int> Main(string[] args)
         {
+            await TileDataReader.Test();
+
             // SizeParser.Test();
             // await GeofabrikDownloader.FetchAndDownloadAsync(Db.KmlDirectory, Db.Connection);
             // await SizeUpdater.UpdateSizeAsync();
