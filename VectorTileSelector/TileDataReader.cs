@@ -11,7 +11,22 @@ namespace VectorTileSelector
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static int FromTmsY(int tmsY, int zoom)
         {
-            return (1 << zoom) - tmsY - 1; // 2^zoom - tmsY - 1
+            // Google/OSM/Leaflet
+            // Origin: top-left (0,0)
+            // Y increases downwards.
+            // This is the scheme Leaflet expects and what Web Mercator tile servers like Google Maps, OSM, and Bing use.
+
+            // 2.MBTiles format
+            // Origin: bottom-left (0, 2^zoom-tmsY-1)
+            // MBTiles spec is based on TMS.
+            // tile_column = X coordinate (same as Google / OSM)
+            // tile_row = TMS Y (origin bottom-left).
+
+            // Leaflet (and Google Maps, OSM, Bing) use the “Google/XYZ” coordinate system where Y increases downward.
+            // TMS / MBTiles use the TMS system where Y increases upward.
+
+
+            return (1 << zoom) - tmsY - 1; // this is 2^zoom - tmsY - 1
         } // End Function FromTmsY 
 
 

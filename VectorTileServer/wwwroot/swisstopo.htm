@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <title>WebGL Map</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="data:image/png;base64,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">
+
+
+
+
+    <link rel="stylesheet" href="libs/leaflet/leaflet.css" />
+    <script src="libs/leaflet/leaflet.js"></script>
+
+    <link href="libs/mapbox/mapbox-gl.css" rel='stylesheet' />
+    <script src="libs/mapbox/mapbox-gl.js"></script>
+    <script src="libs/mapbox/mapbox-gl-language.js"></script>
+    <script src="libs/leaflet/leaflet-mapbox-gl.js"></script>
+
+
+
+    <script>
+
+        // https://stackoverflow.com/questions/1043339/javascript-for-detecting-browser-language-preference
+        function getFirstBrowserLanguage()
+        {
+            var nav = window.navigator,
+                browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],
+                i,
+                language;
+
+            // support for HTML 5.1 "navigator.languages"
+            //if (Array.isArray(nav.languages)) // IE8-trap
+            if (Object.prototype.toString.call(nav.languages) === '[object Array]')
+            {
+                for (i = 0; i < nav.languages.length; i++)
+                {
+                    language = nav.languages[i];
+                    if (language && language.length)
+                    {
+                        return language;
+                    }
+                }
+            }
+
+            // support for other well known properties in browsers
+            for (i = 0; i < browserLanguagePropertyKeys.length; i++)
+            {
+                language = nav[browserLanguagePropertyKeys[i]];
+                if (language && language.length)
+                {
+                    return language;
+                }
+            }
+
+            return null;
+        }
+
+
+        function getBrowserLanguage(dft)
+        {
+            var bl = getFirstBrowserLanguage() || dft,
+                pos = bl.indexOf("-");
+            if (pos !== -1)
+                bl = bl.substr(0, pos);
+
+            return bl;
+        }
+
+
+        function getUserLanguage()
+        {
+            var l = null;
+            // TODO: get login-user prefered language
+
+            return l || getBrowserLanguage("de");
+        }
+
+
+        function IEdetection()
+        {
+            var ua = window.navigator.userAgent;
+
+            var result = {};
+
+            var trident = ua.indexOf('Trident/');
+            if (trident > 0)
+            {
+                // IE 11, return version number
+                result.isIE = true;
+                result.crap = true;
+                result.v = 11;
+            }
+
+            var msie = ua.indexOf('MSIE ');
+            if (msie > 0)
+            {
+                // IE 10 or older, return version number
+
+                result.isIE = true;
+                result.crap = true;
+                result.v = 10;
+
+                var re = new RegExp("MSIE ([0-9]{1,}[\\.0-9]{0,})");
+
+                if (re.exec(ua) !== null)
+                {
+                    result.v = parseFloat(RegExp.$1);
+                }
+
+            }
+
+            var edge = ua.indexOf('Edge/');
+            if (edge > 0)
+            {
+                //Edge (IE 12+), return version number
+                result.isEdge = true;
+                result.crap = true;
+                result.v = parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+            }
+
+            // User uses other browser
+            return result;
+        } // End Function IEdetection
+
+
+        function bracketDevicePixelRatio()
+        {
+            let brackets = [1, 1.3, 1.5, 2, 2.6, 3],
+                baseRatio = window.devicePixelRatio || 1;
+
+            for (let i = 0; i < brackets.length; i++)
+            {
+                let scale = brackets[i];
+                if (scale >= baseRatio || (baseRatio - scale) < 0.1)
+                {
+                    return scale;
+                }
+            }
+
+            return brackets[brackets.length - 1];
+        } // End Function bracketDevicePixelRatio
+
+    </script>
+
+
+    <style type="text/css">
+
+        *
+        {
+            cursor: default !important;
+        }
+
+        html, body, #map
+        {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .leaflet-tooltip-top
+        {
+            margin-top: -19px !important;
+        }
+
+        .leaflet-control-attribution
+        {
+            display: block;
+            white-space: nowrap;
+            #transform: scale(0.9, 0.9) translate(5%, 10%);
+            #transform: scale(0.5, 0.5) translate(50%, 50%);
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+        }
+
+        .leaflet-interactive
+        {
+            cursor: pointer !important;
+        }
+
+
+        .zoomControl
+        {
+            position: absolute;
+            display: block;
+            top: 30px;
+            left: 30px;
+            z-index: 9999;
+            background-color: white;
+            opacity: 0.85;
+            border: 1px solid gray;
+            border-radius: 5mm;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .zoomControl .mp
+            {
+                display: table-cell;
+                width: 1cm;
+                height: 1cm;
+                text-align: center;
+                vertical-align: middle;
+                #font: 5mm/1.5 Arial, Helvetica, sans-serif;
+                font-family: "Lucida Console", Monaco, monospace;
+                font-size: 5mm;
+                color: gray;
+            }
+
+                .zoomControl .mp:hover
+                {
+                    background-color: #F0F0F0;
+                }
+
+
+
+        .zoomLevelDisplay
+        {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: white;
+            padding: 5px 10px;
+            border: 1px solid gray;
+            border-radius: 3mm;
+            z-index: 9999;
+            font-family: "Lucida Console", Monaco, monospace;
+            font-size: 4mm;
+            color: #333;
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="zoomLevel" class="zoomLevelDisplay"></div>
+
+    <div class="zoomControl">
+        <div class="mp" style="border-top-left-radius: 5mm; border-top-right-radius: 5mm;" onclick="map.zoomHome()">&#x2606;</div><div style="clear: both;"></div>
+        <div class="mp" onclick="map.zoomIn()">+</div><div style="clear: both;"></div>
+        <div class="mp" style="border-bottom-left-radius: 5mm; border-bottom-right-radius: 5mm;" onclick="map.zoomOut()">-</div><div style="clear: both;"></div>
+    </div>
+
+    <script>
+
+        // Me
+        // var latitude = 47.54300829344622;
+        // var longitude = 9.18603703361973;
+
+
+        // Bergbahnen Malbun AG
+        var latitude = 47.10071305273902;
+        var longitude = 9.610508637577594;
+
+
+        var style = document.location.origin + document.location.pathname.replace(/[^\/]*$/, '') + "styles/bright/style.json";
+        // style = "https://localhost:44378/styles/bright/style.json";
+
+
+        mapboxgl.config.API_URL = null; // Disable telemetry
+
+        var map = L.map('map', { zoomControl: false, minZoom: 8, maxZoom: 19 }).setView([latitude, longitude], 15);
+
+        let scale = bracketDevicePixelRatio();
+        let scalex = (scale === 1) ? '' : ('@' + scale + 'x');
+
+        let useWebGL = false;
+
+        if (!useWebGL)
+        {
+            // Add a map layer
+            // https://api3.geo.admin.ch/api/doc.html
+            // https://api3.geo.admin.ch/services/sdiservices.html
+            // https://codesandbox.io/s/geoadmin-with-vanilla-openlayers-z3dij?file=/src/index.js
+            // https://api3.geo.admin.ch/services/sdiservices.html#mapbox-vector-tiles
+            L.tileLayer("{server}/{style}/{z}/{x}/{y}.jpeg?lang={language}",
+                {
+                     attribution: '<a target="blank" href="https://map.geo.admin.ch/">map.geo.admin.ch</a> | Map data &copy; <a target="blank" href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+                    ,server: "https://wmts100.geo.admin.ch/"
+                    // , server: "https://wmts.geo.admin.ch/"
+                    // warning: projection-system after current
+                    // Supported values: 21781(LV03), 2056(LV95), 4326(WGS84) and 3857(Web Pseudo- Mercator).
+                    // Defaults to “21781”.
+                    // , style: "1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/2056"
+                    ,style: `1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857`
+                    ,scalex: scalex
+                    ,language: getUserLanguage() // fr, it, en
+                    ,tms: false
+
+                    // https://stackoverflow.com/questions/33632608/markers-do-not-appear-on-continuous-world-in-leaflet
+                    , continuousWorld: false
+                    , minZoom: 8
+                    , maxZoom: 19
+
+                    // web or spherical mercator (EPSG:900913 et al.)
+                    // , crs: crs // EPSG:2056 - Swiss CH1903+ / LV95
+                    // , crs: L.CRS.EPSG3395 // WGS 84 / World Mercator - EPSG:3395
+                    // , crs: L.CRS.EPSG4326 // used in GPS 
+                    , crs: L.CRS.EPSG3857 // WGS 84 / Pseudo-Mercator - EPSG:3857
+                    // , crs: L.CRS.Simple
+                }
+            ).addTo(map);
+        } // End if (!useWebGL)
+
+
+        if (useWebGL)
+        {
+            let gl = L.mapboxGL(
+                {
+                    accessToken: 'no-token',
+                    // updateInterval: https://github.com/mapbox/mapbox-gl-leaflet/issues/55
+                    // updateInterval: 5, // per 200 ms
+                    // updateInterval: IEdetection().crap ? 5 : 32, // per 200 ms
+                    updateInterval: IEdetection().crap ? 5 : 20, // per 50 ms
+                    attribution: '<a target="blank" href="https://github.com/ststeiger/VectorTileServer ">Steiger&apos;s public vector tile server</a> | <a target="blank" href="https://openmaptiles.org ">OpenMapTiles</a> | Map data &copy; <a target="blank" href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+                    style: "https://corpool.cor-asp.ch/VectorTileServer/styles/bright/style.json"
+                }
+            ).addTo(map);
+
+            map.gl = gl;
+        } // End if (useWebGL) 
+
+
+
+        var mapBounds = L.latLngBounds([
+            [43.71, 7.349],
+            [43.77, 7.491]
+        ]);
+
+        L.marker([latitude, longitude])
+            // .bindPopup("<b>Bergbahnen Malbun AG</b><br />Malbunstrasse 58<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+            // .bindPopup("<b>Cable Car Malbun Inc.</b><br />Malbun Street 58<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+            // .bindPopup("<b>Stefan Steiger</b><br /><br />Thurgau<br />Tel. do not disturb")
+
+
+            // Universal Postal Union (UPU) country code.
+            // https://www.upu.int/en/Universal-Postal-Union/About-UPU/Member-Countries
+            // FL: Fürstentum Liechtenstein
+            // PL: Principality of Liechtenstein
+            // КЛ: Княжество Лихтенштейн
+            // КЛ: Князівство Ліхтенштейн
+            // LI: Liechtenstein
+            // ЛИ: Лихтенштейн
+            // ЛІ: Ліхтенштейн
+            // .bindPopup("<b>Горные железные дороги Мальбун ЗАО</b><br />Мальбунская улица 58<br />ЛИ-9497 Тризенберг<br />Тел. +423 265 40 00")
+            // .bindPopup("<b>Горные железные дороги Мальбун ЗАО</b><br />Улица Мальбун 58<br />ЛИ-9497 Тризенберг<br />Тел. +423 265 40 00")
+
+            // .bindPopup("<b>Bergbahnen Malbun AG</b><br />Malbunstrasse 58<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+            // .bindPopup("<b>Гірські залізниці Мальбун ТОВ</b><br />Вулиця Мальбун 58<br />ЛІ-9497 Трізенберг<br />Тел. +423 265 40 00")
+            // .bindPopup("<b>Mountain Railways Malbun LLC</b><br />58 Malbun Street<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+            .bindPopup("<b>Cable Car Malbun Inc.</b><br />58 Malbun Street<br />LI-9497 Triesenberg<br />Tel. +423 265 40 00")
+
+            
+
+
+
+            .addTo(map)
+            .openPopup();
+
+        map.on('click', function (e)
+        {
+            var coord = e.latlng;
+            var lat = coord.lat;
+            var lng = coord.lng;
+            console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+        });
+
+        // Get the HTML element to display the zoom level
+        var zoomLevelDisplay = document.getElementById('zoomLevel');
+
+        // Function to update the zoom level display
+        function updateZoomLevel()
+        {
+            zoomLevelDisplay.innerHTML = 'Zoom: ' + map.getZoom();
+        }
+
+        // Initial update
+        updateZoomLevel();
+
+        // Listen for 'zoomend' event and update the display
+        map.on('zoomend', updateZoomLevel);
+
+        // Optional: Also update on map load in case initial zoom isn't 'setView'
+        map.on('load', updateZoomLevel);
+
+
+        var assumeSwiss = [[45.77694774030000246512, 6.02260949058999983663], [47.83082754170000328031, 10.44270145019999951330]];
+        var assumeWorld = [[-90, -180], [90, 180]];
+        var initialBounds = L.latLngBounds(assumeSwiss);
+
+        map.zoomHome = function (homeView)
+        {
+            map.fitBounds(homeView);
+        }.bind(this, initialBounds);
+
+
+
+        // leaflet flyto
+
+
+    </script>
+</body>
+</html>
