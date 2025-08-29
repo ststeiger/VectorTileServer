@@ -22,6 +22,9 @@ namespace osmprocessor
             // OsmPbfExtractor.Test();
 
 
+            // await OsmosisMerge.Test(@"D:\stefan.steiger\Downloads\osmosis-0.49.2\osmosis-0.49.2\bin");
+            // await OsmosisMerge.Test(@"D:\stefan.steiger\Downloads\noobita");
+
             await PlanetilerRunner.Test();
 
             await System.Console.Out.WriteLineAsync(" --- Press any key to continue --- ");
